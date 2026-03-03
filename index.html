@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Founder Branding Resources</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #0b0b0b;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .brand {
+      font-family: 'Comfortaa', cursive;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #ff6b1a;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Comfortaa', cursive;
+      font-size: 44px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      color: #1e90ff;
+      margin-bottom: 70px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .card {
+      background: #111111;
+      border-radius: 18px;
+      padding: 36px;
+      text-align: left;
+      transition: all 0.3s ease;
+      border: 1px solid #1e90ff;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(30, 144, 255, 0.15);
+      border: 1px solid #ff6b1a;
+    }
+
+    .card h2 {
+      font-family: 'Comfortaa', cursive;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #cccccc;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background-color: #1e90ff;
+      color: #ffffff;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .card a:hover {
+      background-color: #ff6b1a;
+    }
+
+    footer {
+      margin-top: 90px;
+      font-size: 14px;
+      color: #888888;
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 32px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">IOOCircles</div>
+
+    <h1>Founder Branding Resources</h1>
+    <p class="subtitle">Curated research, insights, and breakdowns on video-first founder branding.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Top Founders with a Video-first Founder Brand</h2>
+        <p>A curated collection of founders building authority and reach through consistent video content.</p>
+        <a href="https://100circlesresources.vercel.app/founders-with-video-first-founder-brand.html" target="_blank">View Resource →</a>
+      </div>
+
+      <div class="card">
+        <h2>State of Video-first Founder Branding_2026 Report</h2>
+        <p>A comprehensive report on how founders are leveraging video as a primary growth and brand engine in 2026.</p>
+        <a href="https://100circlesresources.vercel.app/state-of-video-first-founder-branding-2026.html" target="_blank">Read Report →</a>
+      </div>
+    </div>
+
+    <footer>
+      © 2026 IOOCircles. More resources coming soon.
+    </footer>
+  </div>
+</body>
+</html>
