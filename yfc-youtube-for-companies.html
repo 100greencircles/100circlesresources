@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,21 +118,40 @@ body{background:var(--black);color:var(--white);font-family:'Outfit',sans-serif;
 .video-section{padding:120px 64px;background:var(--black-2);border-top:1px solid var(--border)}
 .video-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:64px}
 .video-desc{font-size:16px;font-weight:300;line-height:1.8;color:var(--ws);margin-top:20px}
-.video-grid{display:grid;grid-template-columns:1fr 2fr;gap:2px}
-.video-card{border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden;cursor:none;transition:border-color .3s,box-shadow .3s}
-.video-card.vc-short{background:var(--og);border-color:rgba(249,115,22,.15)}
-.video-card.vc-short:hover{border-color:rgba(249,115,22,.35);box-shadow:0 2px 24px rgba(249,115,22,.1)}
-.video-card.vc-long{background:var(--bs);border-color:rgba(30,144,255,.12)}
-.video-card.vc-long:hover{border-color:rgba(30,144,255,.35);box-shadow:0 2px 24px rgba(30,144,255,.1)}
-.video-card iframe{width:100%;display:block;border:none}
-.vc-short iframe{height:440px}
-.vc-long iframe{height:360px}
-.video-foot{padding:20px 28px;border-top:1px solid var(--border)}
-.vf-badge{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;border-radius:8px;margin-bottom:10px}
-.vc-short .vf-badge{background:var(--os);color:var(--orange)}
-.vc-long .vf-badge{background:var(--bs);color:var(--blue)}
-.vf-title{font-family:'Comfortaa',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px}
-.vf-sub{font-size:12px;font-weight:300;color:var(--wd)}
+
+/* Thumbnail card grid */
+.video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:640px;margin:0 auto}
+.vt-card{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#000;cursor:none;position:relative;transition:transform .3s,box-shadow .3s}
+.vt-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.5)}
+
+/* Thumbnail image fills card, portrait 9:16 */
+.vt-thumb{position:relative;aspect-ratio:9/16;overflow:hidden;display:block}
+.vt-thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .4s ease}
+.vt-card:hover .vt-thumb img{transform:scale(1.04)}
+
+/* Dark gradient overlay bottom */
+.vt-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.65) 100%);pointer-events:none}
+
+/* Play button — centered white circle + orange triangle */
+.vt-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;z-index:3;transition:transform .2s,background .2s;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.vt-card:hover .vt-play{transform:translate(-50%,-50%) scale(1.1);background:#fff}
+.vt-play::after{content:'';display:block;width:0;height:0;border-style:solid;border-width:11px 0 11px 20px;border-color:transparent transparent transparent #F97316;margin-left:4px}
+
+/* Card footer label */
+.vt-foot{padding:16px 18px;background:#111}
+.vt-badge{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:8px}
+.vt-card.vc-short .vt-badge{background:var(--os);color:var(--orange)}
+.vt-card.vc-long .vt-badge{background:var(--bs);color:var(--blue)}
+.vt-title{font-family:'Comfortaa',sans-serif;font-size:14px;font-weight:700;margin-bottom:3px;color:var(--white)}
+.vt-sub{font-size:11px;font-weight:300;color:var(--wd)}
+
+/* Modal overlay */
+.vid-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:1000;align-items:center;justify-content:center;cursor:none}
+.vid-modal.open{display:flex}
+.vid-modal-inner{position:relative;width:90vw;max-width:900px}
+.vid-modal-inner iframe{width:100%;aspect-ratio:16/9;border:none;border-radius:12px;display:block}
+.vid-modal-close{position:absolute;top:-44px;right:0;background:transparent;border:none;color:#fff;font-size:28px;cursor:none;opacity:.7;transition:opacity .2s;line-height:1}
+.vid-modal-close:hover{opacity:1}
 
 /* ── SERVICES ── */
 .services-section{padding:120px 64px;border-top:1px solid var(--border);position:relative;overflow:hidden}
@@ -388,31 +408,48 @@ body{background:var(--black);color:var(--white);font-family:'Outfit',sans-serif;
       <p class="video-desc reveal">Choose your format — a 60-second Short for a quick take, or the full deep-dive if you want the complete picture before making a decision.</p>
     </div>
   </div>
+
   <div class="video-grid reveal">
-    <div class="video-card vc-short">
-      <iframe src="https://www.youtube.com/embed/zE_fYAn1HWw"
-        title="Why YouTube For Companies – Short"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen style="height:440px;"></iframe>
-      <div class="video-foot">
-        <div class="vf-badge">● Short · 60 sec</div>
-        <div class="vf-title">Quick overview</div>
-        <div class="vf-sub">The case in 60 seconds flat</div>
+    <!-- Short -->
+    <div class="vt-card vc-short" onclick="openModal('https://www.youtube.com/embed/zE_fYAn1HWw?autoplay=1')">
+      <div class="vt-thumb">
+        <img src="https://img.youtube.com/vi/zE_fYAn1HWw/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/zE_fYAn1HWw/hqdefault.jpg'"
+             alt="Why YouTube For Companies – Short"/>
+        <div class="vt-play"></div>
+      </div>
+      <div class="vt-foot">
+        <div class="vt-badge">● Short · 60 sec</div>
+        <div class="vt-title">Quick overview</div>
+        <div class="vt-sub">The case in 60 seconds flat</div>
       </div>
     </div>
-    <div class="video-card vc-long">
-      <iframe src="https://www.youtube.com/embed/IW-E2TNwoiQ"
-        title="Why YouTube For Companies – Full"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen style="height:360px;"></iframe>
-      <div class="video-foot">
-        <div class="vf-badge">○ Full Video · Deep Dive</div>
-        <div class="vf-title">The full breakdown</div>
-        <div class="vf-sub">All three reasons in detail — why your company needs to start now</div>
+
+    <!-- Long -->
+    <div class="vt-card vc-long" onclick="openModal('https://www.youtube.com/embed/IW-E2TNwoiQ?autoplay=1')">
+      <div class="vt-thumb">
+        <img src="https://img.youtube.com/vi/IW-E2TNwoiQ/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/IW-E2TNwoiQ/hqdefault.jpg'"
+             alt="Why YouTube For Companies – Full"/>
+        <div class="vt-play"></div>
+      </div>
+      <div class="vt-foot">
+        <div class="vt-badge">○ Full Video · Deep Dive</div>
+        <div class="vt-title">The full breakdown</div>
+        <div class="vt-sub">All three reasons in detail</div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- VIDEO MODAL -->
+<div class="vid-modal" id="vid-modal" onclick="closeModal(event)">
+  <div class="vid-modal-inner">
+    <button class="vid-modal-close" onclick="closeModal()">✕</button>
+    <iframe id="vid-iframe" src="" allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+  </div>
+</div>
 
 <!-- ── SERVICES ── -->
 <section id="services" class="services-section">
@@ -658,6 +695,20 @@ document.addEventListener('click',e=>{
     document.getElementById('dd-arr').classList.remove('open');
   }
 });
+
+/* Video modal */
+function openModal(src){
+  document.getElementById('vid-iframe').src=src;
+  document.getElementById('vid-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e){
+  if(e&&e.target!==document.getElementById('vid-modal')&&e.type==='click'&&!e.target.classList.contains('vid-modal-close'))return;
+  document.getElementById('vid-iframe').src='';
+  document.getElementById('vid-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal({target:document.getElementById('vid-modal')});});
 
 /* Form */
 function submitForm(){
