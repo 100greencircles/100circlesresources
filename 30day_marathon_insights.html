@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30-Day Video Marathon — Campaign Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: #2a2a38;
+    --li-color: #0A66C2;
+    --li-light: #4d9ee8;
+    --ig-color: #E1306C;
+    --ig-light: #f06292;
+    --yt-color: #FF0000;
+    --yt-light: #ff5252;
+    --gold: #f0b429;
+    --text: #f0f0f8;
+    --muted: #8888aa;
+    --accent: #c084fc;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, #0a0a0f 0%, #12102a 50%, #0a0a0f 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 48px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(192,132,252,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(10,102,194,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(192,132,252,0.12); border: 1px solid rgba(192,132,252,0.3);
+    border-radius: 100px; padding: 4px 16px; margin-bottom: 20px;
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); font-weight: 500;
+  }
+  .hero-badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fff 0%, #c084fc 60%, #f0b429 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero-sub {
+    color: var(--muted); font-size: 16px; font-weight: 300;
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 40px;
+  }
+  .hero-sub span { display: flex; align-items: center; gap: 6px; }
+  .hero-sub .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border); }
+  .platforms { display: flex; gap: 12px; margin-top: 8px; }
+  .platform-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 16px; border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+  }
+  .platform-pill.li { background: rgba(10,102,194,0.15); border: 1px solid rgba(10,102,194,0.4); color: var(--li-light); }
+  .platform-pill.ig { background: rgba(225,48,108,0.15); border: 1px solid rgba(225,48,108,0.4); color: var(--ig-light); }
+  .platform-pill.yt { background: rgba(255,0,0,0.12); border: 1px solid rgba(255,0,0,0.3); color: var(--yt-light); }
+
+  /* ─── LAYOUT ─── */
+  .page { max-width: 1200px; margin: 0 auto; padding: 48px 32px; }
+  
+  .section-label {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700; margin-bottom: 28px; color: #fff;
+  }
+
+  /* ─── KEY METRICS ─── */
+  .metrics-hero {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .metric-big {
+    background: var(--surface2);
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    transition: background .2s;
+  }
+  .metric-big:hover { background: var(--surface); }
+  .metric-big::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+  .metric-big.views::before { background: linear-gradient(90deg, var(--li-color), var(--ig-color), var(--yt-color)); }
+  .metric-big.engage::before { background: linear-gradient(90deg, #f0b429, #fb923c); }
+  .metric-big.reach::before { background: linear-gradient(90deg, var(--accent), #818cf8); }
+  .metric-big.hours::before { background: linear-gradient(90deg, #34d399, #06b6d4); }
+  .metric-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; font-weight: 900; line-height: 1;
+    margin-bottom: 6px; letter-spacing: -0.02em;
+  }
+  .metric-val.views { color: #fff; }
+  .metric-val.engage { color: var(--gold); }
+  .metric-val.reach { color: var(--accent); }
+  .metric-val.hours { color: #34d399; }
+  .metric-label { color: var(--muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 500; }
+  .metric-sub { font-size: 11px; color: #555566; margin-top: 4px; }
+
+  /* ─── PLATFORM BARS ─── */
+  .platform-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 48px; }
+  .platform-card {
+    background: var(--surface2); border-radius: 16px;
+    border: 1px solid var(--border); padding: 24px; overflow: hidden;
+    position: relative;
+  }
+  .platform-card::after {
+    content: '';
+    position: absolute; inset: 0; opacity: 0.03;
+    pointer-events: none;
+  }
+  .platform-card.li::after { background: var(--li-color); }
+  .platform-card.ig::after { background: var(--ig-color); }
+  .platform-card.yt::after { background: var(--yt-color); }
+  .p-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .p-name { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .p-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+  .p-icon.li { background: rgba(10,102,194,0.2); color: var(--li-light); }
+  .p-icon.ig { background: rgba(225,48,108,0.2); color: var(--ig-light); }
+  .p-icon.yt { background: rgba(255,0,0,0.15); color: var(--yt-light); }
+  .p-share {
+    font-family: 'DM Mono', monospace; font-size: 24px; font-weight: 500;
+  }
+  .p-share.li { color: var(--li-light); }
+  .p-share.ig { color: var(--ig-light); }
+  .p-share.yt { color: var(--yt-light); }
+  
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row-label { color: var(--muted); font-size: 12px; }
+  .stat-row-val { font-family: 'DM Mono', monospace; font-weight: 500; font-size: 14px; }
+  
+  .bar-container { margin-top: 16px; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+  .bar-track { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 999px; transition: width .6s; }
+  .bar-fill.li { background: linear-gradient(90deg, var(--li-color), var(--li-light)); }
+  .bar-fill.ig { background: linear-gradient(90deg, var(--ig-color), var(--ig-light)); }
+  .bar-fill.yt { background: linear-gradient(90deg, var(--yt-color), var(--yt-light)); }
+
+  /* ─── TOP 5 TABLES ─── */
+  .tops-section { margin-bottom: 48px; }
+  .platform-section { margin-bottom: 40px; }
+  .platform-section-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .plat-badge { padding: 4px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
+  .plat-badge.li { background: rgba(10,102,194,0.2); color: var(--li-light); border: 1px solid rgba(10,102,194,0.3); }
+  .plat-badge.ig { background: rgba(225,48,108,0.2); color: var(--ig-light); border: 1px solid rgba(225,48,108,0.3); }
+  .plat-badge.yt { background: rgba(255,0,0,0.15); color: var(--yt-light); border: 1px solid rgba(255,0,0,0.3); }
+
+  .tabs { display: flex; gap: 4px; margin-bottom: 16px; background: var(--surface2); padding: 4px; border-radius: 10px; width: fit-content; }
+  .tab { padding: 6px 16px; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 500; color: var(--muted); transition: all .2s; }
+  .tab.active { background: var(--surface); color: var(--text); }
+
+  .tops-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .top-card { background: var(--surface2); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+  .top-card-header { padding: 12px 16px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .top-card-header.li { background: rgba(10,102,194,0.12); color: var(--li-light); }
+  .top-card-header.ig { background: rgba(225,48,108,0.12); color: var(--ig-light); }
+  .top-card-header.yt { background: rgba(255,0,0,0.1); color: var(--yt-light); }
+  .top-card-header.neutral { background: rgba(192,132,252,0.1); color: var(--accent); }
+
+  .top-item { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 10px; }
+  .top-item:last-child { border-bottom: none; }
+  .rank { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); min-width: 18px; padding-top: 2px; }
+  .rank-1 { color: var(--gold) !important; font-weight: 600; }
+  .rank-2 { color: #c0c0c0 !important; }
+  .rank-3 { color: #cd7f32 !important; }
+  .top-title { font-size: 12px; line-height: 1.4; flex: 1; }
+  .top-val { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--accent); white-space: nowrap; }
+
+  /* ─── INSIGHTS ─── */
+  .insights-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 48px; }
+  .insight-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px; position: relative; overflow: hidden;
+  }
+  .insight-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .insight-card.gold::before { background: linear-gradient(90deg, var(--gold), #fb923c); }
+  .insight-card.blue::before { background: linear-gradient(90deg, var(--li-color), var(--accent)); }
+  .insight-card.green::before { background: linear-gradient(90deg, #34d399, #06b6d4); }
+  .insight-card.pink::before { background: linear-gradient(90deg, var(--ig-color), var(--accent)); }
+  .insight-card.red::before { background: linear-gradient(90deg, var(--yt-color), #fb923c); }
+  .insight-card.purple::before { background: linear-gradient(90deg, var(--accent), #818cf8); }
+  .insight-icon { font-size: 24px; margin-bottom: 12px; }
+  .insight-title { font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+  .insight-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .insight-body strong { color: var(--text); font-weight: 600; }
+
+  /* ─── TREND SECTION ─── */
+  .trend-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+  .trend-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .trend-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px; }
+  .trend-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .trend-period { font-size: 13px; color: var(--muted); }
+  .trend-val { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; }
+  .trend-bar { height: 4px; border-radius: 999px; margin-top: 4px; margin-bottom: 12px; }
+  .arrow-up { color: #34d399; }
+  .arrow-down { color: #f87171; }
+  .arrow-flat { color: var(--muted); }
+
+  /* ─── FOOTER ─── */
+  .footer { border-top: 1px solid var(--border); padding: 24px 48px; text-align: center; color: #444455; font-size: 12px; }
+  .footer strong { color: var(--muted); }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .highlight-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
+  .highlight-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+  .highlight-box h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 16px; }
+  .mvp-card {
+    display: flex; gap: 14px; align-items: flex-start; padding: 14px;
+    background: rgba(255,255,255,0.03); border-radius: 10px; border: 1px solid var(--border);
+    margin-bottom: 10px;
+  }
+  .mvp-rank { font-size: 20px; }
+  .mvp-title { font-size: 13px; font-weight: 500; line-height: 1.4; margin-bottom: 6px; }
+  .mvp-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .mvp-stat { font-size: 11px; color: var(--muted); }
+  .mvp-stat strong { font-weight: 600; }
+  .mvp-stat.li strong { color: var(--li-light); }
+  .mvp-stat.ig strong { color: var(--ig-light); }
+  .mvp-stat.yt strong { color: var(--yt-light); }
+
+  @media (max-width: 900px) {
+    .metrics-hero { grid-template-columns: repeat(2,1fr); }
+    .platform-grid { grid-template-columns: 1fr; }
+    .tops-grid { grid-template-columns: repeat(2,1fr); }
+    .insights-grid { grid-template-columns: 1fr; }
+    .trend-grid { grid-template-columns: 1fr; }
+    .highlight-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-badge">Campaign Report · Feb–Mar 2026</div>
+  <h1>30-Day Video Marathon</h1>
+  <div class="hero-sub">
+    <span>30 Videos</span>
+    <div class="dot"></div>
+    <span>3 Platforms</span>
+    <div class="dot"></div>
+    <span>1 Video/Day</span>
+    <div class="dot"></div>
+    <span>Feb 2 – Mar 3, 2026</span>
+  </div>
+  <div class="platforms">
+    <div class="platform-pill li">LinkedIn</div>
+    <div class="platform-pill ig">Instagram</div>
+    <div class="platform-pill yt">YouTube</div>
+  </div>
+</div>
+
+<!-- ─── MAIN ─── -->
+<div class="page">
+
+  <!-- KEY METRICS -->
+  <div class="section-label">Campaign Totals · All Platforms Combined</div>
+  <div class="metrics-hero">
+    <div class="metric-big views">
+      <div class="metric-val views">27,624</div>
+      <div class="metric-label">Total Video Views</div>
+      <div class="metric-sub">Across LinkedIn + Instagram + YouTube</div>
+    </div>
+    <div class="metric-big engage">
+      <div class="metric-val engage">716.5</div>
+      <div class="metric-label">Total Engagements</div>
+      <div class="metric-sub">Likes, comments, shares, reactions</div>
+    </div>
+    <div class="metric-big reach">
+      <div class="metric-val reach">17,057</div>
+      <div class="metric-label">People Reached</div>
+      <div class="metric-sub">Unique members / accounts reached</div>
+    </div>
+    <div class="metric-big hours">
+      <div class="metric-val hours">82.75</div>
+      <div class="metric-label">Watch Hours</div>
+      <div class="metric-sub">Total hours of content watched</div>
+    </div>
+  </div>
+
+  <!-- PLATFORM BREAKDOWN -->
+  <div class="section-label">Platform Breakdown</div>
+  <div class="section-title">How Each Platform Performed</div>
+  <div class="platform-grid">
+
+    <div class="platform-card li">
+      <div class="p-header">
+        <div class="p-name">
+          <div class="p-icon li">in</div>
+          LinkedIn
+        </div>
+        <div class="p-share li">5.7%</div>
+      </div>
+      <div class="stat-row"><div class="stat-row-label">Video Views</div><div class="stat-row-val">1,562</div></div>
+      <div class="stat-row"><div class="stat-row-label">Members Reached</div><div class="stat-row-val">2,017</div></div>
+      <div class="stat-row"><div class="stat-row-label">Engagements</div><div class="stat-row-val">103</div></div>
+      <div class="stat-row"><div class="stat-row-label">Watch Hours</div><div class="stat-row-val">6.38 hrs</div></div>
+      <div class="stat-row"><div class="stat-row-label">Total Impressions</div><div class="stat-row-val">5,402</div></div>
+      <div class="stat-row"><div class="stat-row-label">Avg Views / Video</div><div class="stat-row-val">~54</div></div>
+      <div class="stat-row"><div class="stat-row-label">Engagement Rate</div><div class="stat-row-val" style="color:#4d9ee8">6.7%</div></div>
+      <div class="bar-container">
+        <div class="bar-label"><span>Share of total views</span><span>5.7%</span></div>
+        <div class="bar-track"><div class="bar-fill li" style="width:5.7%"></div></div>
+      </div>
+    </div>
+
+    <div class="platform-card ig">
+      <div class="p-header">
+        <div class="p-name">
+          <div class="p-icon ig">ig</div>
+          Instagram
+        </div>
+        <div class="p-share ig">35.7%</div>
+      </div>
+      <div class="stat-row"><div class="stat-row-label">Video Views</div><div class="stat-row-val">9,859</div></div>
+      <div class="stat-row"><div class="stat-row-label">Accounts Reached</div><div class="stat-row-val">8,888</div></div>
+      <div class="stat-row"><div class="stat-row-label">Engagements</div><div class="stat-row-val">255</div></div>
+      <div class="stat-row"><div class="stat-row-label">Watch Hours</div><div class="stat-row-val">21.67 hrs</div></div>
+      <div class="stat-row"><div class="stat-row-label">Avg Views / Video</div><div class="stat-row-val">~335</div></div>
+      <div class="stat-row"><div class="stat-row-label">Avg Engagement Rate</div><div class="stat-row-val" style="color:#f06292">2.6%</div></div>
+      <div class="stat-row"><div class="stat-row-label">Accounts Reached / View</div><div class="stat-row-val" style="color:#f06292">0.90×</div></div>
+      <div class="bar-container">
+        <div class="bar-label"><span>Share of total views</span><span>35.7%</span></div>
+        <div class="bar-track"><div class="bar-fill ig" style="width:35.7%"></div></div>
+      </div>
+    </div>
+
+    <div class="platform-card yt">
+      <div class="p-header">
+        <div class="p-name">
+          <div class="p-icon yt">▶</div>
+          YouTube
+        </div>
+        <div class="p-share yt">58.6%</div>
+      </div>
+      <div class="stat-row"><div class="stat-row-label">Video Views (adj.)</div><div class="stat-row-val">16,203</div></div>
+      <div class="stat-row"><div class="stat-row-label">Unique Viewers</div><div class="stat-row-val">6,152</div></div>
+      <div class="stat-row"><div class="stat-row-label">Engagements (Likes)</div><div class="stat-row-val">358.5</div></div>
+      <div class="stat-row"><div class="stat-row-label">Watch Hours (adj.)</div><div class="stat-row-val">54.7 hrs</div></div>
+      <div class="stat-row"><div class="stat-row-label">Avg Views / Video</div><div class="stat-row-val">~540</div></div>
+      <div class="stat-row"><div class="stat-row-label">Avg CTR</div><div class="stat-row-val" style="color:#ff5252">2.8%</div></div>
+      <div class="stat-row"><div class="stat-row-label">Avg Viewer Retention</div><div class="stat-row-val" style="color:#ff5252">34.5%</div></div>
+      <div class="bar-container">
+        <div class="bar-label"><span>Share of total views</span><span>58.6%</span></div>
+        <div class="bar-track"><div class="bar-fill yt" style="width:58.6%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TREND -->
+  <div class="section-label">Momentum Over Time</div>
+  <div class="section-title">Performance Trend: Early → Mid → Late Campaign</div>
+  <div class="trend-grid">
+    <div class="trend-card">
+      <div class="trend-label" style="color:var(--li-light)">LinkedIn Avg Views / Video</div>
+      <div class="trend-row">
+        <div class="trend-period">Days 1–10</div>
+        <div class="trend-val">71 <span class="arrow-up">—</span></div>
+      </div>
+      <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill li" style="width:100%"></div></div>
+      <div class="trend-row">
+        <div class="trend-period">Days 11–20</div>
+        <div class="trend-val">61 <span class="arrow-down">↓</span></div>
+      </div>
+      <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill li" style="width:86%"></div></div>
+      <div class="trend-row">
+        <div class="trend-period">Days 21–30</div>
+        <div class="trend-val">35 <span class="arrow-down">↓↓</span></div>
+      </div>
+      <div class="bar-track"><div class="bar-fill li" style="width:49%"></div></div>
+      <div style="margin-top:14px;font-size:11px;color:#555566">LinkedIn views declined ~50% from Day 1–10 to Day 21–30, suggesting audience attention shifted to other platforms</div>
+    </div>
+
+    <div class="trend-card">
+      <div class="trend-label" style="color:var(--ig-light)">Instagram Avg Views / Video</div>
+      <div class="trend-row">
+        <div class="trend-period">Days 1–10</div>
+        <div class="trend-val">127 <span class="arrow-up">↑</span></div>
+      </div>
+      <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill ig" style="width:24%"></div></div>
+      <div class="trend-row">
+        <div class="trend-period">Days 11–20</div>
+        <div class="trend-val">527 <span class="arrow-up">↑↑↑</span></div>
+      </div>
+      <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill ig" style="width:100%"></div></div>
+      <div class="trend-row">
+        <div class="trend-period">Days 21–30</div>
+        <div class="trend-val">330 <span class="arrow-down">↓</span></div>
+      </div>
+      <div class="bar-track"><div class="bar-fill ig" style="width:63%"></div></div>
+      <div style="margin-top:14px;font-size:11px;color:#555566">Instagram peaked sharply in Week 2–3 driven by the viral CEO video on Day 15. Settled at 2.6× the early-campaign baseline</div>
+    </div>
+
+    <div class="trend-card">
+      <div class="trend-label" style="color:var(--yt-light)">YouTube Avg Views / Video</div>
+      <div class="trend-row">
+        <div class="trend-period">Days 1–10</div>
+        <div class="trend-val">643 <span class="arrow-up">—</span></div>
+      </div>
+      <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill yt" style="width:100%"></div></div>
+      <div class="trend-row">
+        <div class="trend-period">Days 11–20</div>
+        <div class="trend-val">478 <span class="arrow-down">↓</span></div>
+      </div>
+      <div class="bar-track" style="margin-bottom:10px"><div class="bar-fill yt" style="width:74%"></div></div>
+      <div class="trend-row">
+        <div class="trend-period">Days 21–30</div>
+        <div class="trend-val">526 <span class="arrow-up">↑</span></div>
+      </div>
+      <div class="bar-track"><div class="bar-fill yt" style="width:82%"></div></div>
+      <div style="margin-top:14px;font-size:11px;color:#555566">YouTube showed strong early performance then a slight mid-campaign dip before recovering — the most consistent platform overall</div>
+    </div>
+  </div>
+
+  <!-- STANDOUT VIDEOS -->
+  <div class="section-label">Cross-Platform Champions</div>
+  <div class="section-title">Standout Videos Across All Platforms</div>
+  <div class="highlight-row">
+    <div class="highlight-box">
+      <h3>🏆 Top Cross-Platform Performers</h3>
+      <div class="mvp-card">
+        <div class="mvp-rank">🥇</div>
+        <div>
+          <div class="mvp-title">This CEO is more famous than his own company.</div>
+          <div class="mvp-stats">
+            <div class="mvp-stat li">LI: <strong>285 views</strong></div>
+            <div class="mvp-stat ig">IG: <strong>3,482 views</strong></div>
+            <div class="mvp-stat yt">YT: <strong>1,164 views</strong></div>
+          </div>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted)">Dominated all 3 platforms — #1 on LinkedIn & Instagram by large margins</div>
+        </div>
+      </div>
+      <div class="mvp-card">
+        <div class="mvp-rank">🥈</div>
+        <div>
+          <div class="mvp-title">I'm using ChatGPT as my CRM and it actually works</div>
+          <div class="mvp-stats">
+            <div class="mvp-stat li">LI: <strong>71 views</strong></div>
+            <div class="mvp-stat ig">IG: <strong>127 views</strong></div>
+            <div class="mvp-stat yt">YT: <strong>1,205 views</strong></div>
+          </div>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted)">#1 on YouTube by views — AI/productivity content resonated strongly</div>
+        </div>
+      </div>
+      <div class="mvp-card">
+        <div class="mvp-rank">🥉</div>
+        <div>
+          <div class="mvp-title">LinkedIn hack to turn strangers into customers</div>
+          <div class="mvp-stats">
+            <div class="mvp-stat li">LI: <strong>64 views</strong></div>
+            <div class="mvp-stat ig">IG: <strong>133 views</strong></div>
+            <div class="mvp-stat yt">YT: <strong>1,100 views</strong></div>
+          </div>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted)">Top 3 on YouTube, strong LinkedIn engagement — tactical content drives reach</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <h3>⚡ Surprise Performers</h3>
+      <div class="mvp-card">
+        <div class="mvp-rank">🔥</div>
+        <div>
+          <div class="mvp-title">How Red Bull became popular without ads</div>
+          <div class="mvp-stats">
+            <div class="mvp-stat ig">IG: <strong>1,666 views</strong></div>
+            <div class="mvp-stat ig">IG Reach: <strong>1,448</strong></div>
+            <div class="mvp-stat ig">IG Eng: <strong>72</strong></div>
+          </div>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted)">Instagram's #2 viral hit — 5× the platform average. Brand storytelling = powerful hook</div>
+        </div>
+      </div>
+      <div class="mvp-card">
+        <div class="mvp-rank">💡</div>
+        <div>
+          <div class="mvp-title">How Intercom became a status symbol in software</div>
+          <div class="mvp-stats">
+            <div class="mvp-stat yt">YT Views: <strong>1,191</strong></div>
+            <div class="mvp-stat yt">YT Viewers: <strong>546</strong></div>
+            <div class="mvp-stat yt">Watch Hrs: <strong>5.9</strong></div>
+          </div>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted)">#2 on YT views AND #2 avg watch duration (35s) — great depth + breadth combo</div>
+        </div>
+      </div>
+      <div class="mvp-card">
+        <div class="mvp-rank">📈</div>
+        <div>
+          <div class="mvp-title">Bajaj Finance made 2.7 lakh videos using AI</div>
+          <div class="mvp-stats">
+            <div class="mvp-stat yt">YT Views: <strong>906</strong></div>
+            <div class="mvp-stat yt">Retention: <strong>60.9%</strong></div>
+            <div class="mvp-stat yt">CTR: <strong>6.3%</strong></div>
+          </div>
+          <div style="margin-top:6px;font-size:11px;color:var(--muted)">Best YT retention (61%) + highest CTR — people who clicked, stayed. Perfect combo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP 5 PER PLATFORM -->
+  <div class="section-label">Top 5 Rankings</div>
+  <div class="section-title">Best Videos by Platform & Metric</div>
+
+  <!-- LINKEDIN -->
+  <div class="platform-section">
+    <div class="platform-section-header">
+      <div class="plat-badge li">LinkedIn</div>
+      <div style="font-size:13px;color:var(--muted)">Top 5 videos across 4 key metrics</div>
+    </div>
+    <div class="tops-grid">
+      <div class="top-card">
+        <div class="top-card-header li">Views</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">This CEO is more famous than his own company.</div><div class="top-val">285</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">This CEO spends crores on his content team</div><div class="top-val">115</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">Most marketing is missing these two things</div><div class="top-val">81</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">Why Executives are finally creating videos</div><div class="top-val">78</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">I'm using ChatGPT as my CRM and it actually works</div><div class="top-val">71</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header li">Engagements</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">Your LinkedIn profile is costing you business</div><div class="top-val">9</div></div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">Why Executives are finally creating videos</div><div class="top-val">9</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">Most marketing is missing these two things</div><div class="top-val">8</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">LinkedIn hack to turn strangers into customers</div><div class="top-val">7</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">Nike changed "Just Do It" to "Why Do It"</div><div class="top-val">7</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header li">Members Reached</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">This CEO is more famous than his own company.</div><div class="top-val">405</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">This CEO spends crores on his content team</div><div class="top-val">118</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">Why Executives are finally creating videos</div><div class="top-val">95</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">Most marketing is missing these two things</div><div class="top-val">93</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">Many get this wrong about Branding</div><div class="top-val">93</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header li">Avg View Duration (secs)</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">This CEO spends crores on his content team</div><div class="top-val">20s</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">How Founders can turn Sales Calls into Content</div><div class="top-val">18s</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">I'm using ChatGPT as my CRM and it actually works</div><div class="top-val">17s</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">From Clawd Bolt to OpenClaw in 3 weeks</div><div class="top-val">17s</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">20s vs 30s vs 40s — Best Time to Start a Business?</div><div class="top-val">17s</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTAGRAM -->
+  <div class="platform-section">
+    <div class="platform-section-header">
+      <div class="plat-badge ig">Instagram</div>
+      <div style="font-size:13px;color:var(--muted)">Top 5 videos across 4 key metrics</div>
+    </div>
+    <div class="tops-grid">
+      <div class="top-card">
+        <div class="top-card-header ig">Views</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">This CEO is more famous than his own company.</div><div class="top-val">3,482</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">How Red Bull became popular without ads</div><div class="top-val">1,666</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">Many get this wrong about Branding</div><div class="top-val">376</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">How Lovable and Emergent grew so fast</div><div class="top-val">290</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">Your company should be on YouTube right now</div><div class="top-val">264</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header ig">Engagements</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">This CEO is more famous than his own company.</div><div class="top-val">128</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">How Red Bull became popular without ads</div><div class="top-val">72</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">What is purple cow marketing?</div><div class="top-val">5</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">How Lovable and Emergent grew so fast</div><div class="top-val">5</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">This CEO spends crores on his content team</div><div class="top-val">4</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header ig">Accounts Reached</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">This CEO is more famous than his own company.</div><div class="top-val">3,182</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">How Red Bull became popular without ads</div><div class="top-val">1,448</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">Many get this wrong about Branding</div><div class="top-val">350</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">How Lovable and Emergent grew so fast</div><div class="top-val">267</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">Your company should be on YouTube right now</div><div class="top-val">244</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header ig">Watch Duration (mins)</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">This CEO is more famous than his own company.</div><div class="top-val">695m</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">How Red Bull became popular without ads</div><div class="top-val">289m</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">Marketing should work like cat videos</div><div class="top-val">28m</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">This CEO spends crores on his content team</div><div class="top-val">23m</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">What is purple cow marketing?</div><div class="top-val">21m</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YOUTUBE -->
+  <div class="platform-section">
+    <div class="platform-section-header">
+      <div class="plat-badge yt">YouTube</div>
+      <div style="font-size:13px;color:var(--muted)">Top 5 videos across 4 key metrics · Ad-adjusted views used throughout</div>
+    </div>
+    <div class="tops-grid">
+      <div class="top-card">
+        <div class="top-card-header yt">Views (Ad-Adj.)</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">I'm using ChatGPT as my CRM and it actually works</div><div class="top-val">1,205</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">How Intercom became a status symbol in software</div><div class="top-val">1,191</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">This CEO is more famous than his own company.</div><div class="top-val">1,164</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">LinkedIn hack to turn strangers into customers</div><div class="top-val">1,100</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">What is purple cow marketing?</div><div class="top-val">1,000</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header yt">Likes (Engagement)</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">How Lovable and Emergent grew so fast</div><div class="top-val">34</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">What is purple cow marketing?</div><div class="top-val">33</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">LinkedIn hack to turn strangers into customers</div><div class="top-val">29</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">Bajaj Finance made 2.7 lakh videos using AI</div><div class="top-val">29</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">I'm using ChatGPT as my CRM and it actually works</div><div class="top-val">28</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header yt">Unique Viewers (Adj.)</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">This CEO is more famous than his own company.</div><div class="top-val">605</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">How Lovable and Emergent grew so fast</div><div class="top-val">555</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">How Intercom became a status symbol in software</div><div class="top-val">546</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">LinkedIn hack to turn strangers into customers</div><div class="top-val">516</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">How HubSpot and Clay created job titles that didn't exist</div><div class="top-val">513</div></div>
+      </div>
+      <div class="top-card">
+        <div class="top-card-header yt">Avg View Duration (secs)</div>
+        <div class="top-item"><div class="rank rank-1">#1</div><div class="top-title">Nike changed "Just Do It" to "Why Do It"</div><div class="top-val">42s</div></div>
+        <div class="top-item"><div class="rank rank-2">#2</div><div class="top-title">How Intercom became a status symbol in software</div><div class="top-val">35s</div></div>
+        <div class="top-item"><div class="rank rank-3">#3</div><div class="top-title">This SECRET Rule is used by Top brands</div><div class="top-val">34s</div></div>
+        <div class="top-item"><div class="rank">#4</div><div class="top-title">LinkedIn hack to turn strangers into customers</div><div class="top-val">34s</div></div>
+        <div class="top-item"><div class="rank">#5</div><div class="top-title">Most marketing is missing these two things</div><div class="top-val">33s</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div class="section-label">Key Insights & Observations</div>
+  <div class="section-title">What the Data Tells Us</div>
+  <div class="insights-grid">
+    <div class="insight-card gold">
+      <div class="insight-icon">🚀</div>
+      <div class="insight-title">YouTube is the Primary View Engine</div>
+      <div class="insight-body">YouTube drove <strong>58.6%</strong> of all views and <strong>66%</strong> of all watch hours (54.7 hrs) despite the ad adjustment. With an avg of <strong>~540 views/video</strong>, it was 10× more efficient per video than LinkedIn and 1.6× more than Instagram.</div>
+    </div>
+    <div class="insight-card pink">
+      <div class="insight-icon">⭐</div>
+      <div class="insight-title">One Video Carried Instagram</div>
+      <div class="insight-body">"This CEO is more famous than his own company" (Day 14) generated <strong>3,482 views</strong> — over 35% of Instagram's entire 30-day total alone. Without it, Instagram's average would drop from 335 to ~216 views/video.</div>
+    </div>
+    <div class="insight-card blue">
+      <div class="insight-icon">💼</div>
+      <div class="insight-title">LinkedIn Punches Above Its Weight in Engagement Rate</div>
+      <div class="insight-body">LinkedIn's <strong>6.7% engagement rate</strong> (103 engagements on 1,562 views) is exceptional for any platform. Compared to Instagram at ~2.6%, LinkedIn's audience — while smaller — is significantly more engaged and action-oriented.</div>
+    </div>
+    <div class="insight-card green">
+      <div class="insight-icon">📺</div>
+      <div class="insight-title">YouTube Retention & CTR Signal Quality Audience</div>
+      <div class="insight-body">With an average <strong>CTR of 2.8%</strong> and <strong>34.5% viewer retention</strong>, the channel's short-form content is resonating. The best performers — Bajaj Finance (61% retention, 6.3% CTR) — show what's possible when the hook and topic align perfectly.</div>
+    </div>
+    <div class="insight-card red">
+      <div class="insight-icon">📉</div>
+      <div class="insight-title">LinkedIn Fatigue in the Back Half</div>
+      <div class="insight-body">LinkedIn views dropped from an avg of <strong>71 (Days 1–10)</strong> to just <strong>35 (Days 21–30)</strong> — a 51% decline. This may reflect algorithm de-prioritisation of the same account posting daily, or audience attention saturation on LinkedIn specifically.</div>
+    </div>
+    <div class="insight-card purple">
+      <div class="insight-icon">🎯</div>
+      <div class="insight-title">CEO / Brand Storytelling = Viral Formula</div>
+      <div class="insight-body">The top Instagram performers were <strong>CEO stories</strong> (famous CEO, Red Bull, Bajaj Finance) and <strong>brand case studies</strong> (Slack, Intercom, HubSpot). Human + brand narratives consistently outperformed tactical or how-to content on Instagram.</div>
+    </div>
+    <div class="insight-card gold">
+      <div class="insight-icon">⚡</div>
+      <div class="insight-title">AI & Tactical Content Wins on YouTube</div>
+      <div class="insight-body">YouTube's top 5 by views were dominated by <strong>actionable, AI-related, or platform-growth content</strong> — ChatGPT CRM, LinkedIn hacks, and SaaS case studies. Titles with a clear "how" or "why X is big" structure performed best.</div>
+    </div>
+    <div class="insight-card blue">
+      <div class="insight-icon">📊</div>
+      <div class="insight-title">Watch Hours: Instagram Outperforms at Scale</div>
+      <div class="insight-body">Instagram generated <strong>21.67 watch hours from just 9,859 views</strong> vs LinkedIn's 6.38 hrs from 1,562 views. The Red Bull video alone drove ~289 minutes — nearly 5 hours. Viral content exponentially amplifies watch time.</div>
+    </div>
+    <div class="insight-card green">
+      <div class="insight-icon">🔄</div>
+      <div class="insight-title">Cross-Platform Consistency is Rare but Powerful</div>
+      <div class="insight-body">Only <strong>2–3 videos</strong> ranked in the top 5 on more than one platform. "This CEO is more famous…" and "LinkedIn hack to turn strangers into customers" are the most versatile formats — suggesting <strong>persona + tactical hook</strong> as the ideal content formula.</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY BOX -->
+  <div style="background:linear-gradient(135deg,rgba(192,132,252,0.08),rgba(10,102,194,0.08));border:1px solid rgba(192,132,252,0.2);border-radius:20px;padding:32px;margin-bottom:48px;">
+    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:20px;">📋 Campaign Summary</div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+      <div>
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);margin-bottom:12px;font-weight:600;">What Worked</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted);">
+          <div>✅ <strong style="color:var(--text)">CEO & brand storytelling</strong> — dominated Instagram and crossed over to LinkedIn</div>
+          <div>✅ <strong style="color:var(--text)">AI/productivity hooks</strong> — best YouTube performers used AI angles</div>
+          <div>✅ <strong style="color:var(--text)">SaaS case studies</strong> — Intercom, HubSpot, Slack drove strong YT watch time</div>
+          <div>✅ <strong style="color:var(--text)">Question-based titles</strong> — "Why Do It?", "Costing You Business?" drove curiosity</div>
+          <div>✅ <strong style="color:var(--text)">LinkedIn audience quality</strong> — 6.7% engagement rate is world-class</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:12px;font-weight:600;">Opportunities</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted);">
+          <div>💡 <strong style="color:var(--text)">LinkedIn consistency</strong> — volumes declined 50% by end; posting cadence or algo rotation may help</div>
+          <div>💡 <strong style="color:var(--text)">Replicate viral format</strong> — CEO + brand origin story clearly works; double down on this</div>
+          <div>💡 <strong style="color:var(--text)">YouTube CTR optimization</strong> — avg 2.8% CTR; thumbnail/title testing could unlock more volume</div>
+          <div>💡 <strong style="color:var(--text)">Instagram reach diversification</strong> — 90%+ of reach came from just 2 videos; build a more consistent base</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>30-Day Video Marathon · Feb 2 – Mar 3, 2026</strong> &nbsp;|&nbsp; 
+  LinkedIn · Instagram · YouTube &nbsp;|&nbsp; 
+  30 Videos · 27,624 Total Views · 82.75 Watch Hours &nbsp;|&nbsp;
+  YouTube ad video (Day 11) adjusted to 369 organic views
+</div>
+
+</body>
+</html>
