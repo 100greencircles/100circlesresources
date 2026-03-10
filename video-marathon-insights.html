@@ -23,13 +23,52 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 52px;display:fl
 nav.scrolled{background:rgba(11,22,36,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr-soft);}
 .nav-logo{font-family:'Comfortaa',sans-serif;font-size:15px;font-weight:700;color:var(--text);text-decoration:none;line-height:1;}
 .nav-logo .oc{color:var(--orange);}
-.nav-sub{display:block;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted);margin-top:2px;}
+.nav-sub{display:block;font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:rgba(214,228,240,0.55);margin-top:2px;}
 .nav-cta{background:var(--orange);color:var(--navy);font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;padding:11px 28px;border-radius:2px;text-decoration:none;transition:background .3s,transform .3s;}
 .nav-cta:hover{background:var(--orange-lgt);transform:translateY(-1px);}
 
 
 
-/* HERO */
+/* BG SWITCHER */
+.bg-switcher{position:fixed;bottom:28px;right:28px;z-index:200;display:flex;align-items:center;gap:8px;background:rgba(11,22,36,0.92);border:1px solid var(--bdr-soft);border-radius:100px;padding:8px 14px;backdrop-filter:blur(12px);}
+.bg-switcher-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-right:4px;}
+.bs-btn{width:18px;height:18px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .2s,transform .2s;outline:none;}
+.bs-btn:hover{transform:scale(1.2);}
+.bs-btn.navy{background:#0E1C30;}
+.bs-btn.dark{background:#070B12;}
+.bs-btn.warm{background:linear-gradient(135deg,#1a0a00,#2a1005);}
+.bs-btn.active{border-color:var(--orange);}
+
+/* HERO FLASH STAT */
+.flash-stat-wrap{position:relative;width:100%;max-width:860px;margin:0 auto 24px;height:108px;animation:fadeUp .8s .3s ease both;}
+.flash-stat{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;transition:opacity .6s ease;pointer-events:none;}
+.flash-stat.active{opacity:1;pointer-events:auto;}
+.flash-stat-platform{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.flash-stat-platform .plat-dot{width:6px;height:6px;border-radius:50%;}
+.flash-stat-text{font-family:'Comfortaa',sans-serif;font-size:clamp(16px,2vw,26px);font-weight:600;color:var(--cream);line-height:1.5;max-width:800px;}
+.flash-stat-text .hl{color:var(--orange);}
+.flash-dots{display:flex;gap:7px;justify-content:center;margin-bottom:28px;animation:fadeUp .8s .35s ease both;}
+.flash-dot{width:6px;height:6px;border-radius:50%;background:rgba(214,228,240,0.15);cursor:pointer;transition:background .3s,transform .2s;}
+.flash-dot.active{background:var(--orange);transform:scale(1.3);}
+
+/* CAMPAIGN STATS 2x2 */
+.campaign-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:0;}
+.cs-card{background:var(--navy-card);padding:44px 40px;position:relative;overflow:hidden;transition:background .3s;}
+.cs-card:hover{background:var(--navy-light);}
+.cs-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .5s ease;}
+.cs-card:hover::after{transform:scaleX(1);}
+.cs-num{font-family:'Comfortaa',sans-serif;font-size:clamp(44px,6vw,80px);font-weight:700;color:var(--orange);line-height:1;display:block;margin-bottom:8px;}
+.cs-num-unit{font-size:clamp(22px,3vw,40px);color:var(--orange-lgt);}
+.cs-label{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;display:block;}
+.cs-desc{font-size:13px;color:var(--text-dim);line-height:1.75;}
+.cs-desc strong{color:var(--cream);font-weight:500;}
+.cs-glow{position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(232,101,26,0.07),transparent);pointer-events:none;}
+
+@media(max-width:768px){
+  .campaign-stats-grid{grid-template-columns:1fr;}
+  .bg-switcher{bottom:16px;right:16px;}
+  .flash-stat-wrap{height:120px;}
+}
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 24px 120px;position:relative;overflow:hidden;}
 .hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 800px 500px at 50% 30%,rgba(232,101,26,0.10),transparent);}
 .ring{position:absolute;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);animation:ringPulse 8s ease-in-out infinite;}
@@ -40,9 +79,9 @@ nav.scrolled{background:rgba(11,22,36,0.97);backdrop-filter:blur(12px);border-bo
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,101,26,0.06);border:1px solid var(--bdr-orange);border-radius:100px;padding:6px 20px;margin-bottom:36px;font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--orange);animation:fadeUp .8s ease both;}
 .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:blink 2s infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:'Comfortaa',sans-serif;font-size:clamp(34px,5vw,66px);font-weight:700;line-height:1.12;letter-spacing:-0.025em;color:var(--cream);max-width:960px;margin:0 auto 28px;animation:fadeUp .8s .1s ease both;}
+.hero h1{font-family:'Comfortaa',sans-serif;font-size:clamp(32px,4.4vw,60px);font-weight:700;line-height:1.12;letter-spacing:-0.025em;color:var(--cream);max-width:960px;margin:0 auto 28px;animation:fadeUp .8s .1s ease both;}
 .hero h1 .hl{color:var(--orange);}
-.hero-sub{font-size:16px;font-weight:300;color:var(--text-dim);max-width:620px;margin:0 auto 52px;line-height:1.85;animation:fadeUp .8s .2s ease both;}
+.hero-sub{font-size:14px;font-weight:300;color:var(--text-muted);max-width:580px;margin:0 auto 40px;line-height:1.85;animation:fadeUp .8s .2s ease both;}
 .stats-bar{display:flex;border:1px solid var(--bdr-soft);border-radius:4px;overflow:hidden;margin:0 auto 24px;max-width:880px;width:100%;animation:fadeUp .8s .3s ease both;}
 .stat-cell{flex:1;padding:20px 28px;text-align:center;background:rgba(15,32,64,0.60);backdrop-filter:blur(8px);border-right:1px solid var(--bdr-soft);transition:background .3s;}
 .stat-cell:last-child{border-right:none;}
@@ -50,7 +89,7 @@ nav.scrolled{background:rgba(11,22,36,0.97);backdrop-filter:blur(12px);border-bo
 .stat-num{font-family:'Comfortaa',sans-serif;font-size:36px;font-weight:700;color:var(--orange);display:block;line-height:1;}
 .stat-lbl{font-size:11px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-top:6px;display:block;}
 .stat-sub{font-size:10.5px;color:var(--text-muted);margin-top:5px;display:block;line-height:1.4;font-style:italic;}
-.hero-loc{font-size:12px;letter-spacing:0.08em;color:var(--text-muted);animation:fadeUp .8s .4s ease both;}
+.hero-loc{font-size:12px;letter-spacing:0.08em;color:rgba(214,228,240,0.55);animation:fadeUp .8s .4s ease both;}
 .hero-loc strong{color:var(--orange);font-weight:500;}
 .scroll-line{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--orange));animation:scrollPulse 2s ease-in-out infinite;}
 @keyframes scrollPulse{0%,100%{transform:translateX(-50%) scaleY(1);opacity:.7;}50%{transform:translateX(-50%) scaleY(1.15);opacity:1;}}
@@ -255,7 +294,13 @@ footer{background:var(--navy-card2);border-top:1px solid var(--bdr-soft);padding
 <body>
 <div class="noise"></div>
 
-<!-- NAV -->
+<!-- BG SWITCHER -->
+<div class="bg-switcher">
+  <span class="bg-switcher-lbl">BG</span>
+  <button class="bs-btn navy" title="Navy" onclick="setBg('navy',this)"></button>
+  <button class="bs-btn dark" title="Dark" onclick="setBg('dark',this)"></button>
+  <button class="bs-btn warm active" title="Warm" onclick="setBg('warm',this)"></button>
+</div>
 <nav id="nav">
   <a href="#" class="nav-logo">100<span class="oc">Circles</span><span class="nav-sub">Video Creation Accelerator for Founders &amp; Leaders</span></a>
   <a href="#apply" class="nav-cta">Apply Now</a>
@@ -266,31 +311,91 @@ footer{background:var(--navy-card2);border-top:1px solid var(--bdr-soft);padding
   <div class="hero-glow"></div>
   <div class="ring ring-1"></div><div class="ring ring-2"></div><div class="ring ring-3"></div>
   <div class="hero-badge"><div class="dot"></div>Campaign Report · Feb – Mar 2026</div>
-  <h1>30-Day <span class="hl">Video</span> Marathon<br>- The Numbers</h1>
-  <p class="hero-sub">One video a day. Three platforms. 30 days in a row. One founder betting that showing up beats the algorithm's mood swings. Here's the dataset that settles it.</p>
-  <div class="stats-bar">
-    <div class="stat-cell">
-      <span class="stat-num">27,624</span>
-      <span class="stat-lbl">Total Views</span>
+  <h1 style="line-height:1.15;">30-Days <span class="hl">Video</span> Marathon<br><span style="font-size:0.52em;font-weight:500;color:var(--text-dim);letter-spacing:0.01em;">The Surprising Numbers</span></h1>
+  <div class="flash-stat-wrap">
+
+    <div class="flash-stat active" id="fs0">
+      <div class="flash-stat-platform" style="color:#f06292"><span class="plat-dot" style="background:#E1306C"></span>Instagram</div>
+      <div class="flash-stat-text">One video reached <span class="hl">3,182 people</span> on Instagram.<br>The account had <span class="hl">62 followers</span> at the time.</div>
     </div>
-    <div class="stat-cell">
-      <span class="stat-num">716</span>
-      <span class="stat-lbl">Engagements</span>
+
+    <div class="flash-stat" id="fs1">
+      <div class="flash-stat-platform" style="color:#ff5252"><span class="plat-dot" style="background:#FF0000"></span>YouTube</div>
+      <div class="flash-stat-text">One Short accumulated <span class="hl">6.8 hours</span> of total watch time.<br>The video is <span class="hl">under 60 seconds</span> long.</div>
     </div>
-    <div class="stat-cell">
-      <span class="stat-num">17,057</span>
-      <span class="stat-lbl">People Reached</span>
-      <span class="stat-sub">5.37× total follower count</span>
+
+    <div class="flash-stat" id="fs2">
+      <div class="flash-stat-platform" style="color:#4d9ee8"><span class="plat-dot" style="background:#0A66C2"></span>LinkedIn</div>
+      <div class="flash-stat-text">LinkedIn's engagement rate hit <span class="hl">6.7%</span>.<br>The platform average? <span class="hl">0.35%</span>. That's 19× higher.</div>
     </div>
-    <div class="stat-cell">
-      <span class="stat-num">82.75</span>
-      <span class="stat-lbl">Watch Hours</span>
-      <span class="stat-sub">3.44 days, back-to-back. No subscription required.</span>
+
+    <div class="flash-stat" id="fs3">
+      <div class="flash-stat-platform" style="color:#ff5252"><span class="plat-dot" style="background:#FF0000"></span>YouTube</div>
+      <div class="flash-stat-text">Bajaj Finance hit <span class="hl">60.9% viewer retention</span> on YouTube.<br>The platform average is around <span class="hl">35%</span>.</div>
     </div>
+
+    <div class="flash-stat" id="fs4">
+      <div class="flash-stat-platform" style="color:var(--orange)"><span class="plat-dot" style="background:var(--orange)"></span>Campaign</div>
+      <div class="flash-stat-text">17,057 people reached. 3,172 total followers.<br>The content travelled <span class="hl">5.37×</span> beyond the follower base.</div>
+    </div>
+
+    <div class="flash-stat" id="fs5">
+      <div class="flash-stat-platform" style="color:#f06292"><span class="plat-dot" style="background:#E1306C"></span>Instagram</div>
+      <div class="flash-stat-text">Two videos drove <span class="hl">over 90%</span> of Instagram's total reach.<br>The other 28 videos split the remaining <span class="hl">10%</span>.</div>
+    </div>
+
   </div>
-  <p class="hero-loc">30 Videos · <strong>LinkedIn · Instagram · YouTube</strong> · Feb 2 – Mar 3, 2026</p>
+
+  <div class="flash-dots">
+    <div class="flash-dot active" onclick="goFlash(0)"></div>
+    <div class="flash-dot" onclick="goFlash(1)"></div>
+    <div class="flash-dot" onclick="goFlash(2)"></div>
+    <div class="flash-dot" onclick="goFlash(3)"></div>
+    <div class="flash-dot" onclick="goFlash(4)"></div>
+    <div class="flash-dot" onclick="goFlash(5)"></div>
+  </div>
+  <p class="hero-combined">One video a day. Three platforms. One founder betting that showing up beats the algorithm's mood swings. Here's the dataset that settles it.</p>
   <div class="scroll-line"></div>
 </div>
+
+<!-- CAMPAIGN NUMBERS 2x2 -->
+<section>
+<div class="inner">
+  <span class="eyebrow reveal">By the Numbers</span>
+  <h2 class="sec-title reveal rd1">The <span class="hl">full picture</span> in four stats</h2>
+  <div class="campaign-stats-grid">
+
+    <div class="cs-card reveal rd1">
+      <div class="cs-glow"></div>
+      <span class="cs-label">Total Views</span>
+      <span class="cs-num" id="cs-views">0</span>
+      <p class="cs-desc">Across LinkedIn, Instagram, and YouTube - every view counted. One video a day, 30 days straight, three platforms. <strong>All organic.</strong> Just content doing its job.</p>
+    </div>
+
+    <div class="cs-card reveal rd2">
+      <div class="cs-glow"></div>
+      <span class="cs-label">People Reached</span>
+      <span class="cs-num" id="cs-reached">0</span>
+      <p class="cs-desc"><strong>5.37× the combined follower count</strong> across all platforms. Content doesn't care about your follower count. Turns out, algorithms don't either - if the content earns it.</p>
+    </div>
+
+    <div class="cs-card reveal rd3">
+      <div class="cs-glow"></div>
+      <span class="cs-label">Total Watch Hours</span>
+      <span class="cs-num"><span id="cs-hrs">0</span><span class="cs-num-unit"> hrs</span></span>
+      <p class="cs-desc">Netflix needs a monthly subscription to hold your attention for 3 days. These were <strong>free 60-second videos</strong> — and people watched for 3.44 continuous days anyway.</p>
+    </div>
+
+    <div class="cs-card reveal rd4">
+      <div class="cs-glow"></div>
+      <span class="cs-label">Total Engagements</span>
+      <span class="cs-num" id="cs-eng">0</span>
+      <p class="cs-desc">Likes, comments, shares - across all three platforms. On LinkedIn alone, the engagement rate was <strong>6.7%</strong>, nearly 19× the platform average of 0.35%.</p>
+    </div>
+
+  </div>
+</div>
+</section>
 
 <!-- PLATFORM BREAKDOWN -->
 <section class="alt">
@@ -316,7 +421,7 @@ footer{background:var(--navy-card2);border-top:1px solid var(--bdr-soft);padding
       <div class="plat-header"><div class="plat-icon ig">ig</div><span class="plat-name">Instagram</span><span class="plat-meta">30 Videos</span></div>
       <div class="plat-share ig">35.7%</div><span class="plat-share-lbl">Share of Total Views</span>
       <div class="stat-row-item"><span class="lbl">Video Views</span><span class="val">9,859</span></div>
-      <div class="stat-row-item"><span class="lbl">Accounts Reached</span><span class="val">8,888</span></div>
+      <div class="stat-row-item"><span class="lbl">Members Reached</span><span class="val">8,888</span></div>
       <div class="stat-row-item"><span class="lbl">Engagements</span><span class="val">255</span></div>
       <div class="stat-row-item"><span class="lbl">Watch Hours</span><span class="val">21.67 hrs</span></div>
       <div class="stat-row-item"><span class="lbl">Avg Views / Video</span><span class="val">~335</span></div>
@@ -328,7 +433,7 @@ footer{background:var(--navy-card2);border-top:1px solid var(--bdr-soft);padding
       <div class="plat-header"><div class="plat-icon yt">▶</div><span class="plat-name">YouTube</span><span class="plat-meta">Ad-adjusted</span></div>
       <div class="plat-share yt">58.6%</div><span class="plat-share-lbl">Share of Total Views</span>
       <div class="stat-row-item"><span class="lbl">Video Views</span><span class="val">16,203</span></div>
-      <div class="stat-row-item"><span class="lbl">Unique Viewers</span><span class="val">6,152</span></div>
+      <div class="stat-row-item"><span class="lbl">Members Reached</span><span class="val">6,152</span></div>
       <div class="stat-row-item"><span class="lbl">Likes</span><span class="val">358.5</span></div>
       <div class="stat-row-item"><span class="lbl">Watch Hours</span><span class="val">54.7 hrs</span></div>
       <div class="stat-row-item"><span class="lbl">Avg Views / Video</span><span class="val">~540</span></div>
@@ -465,20 +570,20 @@ footer{background:var(--navy-card2);border-top:1px solid var(--bdr-soft);padding
     </div>
 
     <div class="shorts-player">
-      <div class="sp-wrap" id="vp-qkHteeki8aE">
+      <div class="sp-wrap" id="vp-6OpdURI8ik0">
         <div class="sp-thumb">
-          <img src="https://img.youtube.com/vi/qkHteeki8aE/maxresdefault.jpg" alt="Purple cow marketing" loading="lazy">
-          <button class="sp-play" onclick="playShort('qkHteeki8aE')" aria-label="Play">
+          <img src="https://img.youtube.com/vi/6OpdURI8ik0/maxresdefault.jpg" alt="LinkedIn hack to turn strangers into customers" loading="lazy">
+          <button class="sp-play" onclick="playShort('6OpdURI8ik0')" aria-label="Play">
             <div class="sp-play-icon"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
           </button>
         </div>
       </div>
-      <div class="sp-caption"><span class="sp-caption-plat cross">#3 · Instagram + YouTube</span><div class="sp-caption-title">What is purple cow marketing?</div></div>
+      <div class="sp-caption"><span class="sp-caption-plat cross">#3 · LI: 64 · IG: 133 · YT: 1,100</span><div class="sp-caption-title">LinkedIn hack to turn strangers into customers</div></div>
     </div>
 
   </div>
 
-  <p style="font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">⚡ Surprise Performers</p>
+  <p style="font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(214,228,240,0.65);margin-bottom:12px;">⚡ Surprise Performers</p>
   <div class="shorts-grid reveal" style="margin-top:0;">
 
     <div class="shorts-player">
@@ -584,7 +689,7 @@ footer{background:var(--navy-card2);border-top:1px solid var(--bdr-soft);padding
         <div class="top-item"><span class="top-rank">#5</span><a href="https://youtube.com/shorts/vuZO1fafv5A" target="_blank" class="top-vid-title">This CEO spends crores on his content team</a><span class="top-val">4</span></div>
       </div>
       <div class="top-card">
-        <div class="top-card-head ig">Accounts Reached</div>
+        <div class="top-card-head ig">Members Reached</div>
         <div class="top-item"><span class="top-rank r1">#1</span><a href="https://youtube.com/shorts/122bMHaSl20" target="_blank" class="top-vid-title">This CEO is more famous than his own company.</a><span class="top-val">3,182</span></div>
         <div class="top-item"><span class="top-rank r2">#2</span><a href="https://youtube.com/shorts/Cpykg4tJOAc" target="_blank" class="top-vid-title">How Red Bull became popular without ads</a><span class="top-val">1,448</span></div>
         <div class="top-item"><span class="top-rank r3">#3</span><a href="https://youtube.com/shorts/kTAfMK1WzB0" target="_blank" class="top-vid-title">Many get this wrong about Branding</a><span class="top-val">350</span></div>
@@ -625,7 +730,7 @@ footer{background:var(--navy-card2);border-top:1px solid var(--bdr-soft);padding
         <div class="top-item"><span class="top-rank">#5</span><a href="https://youtube.com/shorts/6OpdURI8ik0" target="_blank" class="top-vid-title">LinkedIn hack to turn strangers into customers</a><span class="top-val">39</span></div>
       </div>
       <div class="top-card">
-        <div class="top-card-head yt">Unique Viewers</div>
+        <div class="top-card-head yt">Members Reached</div>
         <div class="top-item"><span class="top-rank r1">#1</span><a href="https://youtube.com/shorts/122bMHaSl20" target="_blank" class="top-vid-title">This CEO is more famous than his own company.</a><span class="top-val">605</span></div>
         <div class="top-item"><span class="top-rank r2">#2</span><a href="https://youtube.com/shorts/-oXne5TJtBA" target="_blank" class="top-vid-title">How Lovable and Emergent grew so fast</a><span class="top-val">555</span></div>
         <div class="top-item"><span class="top-rank r3">#3</span><a href="https://youtube.com/shorts/fV-o1zn74og" target="_blank" class="top-vid-title">How Intercom became a status symbol in software</a><span class="top-val">546</span></div>
@@ -814,6 +919,58 @@ window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scro
 
 // Reveal
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// BG Switcher
+function setBg(mode,btn){
+  document.querySelectorAll('.bs-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const configs={
+    navy:{card2:'#0E1C30',noise:0.35,altBg:''},
+    dark:{card2:'#070B12',noise:0.55,altBg:''},
+    warm:{card2:'#130A02',noise:0.3,altBg:'linear-gradient(135deg,#130A02,#0f0804)'}
+  };
+  const c=configs[mode];
+  document.documentElement.style.setProperty('--navy-card2',c.card2);
+  document.querySelector('.noise').style.opacity=c.noise;
+  document.querySelectorAll('section.alt').forEach(s=>s.style.background=c.altBg||'');
+}
+
+// Flash Stat Rotator
+let flashIdx=0, flashTimer;
+const flashTotal=6;
+function goFlash(n){
+  document.getElementById('fs'+flashIdx).classList.remove('active');
+  document.querySelectorAll('.flash-dot')[flashIdx].classList.remove('active');
+  flashIdx=n;
+  document.getElementById('fs'+flashIdx).classList.add('active');
+  document.querySelectorAll('.flash-dot')[flashIdx].classList.add('active');
+  clearInterval(flashTimer);
+  flashTimer=setInterval(()=>goFlash((flashIdx+1)%flashTotal),4000);
+}
+flashTimer=setInterval(()=>goFlash((flashIdx+1)%flashTotal),4000);
+
+// Count-up animation for 2x2 stats
+function countUp(el, target, decimals, duration){
+  let start=0, step=target/((duration/16));
+  const run=()=>{
+    start=Math.min(start+step,target);
+    el.textContent = decimals ? start.toFixed(2) : Math.floor(start).toLocaleString();
+    if(start<target) requestAnimationFrame(run);
+  };
+  requestAnimationFrame(run);
+}
+const csObs=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){
+    countUp(document.getElementById('cs-views'),27624,false,1800);
+    countUp(document.getElementById('cs-reached'),17057,false,1800);
+    countUp(document.getElementById('cs-hrs'),82.75,true,1800);
+    countUp(document.getElementById('cs-eng'),716,false,1400);
+    csObs.disconnect();
+  }
+}),{threshold:0.3});
+const csTarget=document.getElementById('cs-views');
+if(csTarget) csObs.observe(csTarget.closest('.campaign-stats-grid'));
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // Shorts Player
