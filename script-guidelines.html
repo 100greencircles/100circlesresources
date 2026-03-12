@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100Circles · Script Guidelines</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #130A02;
+  --orange: #E8651A;
+  --cream: #F4EEE4;
+  --muted: rgba(244,238,228,0.5);
+  --faint: rgba(244,238,228,0.1);
+  --card: rgba(255,255,255,0.04);
+  --green: #4CAF50;
+  --green-bg: rgba(76,175,80,0.08);
+  --green-border: rgba(76,175,80,0.25);
+  --red: #EF5350;
+  --red-bg: rgba(239,83,80,0.08);
+  --red-border: rgba(239,83,80,0.25);
+  --blue: #42A5F5;
+  --blue-bg: rgba(66,165,245,0.08);
+  --blue-border: rgba(66,165,245,0.25);
+  --orange-bg: rgba(232,101,26,0.08);
+  --orange-border: rgba(232,101,26,0.25);
+  --sun: #F5C518;
+  --sun-bg: rgba(245,197,24,0.08);
+  --sun-border: rgba(245,197,24,0.28);
+  --sun-muted: rgba(245,197,24,0.55);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 240px;
+  height: 100vh;
+  background: rgba(10,5,0,0.97);
+  border-right: 1px solid var(--faint);
+  padding: 28px 20px 28px 24px;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-brand {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.sidebar-brand span { color: var(--orange); }
+.sidebar-sub {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .07em;
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--faint);
+}
+
+/* tab switcher in sidebar */
+.sidebar-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.sidebar-tab {
+  flex: 1;
+  padding: 8px 4px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Comfortaa', sans-serif;
+  border: 1px solid var(--faint);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: center;
+  transition: all .2s;
+  letter-spacing: .02em;
+}
+.sidebar-tab.active-star {
+  background: var(--orange-bg);
+  border-color: var(--orange-border);
+  color: var(--orange);
+}
+.sidebar-tab.active-sun {
+  background: var(--sun-bg);
+  border-color: var(--sun-border);
+  color: var(--sun);
+}
+
+.nav-section {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+.nav-section.star { color: var(--orange); }
+.nav-section.sun  { color: var(--sun); }
+
+.nav-link {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 0 5px 10px;
+  border-left: 2px solid transparent;
+  transition: all .18s;
+  line-height: 1.4;
+}
+.nav-link:hover { color: var(--cream); }
+.nav-link.active-star { color: var(--cream); border-left-color: var(--orange); }
+.nav-link.active-sun  { color: var(--cream); border-left-color: var(--sun); }
+
+/* hide/show nav groups */
+.nav-group { display: none; }
+.nav-group.visible { display: block; }
+
+/* ── MAIN ── */
+main { margin-left: 240px; }
+
+/* ── PANELS ── */
+.panel { display: none; }
+.panel.visible { display: block; }
+
+/* ── HERO ── */
+.hero {
+  padding: 72px 72px 56px;
+  border-bottom: 1px solid var(--faint);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  top: -260px; right: -160px;
+  pointer-events: none;
+}
+.hero.star::before { border: 1px solid rgba(232,101,26,0.05); }
+.hero.sun::before  { border: 1px solid rgba(245,197,24,0.05); }
+
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero.star .hero-eyebrow { color: var(--orange); }
+.hero.sun  .hero-eyebrow { color: var(--sun); }
+.hero-eyebrow::before { content: ''; width: 28px; height: 1px; }
+.hero.star .hero-eyebrow::before { background: var(--orange); }
+.hero.sun  .hero-eyebrow::before { background: var(--sun); }
+
+.hero-title {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 20px;
+  color: var(--cream);
+}
+.hero.star .hero-title .hl { color: var(--orange); }
+.hero.sun  .hero-title .hl { color: var(--sun); }
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+.hero.star .hero-badge { background: var(--orange-bg); border: 1px solid var(--orange-border); color: var(--cream); }
+.hero.sun  .hero-badge { background: var(--sun-bg);    border: 1px solid var(--sun-border);    color: var(--cream); }
+.hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; }
+.hero.star .hero-badge .dot { background: var(--orange); }
+.hero.sun  .hero-badge .dot { background: var(--sun); }
+
+.hero-desc {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+.hero-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.chip {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 2px;
+}
+.hero.star .chip { border: 1px solid var(--orange-border); background: var(--orange-bg); color: var(--cream); }
+.hero.star .chip span { color: var(--orange); }
+.hero.sun  .chip { border: 1px solid var(--sun-border); background: var(--sun-bg); color: var(--cream); }
+.hero.sun  .chip span { color: var(--sun); }
+
+/* ── CONTENT ── */
+.content { padding: 0 72px 120px; }
+
+.section { padding-top: 60px; padding-bottom: 28px; border-bottom: 1px solid var(--faint); }
+.section:last-child { border-bottom: none; }
+
+.section-eyebrow {
+  font-size: 10px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-eyebrow::before { content: ''; width: 18px; height: 1px; }
+.star .section-eyebrow,
+.star-section .section-eyebrow { color: var(--orange); }
+.star .section-eyebrow::before,
+.star-section .section-eyebrow::before { background: var(--orange); }
+.sun .section-eyebrow,
+.sun-section .section-eyebrow { color: var(--sun); }
+.sun .section-eyebrow::before,
+.sun-section .section-eyebrow::before { background: var(--sun); }
+
+.section-title {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: clamp(22px, 2.5vw, 34px);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.section-desc {
+  font-size: 13.5px;
+  color: var(--muted);
+  font-style: italic;
+  max-width: 680px;
+  margin-bottom: 36px;
+}
+
+/* ── SCRIPT CARDS ── */
+.cards-grid { display: flex; flex-direction: column; gap: 14px; }
+
+.script-card { border: 1px solid var(--faint); border-radius: 3px; overflow: hidden; transition: border-color .2s; }
+.script-card.good { border-left: 3px solid var(--green); }
+.script-card.bad  { border-left: 3px solid var(--red); }
+.script-card.note { border-left: 3px solid var(--orange); }
+.script-card:hover { border-color: rgba(232,101,26,0.3); }
+
+.card-header {
+  padding: 18px 22px 14px;
+  background: rgba(255,255,255,0.025);
+  border-bottom: 1px solid var(--faint);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.card-day {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 4px;
+  font-family: 'DM Mono', monospace;
+}
+.card-title { font-family: 'Comfortaa', sans-serif; font-size: 16px; font-weight: 700; color: var(--cream); line-height: 1.3; }
+.card-stats { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+.stat-pill { text-align: center; background: var(--card); border: 1px solid var(--faint); border-radius: 2px; padding: 5px 11px; min-width: 68px; }
+.stat-val { display: block; font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--orange); }
+.stat-lbl { display: block; font-size: 9px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.card-body { padding: 18px 22px; }
+.card-quote { font-size: 13px; color: rgba(244,238,228,0.7); font-style: italic; border-left: 2px solid var(--orange); padding: 9px 13px; margin-bottom: 12px; background: var(--orange-bg); line-height: 1.6; }
+.card-quote strong { color: var(--orange); font-style: normal; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: 5px; }
+.card-insight { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.card-insight strong { color: var(--cream); }
+
+/* ── STEPS ── */
+.steps { display: flex; flex-direction: column; }
+.step { display: grid; grid-template-columns: 64px 1fr; border: 1px solid var(--faint); border-bottom: none; transition: border-color .2s; }
+.step:first-child { border-radius: 3px 3px 0 0; }
+.step:last-child { border-bottom: 1px solid var(--faint); border-radius: 0 0 3px 3px; }
+.step:hover { border-color: rgba(232,101,26,0.3); }
+.step-num { display: flex; align-items: flex-start; justify-content: center; padding-top: 22px; font-family: 'Comfortaa', sans-serif; font-size: 20px; font-weight: 700; }
+.star-section .step-num { background: var(--orange-bg); border-right: 1px solid var(--orange-border); color: var(--orange); }
+.sun-section  .step-num { background: var(--sun-bg);    border-right: 1px solid var(--sun-border);    color: var(--sun); }
+.step-body { padding: 22px 26px; }
+.step-title { font-family: 'Comfortaa', sans-serif; font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 8px; }
+.step-desc { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+.step-desc strong { color: var(--cream); }
+
+/* ── INFO BOXES ── */
+.info-box { border-radius: 3px; padding: 18px 22px; margin: 16px 0; border: 1px solid; }
+.info-box.orange { background: var(--orange-bg); border-color: var(--orange-border); }
+.info-box.green  { background: var(--green-bg);  border-color: var(--green-border); }
+.info-box.blue   { background: var(--blue-bg);   border-color: var(--blue-border); }
+.info-box.red    { background: var(--red-bg);     border-color: var(--red-border); }
+.info-box.sun    { background: var(--sun-bg);     border-color: var(--sun-border); }
+.info-box-title { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 10px; }
+.info-box.orange .info-box-title { color: var(--orange); }
+.info-box.green  .info-box-title { color: var(--green); }
+.info-box.blue   .info-box-title { color: var(--blue); }
+.info-box.sun    .info-box-title { color: var(--sun); }
+.info-box ul { list-style: none; }
+.info-box ul li { font-size: 13px; color: var(--muted); padding: 5px 0 5px 18px; position: relative; line-height: 1.55; }
+.info-box ul li::before { content: '→'; position: absolute; left: 0; font-size: 11px; }
+.info-box.orange ul li::before { color: var(--orange); }
+.info-box.green  ul li::before { color: var(--green); }
+.info-box.blue   ul li::before { color: var(--blue); }
+.info-box.sun    ul li::before { color: var(--sun); }
+.info-box p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.info-box p strong { color: var(--cream); }
+
+/* ── COMPARE ── */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+.compare-box { border: 1px solid var(--faint); border-radius: 3px; overflow: hidden; }
+.compare-header { padding: 11px 14px; font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+.compare-header.good { background: var(--green-bg); color: var(--green); border-bottom: 1px solid var(--green-border); }
+.compare-header.bad  { background: var(--red-bg);   color: var(--red);   border-bottom: 1px solid var(--red-border); }
+.compare-items { padding: 10px 14px; }
+.compare-item { font-size: 12.5px; color: var(--muted); padding: 5px 0 5px 13px; position: relative; line-height: 1.5; border-bottom: 1px solid var(--faint); }
+.compare-item:last-child { border-bottom: none; }
+.compare-item::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 5px; border-radius: 50%; }
+.compare-box.good .compare-item::before { background: var(--green); }
+.compare-box.bad  .compare-item::before { background: var(--red); }
+
+/* ── MUST-HAVES ── */
+.must-haves { display: flex; flex-direction: column; gap: 16px; }
+.must-item { display: grid; grid-template-columns: 44px 1fr; gap: 18px; padding: 20px 22px; background: var(--card); border: 1px solid var(--faint); border-radius: 3px; transition: border-color .2s; }
+.must-item:hover { border-color: var(--orange-border); }
+.must-num { font-family: 'Comfortaa', sans-serif; font-size: 24px; font-weight: 700; color: var(--orange); opacity: .4; text-align: center; margin-top: 2px; }
+.must-title { font-family: 'Comfortaa', sans-serif; font-size: 14px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+.must-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.must-desc strong { color: var(--cream); }
+
+/* ── AVOID ── */
+.avoid-items { display: flex; flex-direction: column; gap: 16px; }
+.avoid-item { border: 1px solid var(--red-border); border-radius: 3px; overflow: hidden; }
+.avoid-header { background: var(--red-bg); padding: 14px 22px; display: flex; align-items: center; gap: 10px; }
+.avoid-num { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: var(--red); background: rgba(239,83,80,0.12); border: 1px solid var(--red-border); padding: 3px 9px; border-radius: 2px; flex-shrink: 0; }
+.avoid-title { font-family: 'Comfortaa', sans-serif; font-size: 14px; font-weight: 700; color: var(--cream); }
+.avoid-body { padding: 14px 22px; }
+.avoid-body p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+.avoid-body p:last-child { margin-bottom: 0; }
+.avoid-body p strong { color: var(--cream); }
+.example-box { margin-top: 10px; border-radius: 2px; overflow: hidden; }
+.example-row { padding: 9px 14px; font-family: 'DM Mono', monospace; font-size: 11.5px; line-height: 1.6; }
+.example-row.bad  { background: rgba(239,83,80,0.05); color: rgba(239,83,80,0.8); }
+.example-row.bad::before  { content: '✗  '; color: var(--red); }
+.example-row.good { background: rgba(76,175,80,0.05); color: rgba(76,175,80,0.8); }
+.example-row.good::before { content: '✓  '; color: var(--green); }
+
+/* ── CHEATSHEET ── */
+.checklist { display: flex; flex-direction: column; }
+.check-row { display: grid; grid-template-columns: 44px 1fr 130px; border: 1px solid var(--faint); border-bottom: none; transition: background .18s; }
+.check-row:first-child { border-radius: 3px 3px 0 0; }
+.check-row:last-child { border-bottom: 1px solid var(--faint); border-radius: 0 0 3px 3px; }
+.check-row:hover { background: rgba(232,101,26,0.03); }
+.check-row:nth-child(even) { background: rgba(255,255,255,0.015); }
+.check-num { display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--orange); background: var(--orange-bg); border-right: 1px solid var(--faint); }
+.check-text { padding: 14px 18px; font-size: 13px; color: var(--cream); line-height: 1.5; border-right: 1px solid var(--faint); }
+.check-source { padding: 14px 14px; font-size: 11px; color: var(--muted); font-style: italic; display: flex; align-items: center; line-height: 1.4; }
+
+/* ── SUN: PHASE CARDS ── */
+.phase-cards { display: flex; flex-direction: column; gap: 0; }
+.phase-card { border: 1px solid var(--faint); border-bottom: none; display: grid; grid-template-columns: 200px 1fr; transition: border-color .2s; }
+.phase-card:first-child { border-radius: 3px 3px 0 0; }
+.phase-card:last-child { border-bottom: 1px solid var(--faint); border-radius: 0 0 3px 3px; }
+.phase-card:hover { border-color: var(--sun-border); }
+.phase-label {
+  background: var(--sun-bg);
+  border-right: 1px solid var(--sun-border);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.phase-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--sun-muted);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.phase-name {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sun);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.phase-timing {
+  font-size: 11px;
+  color: var(--sun-muted);
+  background: rgba(245,197,24,0.08);
+  border: 1px solid rgba(245,197,24,0.2);
+  padding: 3px 8px;
+  border-radius: 2px;
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+}
+.phase-body { padding: 24px 26px; }
+.phase-body .rule {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.phase-body .rule strong { color: var(--cream); }
+.phase-body .rule:last-child { margin-bottom: 0; }
+.rule-list { list-style: none; margin-top: 10px; }
+.rule-list li {
+  font-size: 13px;
+  color: var(--muted);
+  padding: 5px 0 5px 18px;
+  position: relative;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--faint);
+}
+.rule-list li:last-child { border-bottom: none; }
+.rule-list li::before { content: '→'; position: absolute; left: 0; font-size: 11px; color: var(--sun); }
+.rule-list li strong { color: var(--cream); }
+
+/* ── SUN: VISUAL FORMAT TABLE ── */
+.visual-table { display: flex; flex-direction: column; gap: 0; }
+.visual-row { display: grid; grid-template-columns: 120px 1fr 1fr; border: 1px solid var(--faint); border-bottom: none; }
+.visual-row:first-child { border-radius: 3px 3px 0 0; }
+.visual-row:last-child  { border-bottom: 1px solid var(--faint); border-radius: 0 0 3px 3px; }
+.visual-row.header { background: var(--sun-bg); }
+.visual-cell { padding: 12px 16px; font-size: 13px; color: var(--muted); border-right: 1px solid var(--faint); line-height: 1.5; }
+.visual-cell:last-child { border-right: none; }
+.visual-row.header .visual-cell { font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--sun); }
+.visual-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--sun);
+  background: var(--sun-bg);
+  border: 1px solid var(--sun-border);
+  padding: 3px 8px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+/* ── SUN: LOOP DIAGRAM ── */
+.loop-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 32px 0 24px;
+  flex-wrap: wrap;
+}
+.loop-step {
+  text-align: center;
+  padding: 18px 24px;
+  background: var(--sun-bg);
+  border: 1px solid var(--sun-border);
+  border-radius: 3px;
+  min-width: 120px;
+}
+.loop-step .loop-n {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--sun-muted);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.loop-step .loop-name {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--sun);
+}
+.loop-arrow {
+  font-size: 18px;
+  color: var(--sun-muted);
+  padding: 0 8px;
+  margin-top: 2px;
+}
+
+/* ── NEGATIVE PROMPT SECTION ── */
+.neg-items { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.neg-item { border: 1px solid rgba(239,83,80,0.2); border-radius: 3px; overflow: hidden; }
+.neg-header { background: rgba(239,83,80,0.06); padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+.neg-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--red); background: rgba(239,83,80,0.1); border: 1px solid rgba(239,83,80,0.25); padding: 2px 8px; border-radius: 2px; flex-shrink: 0; }
+.neg-title { font-family: 'Comfortaa', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--cream); }
+.neg-body { padding: 12px 20px; }
+.neg-body .def { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+.neg-body .eg { font-family: 'DM Mono', monospace; font-size: 11.5px; color: rgba(239,83,80,0.75); background: rgba(239,83,80,0.04); border-left: 2px solid rgba(239,83,80,0.3); padding: 7px 12px; border-radius: 0 2px 2px 0; }
+.neg-body .eg::before { content: 'e.g. '; color: var(--red); }
+
+/* ── FOOTER ── */
+footer { border-top: 1px solid var(--faint); padding: 36px 72px; display: flex; align-items: center; justify-content: space-between; }
+.footer-brand { font-family: 'Comfortaa', sans-serif; font-size: 13px; font-weight: 700; }
+.footer-brand span { color: var(--orange); }
+.footer-note { font-size: 11px; color: var(--muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  main { margin-left: 0; }
+  .hero, .content, footer { padding-left: 24px; padding-right: 24px; }
+  .compare, .phase-card, .visual-row { grid-template-columns: 1fr; }
+  .check-row { grid-template-columns: 40px 1fr; }
+  .check-source { display: none; }
+  .card-stats { display: none; }
+  .loop-diagram { gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<nav class="sidebar">
+  <div class="sidebar-brand">100<span>Circles</span></div>
+  <div class="sidebar-sub">Script Guidelines · March 2026</div>
+
+  <div class="sidebar-tabs">
+    <button class="sidebar-tab active-star" onclick="switchTab('star')">⭐ Star</button>
+    <button class="sidebar-tab" onclick="switchTab('sun')">☀️ Sun</button>
+  </div>
+
+  <!-- STAR nav -->
+  <div class="nav-group visible" id="nav-star">
+    <div class="nav-section star">Overview</div>
+    <a class="nav-link" href="#star-intro">What This Is</a>
+    <div class="nav-section star">Script Analysis</div>
+    <a class="nav-link" href="#star-top11">Top 11 Scripts</a>
+    <a class="nav-link" href="#star-worst5">Worst 5 Scripts</a>
+    <div class="nav-section star">Guidelines</div>
+    <a class="nav-link" href="#star-how">A. How to Write</a>
+    <a class="nav-link" href="#star-must">B. Must-Haves</a>
+    <a class="nav-link" href="#star-avoid">C. Things to Avoid</a>
+    <div class="nav-section star">Reference</div>
+    <a class="nav-link" href="#star-cheatsheet">Sprint Cheatsheet</a>
+  </div>
+
+  <!-- SUN nav -->
+  <div class="nav-group" id="nav-sun">
+    <div class="nav-section sun">Overview</div>
+    <a class="nav-link" href="#sun-intro">What This Is</a>
+    <a class="nav-link" href="#sun-loop">The Retention Loop</a>
+    <div class="nav-section sun">The 5 Phases</div>
+    <a class="nav-link" href="#sun-phases">Research → Visual</a>
+    <div class="nav-section sun">Rules</div>
+    <a class="nav-link" href="#sun-style">Style Guidelines</a>
+    <a class="nav-link" href="#sun-negative">Negative Prompt</a>
+    <div class="nav-section sun">Reference</div>
+    <a class="nav-link" href="#sun-template">Script Template</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════════
+     STAR SCRIPT PANEL
+══════════════════════════════════════════ -->
+<div class="panel visible" id="panel-star">
+
+  <div class="hero star">
+    <div class="hero-eyebrow">100Circles · Lights Camera LinkedIn</div>
+    <div class="hero-badge"><span class="dot"></span> Star Script — Data-Derived Guidelines</div>
+    <div class="hero-title">What the top<br>scripts <span class="hl">actually did</span></div>
+    <div class="hero-desc">Every rule derived from the 30-video marathon. The top 11 were reverse-engineered. The worst 5 were autopsied. Nothing assumed — all in the numbers.</div>
+    <div class="hero-chips">
+      <div class="chip">Based on <span>30 scripts</span></div>
+      <div class="chip">Metrics: <span>AVD · Retention · Engagement</span></div>
+      <div class="chip">Top <span>11</span> + Worst <span>5</span></div>
+      <div class="chip">March <span>2026</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- INTRO -->
+    <div class="section star-section" id="star-intro">
+      <div class="section-eyebrow">Overview</div>
+      <div class="section-title">What This Document Is</div>
+      <p style="font-size:14.5px;color:var(--muted);line-height:1.8;max-width:700px;margin-bottom:18px;">The three metrics used to evaluate script quality — AVD, Retention %, and Engagement — measure what the script did to viewers, not what the packaging did. CTR and unique viewers are excluded.</p>
+      <div class="info-box orange">
+        <div class="info-box-title">Why these 3 metrics, not CTR</div>
+        <ul>
+          <li>AVD (average view duration in seconds) — the moment the script stops being interesting, people swipe. AVD is the script's report card.</li>
+          <li>Retention % — how far into the script people got before leaving. Pinpoints exactly where the problem is.</li>
+          <li>Engagement (likes + comments) — a script that makes someone feel something earns a reaction. Comments mean the script said something that demanded a response.</li>
+          <li>CTR is excluded — it measures the thumbnail and title, not the script.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TOP 11 -->
+    <div class="section star-section" id="star-top11">
+      <div class="section-eyebrow">Script Analysis</div>
+      <div class="section-title">The Top 11 Scripts</div>
+      <p class="section-desc">Study the opening lines. That is where the performance gap is largest.</p>
+
+      <div class="cards-grid">
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 1 · #1 Script Score</div><div class="card-title">What is purple cow marketing?</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">2,640s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">55.6%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">39</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"What is purple cow marketing? So this is a concept introduced by Seth Godin..."</div>
+            <div class="card-insight">Opens by naming a concept most people haven't heard. The unfamiliarity is the hook — they stay to find out what it means. Uses a vivid concrete image (field of brown cows, one purple one) to make an abstract idea physically real. <strong>Sequence: concept → image → application.</strong></div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 11 · Highest Engagement of All 30 (77)</div><div class="card-title">Start your first LinkedIn & YouTube videos in just 3 days</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">58s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">61.8%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">77</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"Are you a founder, business leader or an executive who wants to start creating videos but couldn't get started for some reason?"</div>
+            <div class="card-insight">Speaks directly to the target persona in the first sentence. <strong>Validates the viewer's hesitation immediately</strong> ("couldn't get started") which creates recognition and trust. Analogy "tougher than going to the gym" makes the struggle relatable. Steps-based reassurance list as the CTA — you don't have to think, just follow.</div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 10 · Packaging Failure, Great Script</div><div class="card-title">Nike changed "Just Do It" to "Why Do It"</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">42s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">57.1%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">30</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"Most people know Nike for Just Do It. What they did next surprised a lot of people."</div>
+            <div class="card-insight"><strong>Curiosity gap structure:</strong> state what everyone knows, then signal something changed. Mid-script shifts from storytelling to direct viewer questions ("Why do you run? Why do you train?") — this personalises the script. Only 98 views because the thumbnail failed. <em>Prime repackage candidate for sprint.</em></div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 7 · Most Consistent Performer</div><div class="card-title">LinkedIn hack to turn strangers into customers</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">34s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">51.2%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">39</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"Here's a LinkedIn hack to turn strangers into warm prospects."</div>
+            <div class="card-insight">The word "hack" promises a shortcut. Script <strong>immediately delivers</strong> — step-by-step, concrete, no filler. Includes a personal example with real context. Nothing in this script exists that doesn't serve the stated promise. Model for how-to scripts.</div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 25 · Numbered List Retention Engine</div><div class="card-title">How Intercom became a status symbol in software</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">35s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">47.7%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">17</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"Here's 7 reasons how Intercom became a status symbol in software, like iPhone."</div>
+            <div class="card-insight"><strong>"7 reasons" is the retention engine</strong> — viewers stay because they track progress toward a known endpoint. The "like iPhone" comparison sets ambition immediately. Crisp labels per point (The widget was a public badge, Every customer became a billboard). Closing metaphor recaps the whole argument in one sentence.</div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 14 · Highest Unique Viewers of All 30 (605)</div><div class="card-title">This CEO is more famous than his own company</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">22s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">53.5%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">28</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"Do you know why a lot of people know Carl Pei? Not just because he's the founder of Nothing."</div>
+            <div class="card-insight">Opens with a question the viewer can answer, creating instant engagement. The "not just because" structure signals a deeper insight. <strong>Contrast does the argument without stating it explicitly:</strong> "Do you know the CEO of Xiaomi? Samsung? Most people don't. But they know Carl Pei."</div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 13 · Best Engagement-to-Views Ratio</div><div class="card-title">How Lovable and Emergent grew so fast</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">21s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">59.5%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">64</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"Do you know how companies like Emergent & Lovable are growing so fast? A big part of it is influencer marketing."</div>
+            <div class="card-insight"><strong>Question then immediate answer — no delay, no tease.</strong> "In 2026, attention is attention. And decision-makers are scrolling too." Two short sentences that reframe the viewer's worldview. CTA is a single word: "DM me Influencer."</div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 19 · Best Retention of Organic Videos (60.9%)</div><div class="card-title">Bajaj Finance made 2.7 lakh videos using AI</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">22s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">60.9%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">47</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"Rajeev Jain, CEO of Bajaj Finance, shared something that most brands will ignore."</div>
+            <div class="card-insight">Named CEO + named company + "most brands will ignore" = <strong>three credibility signals in one sentence.</strong> The script reacts alongside the viewer: "Can you believe that!!" Closes with a philosophical line that elevates the video beyond a news item: "Everyone can generate content. But not everyone can generate trust."</div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 26 · Best Opening Line Architecture</div><div class="card-title">How HubSpot and Clay created job titles that didn't exist</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">30s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">56%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">25</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"The best SaaS companies don't sell software. They sell who you become."</div>
+            <div class="card-insight">The opening line <strong>is the entire argument</strong> — everything after is evidence. Mid-script question resets attention: "So what's the actual playbook here?" Ends with a direct challenge to the viewer: "Is there a work role in your business that doesn't have a name yet?"</div>
+          </div>
+        </div>
+
+        <div class="script-card good">
+          <div class="card-header">
+            <div><div class="card-day">Day 9 · Mid-Action Entry Hook</div><div class="card-title">I'm using ChatGPT as my CRM and it actually works</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">26s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">43.6%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">37</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"...and try to use ChatGPT as my CRM. Here is how."</div>
+            <div class="card-insight">Opens mid-action — viewer enters a conversation already in progress. <strong>"Here is how" is a micro-promise</strong> that keeps people watching. Extremely specific steps (exported from Zoho, pasted into ChatGPT). No philosophical framing — just the system.</div>
+          </div>
+        </div>
+
+        <div class="script-card note">
+          <div class="card-header">
+            <div><div class="card-day">Day 3 · Note: Retention Gap Lesson</div><div class="card-title">This CEO spends crores on his content team</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">26s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">20.7%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">41</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"here under the tree. Welcome to B2B branding. I recently came across a CEO..."</div>
+            <div class="card-insight">8 words of warm-up before the content started. Retention dropped early (20.7%). <strong>Compare with Day 19 (Bajaj Finance): same category, stat front-loaded in sentence one, 60.9% retention.</strong> Same topic type. Different sequence. The warm-up cost 40 percentage points of retention.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- WORST 5 -->
+    <div class="section star-section" id="star-worst5">
+      <div class="section-eyebrow">Script Analysis</div>
+      <div class="section-title">The Worst 5 — Autopsies</div>
+      <p class="section-desc">In each case the script had a structural failure — not a topic failure. The same topics, handled differently, could have performed.</p>
+      <div class="cards-grid">
+
+        <div class="script-card bad">
+          <div class="card-header">
+            <div><div class="card-day">Day 17 · Worst Retention of All 30 (9.8%)</div><div class="card-title">From Clawd Bolt to OpenClaw in 3 weeks</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">22s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">9.8%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">0</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"This Viral AI project… changed names three times. It started as Clawd Bolt."</div>
+            <div class="card-insight"><strong>Fatal flaw: insider hook.</strong> 90% of viewers left in the first 6 seconds because the hook required prior knowledge of Clawd Bolt. The actual lesson (smart naming vs trademark risk) is interesting — but it arrives too late for anyone who didn't already care.</div>
+          </div>
+        </div>
+
+        <div class="script-card bad">
+          <div class="card-header">
+            <div><div class="card-day">Day 22 · Lowest Unique Viewers (17)</div><div class="card-title">How Slack became big without pitching to CEOs</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">17s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">26.6%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">1</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"Do you know how Slack became so big? They didn't start by pitching CEOs."</div>
+            <div class="card-insight"><strong>Fatal flaw: known story with no new angle.</strong> Standard PLG story, no new data, no personal angle. "Sometimes growth is not about selling harder. It's about changing the entry point" — true but generic. Known story + no new lens = immediate drop-off.</div>
+          </div>
+        </div>
+
+        <div class="script-card bad">
+          <div class="card-header">
+            <div><div class="card-day">Day 27 · Lowest AVD (16s) · Three Flaws in Two Lines</div><div class="card-title">How to Get Your First 10 Customers ft. Gary Vee (Part 1)</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">16s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">19.7%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">9</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line</strong>"How to get your first 10 customers. This is straight from Gary Vee's playbook."</div>
+            <div class="card-insight"><strong>Three fatal flaws:</strong> (1) "From Gary Vee's playbook" outsources authority — why watch you explain Gary Vee? (2) "Part 1" signals incomplete answer — people leave rather than commit to a series. (3) The tip (send a WhatsApp video) is underwhelming relative to the title promise. Gap between title and delivery killed retention.</div>
+          </div>
+        </div>
+
+        <div class="script-card bad">
+          <div class="card-header">
+            <div><div class="card-day">Day 23 + Day 29 · Duplicate Scripts — Both Suppressed</div><div class="card-title">Content goldmine / Sales Calls into Content</div></div>
+            <div class="card-stats">
+              <div class="stat-pill"><span class="stat-val">20/23s</span><span class="stat-lbl">AVD</span></div>
+              <div class="stat-pill"><span class="stat-val">12.3%</span><span class="stat-lbl">Retention</span></div>
+              <div class="stat-pill"><span class="stat-val">0/1</span><span class="stat-lbl">Engagement</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-quote"><strong>Opening line (both)</strong>"Are you running out of video ideas? Here's content goldmine part 2."</div>
+            <div class="card-insight"><strong>Fatal flaw: identical scripts posted 6 days apart.</strong> YouTube detects near-duplicate content and suppresses both. "Part 2" without a clear "Part 1" leaves the viewer without context. "Content goldmine" overpromises — the script delivers a tip, not a goldmine. <strong>This topic is on your sprint list — rebuild completely from scratch.</strong></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION A -->
+    <div class="section star-section" id="star-how">
+      <div class="section-eyebrow">Section A</div>
+      <div class="section-title">How to Write the Script</div>
+      <p class="section-desc">A 7-step structure derived from what the top scripts consistently did. A skeleton, not a formula.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Open with a Hook that Creates Instant Tension</div>
+            <div class="step-desc">First 3 seconds determine whether someone stays. Your hook must: introduce something unfamiliar (purple cow), signal something changed about something familiar (Nike), or address the viewer directly (Are you a founder who can't get started?).
+            <div class="info-box blue" style="margin-top:12px;"><div class="info-box-title">4 opening formats that worked</div><ul><li><strong>Named concept:</strong> "Here's what [concept] actually means — and why it matters."</li><li><strong>Curiosity gap:</strong> "Most people know [X]. What [brand] did next surprised everyone."</li><li><strong>Direct address:</strong> "Are you a [persona] who [has this specific problem]?"</li><li><strong>Shocking stat:</strong> "[Name], [title] of [company], shared something most brands will ignore. [Stat]."</li></ul></div></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Deliver the Promise in the First 10 Seconds</div>
+            <div class="step-desc">The hook buys you 10 seconds. In those 10 seconds the viewer must know exactly what they are getting. Do NOT build suspense for more than one sentence. <strong>If you use a question as the hook, answer it in the very next sentence.</strong></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Build the Middle with Concrete Specifics</div>
+            <div class="step-desc">Vague scripts lose viewers. Specific scripts hold them. The specificity gap is the retention gap.
+            <div class="compare"><div class="compare-box good"><div class="compare-header good">Use Specific</div><div class="compare-items"><div class="compare-item">Named people (Rajeev Jain, Carl Pei, Seth Godin)</div><div class="compare-item">Specific numbers (40 team members, ₹2.4–3.6 crores, 7 reasons)</div><div class="compare-item">Specific steps (exported from Zoho, pasted into ChatGPT)</div><div class="compare-item">Specific comparisons (like iPhone, tougher than the gym)</div></div></div><div class="compare-box bad"><div class="compare-header bad">Avoid Vague</div><div class="compare-items"><div class="compare-item">Generic claims ("most companies do this wrong")</div><div class="compare-item">Unnamed examples ("a CEO I know...")</div><div class="compare-item">Rounded numbers ("a lot of views", "many members")</div><div class="compare-item">Generic lessons ("sometimes think differently")</div></div></div></div></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Use One Analogy or Contrast Per Video</div>
+            <div class="step-desc">Purple cow in a field of brown cows. A chat widget that became the iPhone of software. Tougher than going to the gym. <strong>One strong analogy does more for retention than three explanatory sentences.</strong> More than one analogy dilutes each.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Place the Viewer Inside the Story Mid-Script</div>
+            <div class="step-desc">Any time the script shifts from third-person storytelling to second-person address, retention improves.
+            <div class="info-box green" style="margin-top:12px;"><ul><li>At least once mid-script, speak directly to the viewer.</li><li>Use "you", "your company", "your team" — not just "companies" or "founders".</li><li>Ask a question the viewer can answer for themselves without speaking.</li><li>Example: "Does your company have a role like this that doesn't have a name yet?"</li></ul></div></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">End with a Thought, Not Just a CTA</div>
+            <div class="step-desc">Day 19: "Everyone can generate content. But not everyone can generate trust." Then the CTA. Day 10: "Why do you think they changed it?" Then the comment prompt. <strong>The closing thought gives the viewer something to react to — which is what drives the engagement signal. Never end with just a CTA.</strong></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Read It Out Loud Before Recording</div>
+            <div class="step-desc">Every script in the top 11 reads naturally when spoken. Every script in the worst 5 has at least one sentence that is easier to read than to say. <strong>Mark every moment you hesitate — those are the sentences that need rewriting.</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION B -->
+    <div class="section star-section" id="star-must">
+      <div class="section-eyebrow">Section B</div>
+      <div class="section-title">Must-Haves</div>
+      <p class="section-desc">Appear in 3 or more of the top 5 scripts. Their absence from the worst 5 is notable.</p>
+      <div class="must-haves">
+        <div class="must-item"><div class="must-num">1</div><div><div class="must-title">A Specific Named Person or Brand in the First 10 Seconds</div><div class="must-desc"><strong>Unnamed examples feel like opinions. Named examples feel like evidence.</strong> Day 1: Seth Godin. Day 10: Nike. Day 19: Rajeev Jain, Bajaj Finance. Day 14: Carl Pei.</div></div></div>
+        <div class="must-item"><div class="must-num">2</div><div><div class="must-title">A Number — Specific, Not Rounded</div><div class="must-desc">2.7 lakh videos (not "a lot"). 40 team members (not "a large team"). 7 reasons (not "several"). <strong>Specific numbers signal research and stop the scroll.</strong></div></div></div>
+        <div class="must-item"><div class="must-num">3</div><div><div class="must-title">One Clear Outcome Stated Upfront</div><div class="must-desc">"Here's a LinkedIn hack to turn strangers into warm prospects." "Here's 7 reasons how Intercom became a status symbol." <strong>One promise. Fulfilled completely.</strong></div></div></div>
+        <div class="must-item"><div class="must-num">4</div><div><div class="must-title">A Contrast or Comparison That Does the Argument For You</div><div class="must-desc">"HubSpot took 6 years. Clay did it in 2." "Do you know the CEO of Xiaomi? Most people don't. But they know Carl Pei." <strong>They make the viewer feel the gap without being told about it.</strong></div></div></div>
+        <div class="must-item"><div class="must-num">5</div><div><div class="must-title">A Direct Question to the Viewer Before the CTA</div><div class="must-desc"><strong>Every question directed at the viewer is a micro-engagement event.</strong> It interrupts passive watching and asks for a mental response. That response drives the engagement metric.</div></div></div>
+        <div class="must-item"><div class="must-num">6</div><div><div class="must-title">The CTA Must Be a Single Word or Short Phrase</div><div class="must-desc">DM me "Brand". DM me "Influencer". Book a Call. <strong>Friction kills CTA conversion. The viewer's thumb is already moving — your CTA must be capturable in 2 seconds.</strong></div></div></div>
+      </div>
+    </div>
+
+    <!-- SECTION C -->
+    <div class="section star-section" id="star-avoid">
+      <div class="section-eyebrow">Section C</div>
+      <div class="section-title">Things to Strictly Avoid</div>
+      <p class="section-desc">Every item below caused viewer drop-off within the first 15 seconds or killed engagement at the end.</p>
+      <div class="avoid-items">
+        <div class="avoid-item"><div class="avoid-header"><span class="avoid-num">01</span><span class="avoid-title">Insider Knowledge as the Hook</span></div><div class="avoid-body"><p>Day 17 (Clawd Bolt): assumed the viewer knew what Clawd Bolt was. They didn't. <strong>9.8% retention.</strong> The hook must be universally understandable. Niche context can be introduced after the viewer is already watching.</p><div class="example-box"><div class="example-row bad">This viral AI project changed names three times. It started as Clawd Bolt.</div><div class="example-row good">When a startup gets a trademark warning from Anthropic, what do they do? They change their name. Three times.</div></div></div></div>
+        <div class="avoid-item"><div class="avoid-header"><span class="avoid-num">02</span><span class="avoid-title">The Well-Known Story With No New Angle</span></div><div class="avoid-body"><p>Day 22 (Slack): lowest unique viewers of all 30 (17 people). If you use a well-known brand story, bring a new data point, a current comparison, a personal application, or a counterintuitive reading. <strong>The story alone is not enough.</strong></p></div></div>
+        <div class="avoid-item"><div class="avoid-header"><span class="avoid-num">03</span><span class="avoid-title">"Part 1" or "Part 2" Without Full Standalone Value</span></div><div class="avoid-body"><p>Viewers do not commit to a series from a cold video. <strong>Every video must be a complete unit of value.</strong> Structure each part so the viewer gets a complete takeaway from that video alone. Never end with "more in Part 2."</p></div></div>
+        <div class="avoid-item"><div class="avoid-header"><span class="avoid-num">04</span><span class="avoid-title">Borrowed Authority as the Primary Credential</span></div><div class="avoid-body"><p>"This is straight from Gary Vee's playbook." <strong>The moment you outsource your authority, the viewer has a better option — go watch Gary Vee.</strong> Reference known names only to validate points you're already making from your own experience.</p></div></div>
+        <div class="avoid-item"><div class="avoid-header"><span class="avoid-num">05</span><span class="avoid-title">Duplicate Scripts</span></div><div class="avoid-body"><p>Days 23 and 29 used the identical script. YouTube suppressed both. <strong>Even two videos on the same topic must have a different angle, structure, and examples.</strong> Do not reuse any sentence from the marathon version in the sprint.</p></div></div>
+        <div class="avoid-item"><div class="avoid-header"><span class="avoid-num">06</span><span class="avoid-title">The Lesson Before the Story</span></div><div class="avoid-body"><p><strong>The story creates emotional investment. The lesson lands harder after the viewer has followed the narrative.</strong> Always story first, lesson second.</p></div></div>
+        <div class="avoid-item"><div class="avoid-header"><span class="avoid-num">07</span><span class="avoid-title">Vague Title Promises the Script Doesn't Deliver</span></div><div class="avoid-body"><p>"Content goldmine" promised a goldmine, delivered a tip. <strong>Either write the script to match a bold title, or tone down the title to match the script you actually wrote.</strong></p></div></div>
+        <div class="avoid-item"><div class="avoid-header"><span class="avoid-num">08</span><span class="avoid-title">Long Warm-Ups Before the Point</span></div><div class="avoid-body"><p>Day 3: 8 words before the content started. Worst retention of the top 11 (20.7%). <strong>Every word before the hook is a word that is losing viewers. Start with the content.</strong></p><div class="example-box"><div class="example-row bad">Here under the tree. Welcome to B2B branding. I recently came across a CEO...</div><div class="example-row good">Rajeev Jain, CEO of Bajaj Finance, shared something most brands will ignore.</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- CHEATSHEET -->
+    <div class="section star-section" id="star-cheatsheet">
+      <div class="section-eyebrow">Reference</div>
+      <div class="section-title">Sprint Cheatsheet</div>
+      <p class="section-desc">Run through this before writing and before recording. Every item derived from an actual performance gap.</p>
+      <div class="checklist">
+        <div class="check-row"><div class="check-num">1</div><div class="check-text">Does my first sentence work for someone who has never heard of me or my topic?</div><div class="check-source">Day 17 failure</div></div>
+        <div class="check-row"><div class="check-num">2</div><div class="check-text">Is there a specific name, number, or stat in the first 10 seconds?</div><div class="check-source">Day 1, 19, 25 success</div></div>
+        <div class="check-row"><div class="check-num">3</div><div class="check-text">Does the viewer know exactly what they will get before the 10-second mark?</div><div class="check-source">Day 7, 11 success</div></div>
+        <div class="check-row"><div class="check-num">4</div><div class="check-text">Is there a single analogy or contrast that does the argument for me?</div><div class="check-source">Day 1, 10, 14, 25</div></div>
+        <div class="check-row"><div class="check-num">5</div><div class="check-text">Does the script speak directly to the viewer ("you", "your") at least once mid-script?</div><div class="check-source">Day 10, 11 success</div></div>
+        <div class="check-row"><div class="check-num">6</div><div class="check-text">Is the story before the lesson — not the other way around?</div><div class="check-source">Day 22 failure</div></div>
+        <div class="check-row"><div class="check-num">7</div><div class="check-text">Does this video stand completely alone, with no dependency on a Part 1 or Part 2?</div><div class="check-source">Day 27 failure</div></div>
+        <div class="check-row"><div class="check-num">8</div><div class="check-text">Am I making a claim from my own experience — not borrowed from someone else's?</div><div class="check-source">Day 27 failure</div></div>
+        <div class="check-row"><div class="check-num">9</div><div class="check-text">Is the closing thought a complete idea before the CTA arrives?</div><div class="check-source">Day 19, 26 success</div></div>
+        <div class="check-row"><div class="check-num">10</div><div class="check-text">Is the CTA a single word or short phrase — not a paragraph?</div><div class="check-source">Day 7, 13, 14 success</div></div>
+        <div class="check-row"><div class="check-num">11</div><div class="check-text">Have I read the script out loud and removed every sentence I hesitated on?</div><div class="check-source">All top 5 flow naturally</div></div>
+        <div class="check-row"><div class="check-num">12</div><div class="check-text">Is this script completely different from any previous video on the same topic?</div><div class="check-source">Day 23 / 29 failure</div></div>
+      </div>
+    </div>
+
+  </div><!-- end content -->
+  <footer>
+    <div class="footer-brand">100<span>Circles</span> · Lights Camera LinkedIn</div>
+    <div class="footer-note">100circles.com · Confidential · Internal use only</div>
+  </footer>
+</div><!-- end panel-star -->
+
+
+<!-- ══════════════════════════════════════════
+     SUN SCRIPT PANEL
+══════════════════════════════════════════ -->
+<div class="panel" id="panel-sun">
+
+  <div class="hero sun">
+    <div class="hero-eyebrow">100Circles · Lights Camera LinkedIn</div>
+    <div class="hero-badge"><span class="dot"></span> Sun Script — Viral Shorts Framework</div>
+    <div class="hero-title">30–40 second<br><span class="hl">retention loop</span></div>
+    <div class="hero-desc">A structured framework for writing viral YouTube Shorts. Five phases. One loop. Covers Brand Building, Marketing, AI for Marketing, Growth, and Startups. Negative prompt applied throughout.</div>
+    <div class="hero-chips">
+      <div class="chip">Target: <span>30–40 seconds</span></div>
+      <div class="chip">Format: <span>Hook → Problem → Insight → Conclusion</span></div>
+      <div class="chip">Goal: <span>Maximum retention</span></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- INTRO -->
+    <div class="section sun-section" id="sun-intro">
+      <div class="section-eyebrow">Overview</div>
+      <div class="section-title">What This Framework Is</div>
+      <p style="font-size:14.5px;color:var(--muted);line-height:1.8;max-width:700px;margin-bottom:18px;">The Sun Script is a structured prompt-based framework for writing 30–40 second YouTube Shorts. It runs through five phases before a word of script is written — starting with research, ending with visual direction. The negative prompt is built in: every generated script should be checked against the 6 AI writing patterns listed in the Negative Prompt section and stripped of them before recording.</p>
+      <div class="info-box sun">
+        <div class="info-box-title">Topic categories this covers</div>
+        <ul>
+          <li>Brand Building</li>
+          <li>Marketing</li>
+          <li>AI for Marketing or Growth</li>
+          <li>Startups</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LOOP -->
+    <div class="section sun-section" id="sun-loop">
+      <div class="section-eyebrow">Core Structure</div>
+      <div class="section-title">The Retention Loop</div>
+      <p class="section-desc">This is the sequence every Sun Script follows. Every section of the script maps to one of these four beats.</p>
+      <div class="loop-diagram">
+        <div class="loop-step"><div class="loop-n">01</div><div class="loop-name">Hook</div></div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-step"><div class="loop-n">02</div><div class="loop-name">Problem</div></div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-step"><div class="loop-n">03</div><div class="loop-name">Insight</div></div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-step"><div class="loop-n">04</div><div class="loop-name">Conclusion</div></div>
+      </div>
+      <div class="info-box sun">
+        <ul>
+          <li><strong>Hook:</strong> Stop the scroll. Create curiosity or reveal a surprising fact before anything else.</li>
+          <li><strong>Problem:</strong> Set up the question, tension, or gap the viewer now wants resolved.</li>
+          <li><strong>Insight:</strong> The key revelation — the thing they didn't know or didn't expect. This is the core of the video.</li>
+          <li><strong>Conclusion:</strong> A strong takeaway, surprising close, or viewer question that drives comments.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5 PHASES -->
+    <div class="section sun-section" id="sun-phases">
+      <div class="section-eyebrow">The 5 Phases</div>
+      <div class="section-title">Research to Visual Direction</div>
+      <p class="section-desc">Run through all five phases before writing a single word of script. Phase 1 prevents shallow scripts. Phase 5 prevents scripts that can't be visualised.</p>
+
+      <div class="phase-cards">
+
+        <div class="phase-card">
+          <div class="phase-label">
+            <div class="phase-num">Phase 01</div>
+            <div class="phase-name">Research</div>
+          </div>
+          <div class="phase-body">
+            <div class="rule">Before writing anything, quickly analyse the topic and identify three things:</div>
+            <ul class="rule-list">
+              <li><strong>The most interesting or surprising fact</strong> — not the most obvious one.</li>
+              <li><strong>Why people care about it right now</strong> — timeliness, relevance, stakes.</li>
+              <li><strong>What makes it useful, shocking, or controversial</strong> — this becomes the hook angle.</li>
+            </ul>
+            <div class="rule" style="margin-top:14px;">The research phase answers one question: <strong>what will stop people from scrolling?</strong> If you can't answer that before writing, don't write yet.</div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-label">
+            <div class="phase-num">Phase 02</div>
+            <div class="phase-name">Hook</div>
+            <div class="phase-timing">First 2–3 sec</div>
+          </div>
+          <div class="phase-body">
+            <div class="rule">Write a scroll-stopping hook. <strong>Keep it under 10 words if possible.</strong></div>
+            <ul class="rule-list">
+              <li>Create curiosity — the viewer must feel they'll miss something if they swipe.</li>
+              <li>Reveal a surprising fact — something they didn't know, stated in the first sentence.</li>
+              <li>Challenge what people believe — contradict a common assumption about your topic.</li>
+            </ul>
+            <div class="info-box sun" style="margin-top:14px;">
+              <div class="info-box-title">Hook quality test</div>
+              <p>Read the hook to someone who doesn't know your topic. If they don't immediately ask "and then what?" — rewrite it. The hook's only job is to make the next sentence feel necessary.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-label">
+            <div class="phase-num">Phase 03</div>
+            <div class="phase-name">Main Content</div>
+            <div class="phase-timing">20–25 sec</div>
+          </div>
+          <div class="phase-body">
+            <div class="rule">Explain the topic in <strong>simple English</strong>. No jargon. Short sentences. High energy.</div>
+            <ul class="rule-list">
+              <li><strong>Explain the problem or question</strong> the hook raised — give it context.</li>
+              <li><strong>Reveal the key insight</strong> — the thing the viewer came to learn.</li>
+              <li><strong>Give a quick example or comparison</strong> — one concrete illustration locks in the insight.</li>
+            </ul>
+            <div class="rule" style="margin-top:14px;"><strong>The audience should learn something instantly useful.</strong> If the viewer walks away unable to explain what they learned in one sentence, the main content failed.</div>
+            <div class="info-box orange" style="margin-top:14px;">
+              <div class="info-box-title">Rules for main content</div>
+              <ul>
+                <li>Short sentences — maximum 12 words per sentence.</li>
+                <li>Easy language — if a 16-year-old wouldn't understand it, rewrite it.</li>
+                <li>High energy — write like you're telling a friend something they must know.</li>
+                <li>No technical jargon — if you use a term, explain it in the same sentence.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-label">
+            <div class="phase-num">Phase 04</div>
+            <div class="phase-name">Ending</div>
+            <div class="phase-timing">Last 5 sec</div>
+          </div>
+          <div class="phase-body">
+            <div class="rule">End with one of three options:</div>
+            <ul class="rule-list">
+              <li><strong>A strong takeaway</strong> — the lesson distilled into one sentence. "Everyone can generate content. But not everyone can generate trust."</li>
+              <li><strong>A surprising conclusion</strong> — a twist or implication the viewer didn't see coming.</li>
+              <li><strong>A viewer question that drives comments</strong> — direct and specific. "Why do you think they changed it?" Not "what do you think?"</li>
+            </ul>
+            <div class="rule" style="margin-top:14px;">The ending is also where the CTA goes — after the thought, never instead of it. <strong>Keep the CTA to one word or a short phrase.</strong></div>
+          </div>
+        </div>
+
+        <div class="phase-card">
+          <div class="phase-label">
+            <div class="phase-num">Phase 05</div>
+            <div class="phase-name">Visual Direction</div>
+          </div>
+          <div class="phase-body">
+            <div class="rule">For each section of the script, write a visual suggestion alongside it. Use this exact format:</div>
+            <div class="visual-table" style="margin-top:14px;">
+              <div class="visual-row header">
+                <div class="visual-cell">Section</div>
+                <div class="visual-cell">Script</div>
+                <div class="visual-cell">Visual</div>
+              </div>
+              <div class="visual-row">
+                <div class="visual-cell"><span class="visual-tag">HOOK</span></div>
+                <div class="visual-cell" style="color:var(--muted);">Write the hook line here</div>
+                <div class="visual-cell" style="color:var(--muted);">What the viewer sees while this is said</div>
+              </div>
+              <div class="visual-row">
+                <div class="visual-cell"><span class="visual-tag">MAIN 1</span></div>
+                <div class="visual-cell" style="color:var(--muted);">First main content beat</div>
+                <div class="visual-cell" style="color:var(--muted);">Suggested visual / b-roll / text popup</div>
+              </div>
+              <div class="visual-row">
+                <div class="visual-cell"><span class="visual-tag">MAIN 2</span></div>
+                <div class="visual-cell" style="color:var(--muted);">Second main content beat</div>
+                <div class="visual-cell" style="color:var(--muted);">Suggested visual</div>
+              </div>
+              <div class="visual-row">
+                <div class="visual-cell"><span class="visual-tag">ENDING</span></div>
+                <div class="visual-cell" style="color:var(--muted);">Takeaway + CTA</div>
+                <div class="visual-cell" style="color:var(--muted);">Final visual / call-to-action screen</div>
+              </div>
+            </div>
+            <ul class="rule-list" style="margin-top:14px;">
+              <li>Screen recordings — useful for showing tools, dashboards, or processes.</li>
+              <li>Text popups — reinforce key numbers or phrases the viewer must not miss.</li>
+              <li>B-roll footage — adds visual texture to talking-head sections.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- STYLE GUIDELINES -->
+    <div class="section sun-section" id="sun-style">
+      <div class="section-eyebrow">Style Guidelines</div>
+      <div class="section-title">How the Script Should Feel</div>
+      <p class="section-desc">These aren't about structure — they're about tone. Every Sun Script should pass this feel test before recording.</p>
+      <div class="compare">
+        <div class="compare-box good">
+          <div class="compare-header good">The script should feel like</div>
+          <div class="compare-items">
+            <div class="compare-item">Fast paced — no sentence lingers</div>
+            <div class="compare-item">Engaging — it earns attention every 5 seconds</div>
+            <div class="compare-item">Conversational — you're telling a friend, not presenting</div>
+            <div class="compare-item">Natural English — reads exactly as you speak</div>
+          </div>
+        </div>
+        <div class="compare-box bad">
+          <div class="compare-header bad">Avoid</div>
+          <div class="compare-items">
+            <div class="compare-item">Long explanations — one sentence, one idea</div>
+            <div class="compare-item">Complicated terms — simplify or cut</div>
+            <div class="compare-item">Slow storytelling — get to the point in the first 3 seconds</div>
+            <div class="compare-item">AI-sounding phrasing — see Negative Prompt section</div>
+          </div>
+        </div>
+      </div>
+      <div class="info-box sun" style="margin-top:18px;">
+        <div class="info-box-title">Goal of every Sun Script</div>
+        <p>Maximum retention in 30–40 seconds. If you can cut a sentence without losing information, cut it. If the viewer's attention could drift anywhere in the script, that sentence is a problem.</p>
+      </div>
+    </div>
+
+    <!-- NEGATIVE PROMPT -->
+    <div class="section sun-section" id="sun-negative">
+      <div class="section-eyebrow">Negative Prompt</div>
+      <div class="section-title">6 Patterns to Remove From Every Draft</div>
+      <p class="section-desc">These are applied as a negative prompt during generation. After AI writes a draft, do a manual pass to remove any remaining instances. If you remove these patterns, the remaining text has to carry meaning on its own — which is the point.</p>
+      <div class="neg-items">
+        <div class="neg-item">
+          <div class="neg-header"><span class="neg-num">01</span><span class="neg-title">Contrast Framing</span></div>
+          <div class="neg-body">
+            <div class="def">A claim is introduced by setting up an opposing alternative as a foil. The structure creates an illusion of insight without adding information.</div>
+            <div class="eg">This isn't about tools. It's about mindset.</div>
+          </div>
+        </div>
+        <div class="neg-item">
+          <div class="neg-header"><span class="neg-num">02</span><span class="neg-title">Synthetic Repetition</span></div>
+          <div class="neg-body">
+            <div class="def">A point is restated with near-synonyms without adding information. Creates word count, not meaning.</div>
+            <div class="eg">Clarity matters. Precision matters. Intent matters.</div>
+          </div>
+        </div>
+        <div class="neg-item">
+          <div class="neg-header"><span class="neg-num">03</span><span class="neg-title">Triadic Closure</span></div>
+          <div class="neg-body">
+            <div class="def">Ideas are packaged into groups of three to create a sense of completeness. The grouping does the work that the ideas don't.</div>
+            <div class="eg">People. Process. Technology.</div>
+          </div>
+        </div>
+        <div class="neg-item">
+          <div class="neg-header"><span class="neg-num">04</span><span class="neg-title">Declarative Authority</span></div>
+          <div class="neg-body">
+            <div class="def">A broad claim is stated with confidence while omitting scope, evidence, or conditions. Sounds certain. Isn't.</div>
+            <div class="eg">AI is reshaping the future of work.</div>
+          </div>
+        </div>
+        <div class="neg-item">
+          <div class="neg-header"><span class="neg-num">05</span><span class="neg-title">Performative Vulnerability</span></div>
+          <div class="neg-body">
+            <div class="def">A personal admission is used to borrow credibility without contributing relevant detail. The confession does the work the argument doesn't.</div>
+            <div class="eg">I used to think this way. I was wrong.</div>
+          </div>
+        </div>
+        <div class="neg-item">
+          <div class="neg-header"><span class="neg-num">06</span><span class="neg-title">Discomfort Signalling</span></div>
+          <div class="neg-body">
+            <div class="def">A claim is introduced by announcing it will be hard to hear. The framing carries the weight that the argument does not yet earn.</div>
+            <div class="eg">Here's an uncomfortable truth...</div>
+          </div>
+        </div>
+      </div>
+      <div class="info-box red" style="margin-top:20px;">
+        <div class="info-box-title" style="color:var(--red);">The test</div>
+        <p>Delete every sentence that does not add a new piece of information. That edit will shorten the script. It will also improve the information density per word. If removing a sentence doesn't change what the viewer learns, the sentence should not be there.</p>
+      </div>
+    </div>
+
+    <!-- TEMPLATE -->
+    <div class="section sun-section" id="sun-template">
+      <div class="section-eyebrow">Reference</div>
+      <div class="section-title">Script Template</div>
+      <p class="section-desc">Copy this as the base prompt when generating a Sun Script. Replace [TOPIC] with the video topic before running.</p>
+      <div style="background:rgba(0,0,0,0.4); border:1px solid var(--sun-border); border-radius:3px; padding:28px 28px; font-family:'DM Mono',monospace; font-size:12.5px; line-height:1.9; color:rgba(245,197,24,0.75);">
+        <div style="color:var(--sun);font-weight:500;margin-bottom:16px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;">Prompt Template</div>
+Write a 30–40 second viral YouTube Shorts script for the topic: <span style="color:var(--cream);">[TOPIC]</span><br><br>
+
+The topic falls under one of these categories: Brand Building, Marketing, AI for Marketing or Growth, Startups.<br><br>
+
+<span style="color:var(--sun);">PHASE 1 — Research</span><br>
+Identify: the most interesting or surprising fact, why people care about it right now, what makes it useful, shocking, or controversial. Focus on what will stop people from scrolling.<br><br>
+
+<span style="color:var(--sun);">PHASE 2 — Hook (first 2–3 seconds)</span><br>
+Write a scroll-stopping hook under 10 words. Create curiosity, reveal a surprising fact, or challenge what people believe.<br><br>
+
+<span style="color:var(--sun);">PHASE 3 — Main Content (20–25 seconds)</span><br>
+Explain the topic in simple English. Short sentences. High energy. No jargon.<br>
+Structure: explain the problem or question → reveal the key insight → give a quick example or comparison.<br><br>
+
+<span style="color:var(--sun);">PHASE 4 — Ending (5 seconds)</span><br>
+End with a strong takeaway, surprising conclusion, or viewer question that drives comments.<br><br>
+
+<span style="color:var(--sun);">PHASE 5 — Visual Direction</span><br>
+For each section, include a visual suggestion using this format:<br>
+HOOK | Script: ... | Visual: ...<br>
+MAIN 1 | Script: ... | Visual: ...<br>
+MAIN 2 | Script: ... | Visual: ...<br>
+ENDING | Script: ... | Visual: ...<br><br>
+
+<span style="color:var(--red);font-size:11px;letter-spacing:.1em;text-transform:uppercase;">Negative Prompt — Apply to Output</span><br>
+Avoid: contrast framing, synthetic repetition, triadic closure, declarative authority, performative vulnerability, discomfort signalling. If removing a sentence doesn't change what the viewer learns, remove it.
+      </div>
+    </div>
+
+  </div><!-- end content -->
+  <footer>
+    <div class="footer-brand">100<span>Circles</span> · Lights Camera LinkedIn</div>
+    <div class="footer-note">100circles.com · Confidential · Internal use only</div>
+  </footer>
+</div><!-- end panel-sun -->
+
+</main>
+
+<script>
+function switchTab(tab) {
+  // panels
+  document.getElementById('panel-star').classList.toggle('visible', tab === 'star');
+  document.getElementById('panel-sun').classList.toggle('visible', tab === 'sun');
+  // nav groups
+  document.getElementById('nav-star').classList.toggle('visible', tab === 'star');
+  document.getElementById('nav-sun').classList.toggle('visible', tab === 'sun');
+  // tab buttons
+  const tabs = document.querySelectorAll('.sidebar-tab');
+  tabs[0].className = 'sidebar-tab' + (tab === 'star' ? ' active-star' : '');
+  tabs[1].className = 'sidebar-tab' + (tab === 'sun'  ? ' active-sun'  : '');
+  // scroll to top
+  window.scrollTo(0, 0);
+}
+
+// Active nav link on scroll
+function setupObserver(panelId, linkClass) {
+  const panel = document.getElementById(panelId);
+  if (!panel) return;
+  const sections = panel.querySelectorAll('.section[id]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-star','active-sun'));
+        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add(linkClass);
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+}
+setupObserver('panel-star', 'active-star');
+setupObserver('panel-sun',  'active-sun');
+</script>
+
+</body>
+</html>
