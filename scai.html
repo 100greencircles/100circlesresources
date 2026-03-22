@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude AI Skills — Supply Chain · IOOCircles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  /* Page */
+  --bg:#F4F7FF;
+  --surface:#FFFFFF;
+  --surface-2:#F0F4FF;
+
+  /* Primary — blue */
+  --blue:#4A80D4;
+  --blue-light:#EBF2FF;
+  --blue-mid:#C5D9F7;
+  --blue-dark:#2B5BA8;
+  --blue-text:#1E3F7A;
+
+  /* Domain — Procurement: soft red/rose */
+  --red:#E05C6A;
+  --red-light:#FFF0F1;
+  --red-mid:#F9C5CA;
+  --red-dark:#B73645;
+  --red-text:#8B1F2B;
+
+  /* Domain — Logistics: soft green/mint */
+  --green:#3DB87A;
+  --green-light:#EDFAF3;
+  --green-mid:#B2E8CE;
+  --green-dark:#1F8C54;
+  --green-text:#145C35;
+
+  /* Domain — Planning: soft amber/yellow */
+  --yellow:#E8A020;
+  --yellow-light:#FFFBEE;
+  --yellow-mid:#FAE0A0;
+  --yellow-dark:#B87A10;
+  --yellow-text:#7A4F00;
+
+  /* Text */
+  --text:#1A1F36;
+  --text-2:#4A5568;
+  --text-3:#8896AB;
+  --border:#E2E8F5;
+  --border-2:#C8D5EC;
+
+  --font-display:'DM Serif Display', serif;
+  --font-body:'Plus Jakarta Sans', sans-serif;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 2px 12px rgba(74,128,212,0.08);
+  --shadow-md:0 4px 24px rgba(74,128,212,0.12);
+}
+
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:400;line-height:1.7;overflow-x:hidden;}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--blue-mid);border-radius:99px;}
+
+/* Progress bar */
+#PB{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--green),var(--yellow));width:0%;z-index:400;transition:width .1s linear;}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:3px;left:0;right:0;z-index:300;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:.85rem 2.5rem;
+  background:rgba(244,247,255,0.9);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:var(--font-display);font-size:1.25rem;color:var(--text);letter-spacing:-.01em;white-space:nowrap;}
+.nav-logo em{font-style:normal;color:var(--blue);}
+.nav-tag{font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);padding:3px 10px;background:var(--blue-light);border-radius:99px;border:1px solid var(--blue-mid);}
+.nav-right{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap;}
+.nchip{display:flex;align-items:center;gap:5px;padding:4px 12px;border-radius:99px;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--border);color:var(--text-3);background:var(--surface);white-space:nowrap;}
+.nchip.blue{border-color:var(--blue-mid);color:var(--blue);background:var(--blue-light);}
+.nchip strong{color:var(--blue);font-size:.8rem;letter-spacing:0;}
+.prog-wrap{min-width:90px;}
+.prog-lbl{font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px;display:flex;justify-content:space-between;}
+.prog-lbl span:last-child{color:var(--blue);}
+.prog-track{height:4px;background:var(--blue-light);border-radius:99px;overflow:hidden;}
+.prog-fill{height:4px;background:linear-gradient(90deg,var(--blue),#7AB4F5);border-radius:99px;transition:width .5s ease;width:0%;}
+
+/* ─── HERO ─── */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:9rem 2rem 5rem;text-align:center;
+  background:var(--bg);
+}
+/* Blobs */
+.blob{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;animation:blobFloat 9s ease-in-out infinite;}
+.blob-1{width:520px;height:520px;background:rgba(74,128,212,0.13);top:-180px;left:-150px;}
+.blob-2{width:380px;height:380px;background:rgba(61,184,122,0.11);bottom:-120px;right:-80px;animation-delay:-4s;}
+.blob-3{width:260px;height:260px;background:rgba(232,160,32,0.1);top:35%;right:8%;animation-delay:-7s;}
+.blob-4{width:200px;height:200px;background:rgba(224,92,106,0.09);top:20%;left:5%;animation-delay:-2s;}
+@keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(18px,-22px) scale(1.04);}66%{transform:translate(-14px,12px) scale(.97);}}
+
+/* Dot grid bg */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(74,128,212,0.15) 1.5px,transparent 1.5px);
+  background-size:28px 28px;opacity:.5;pointer-events:none;
+}
+
+.hero-eyebrow{
+  position:relative;z-index:2;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 18px;border-radius:99px;
+  background:var(--blue-light);border:1.5px solid var(--blue-mid);
+  font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);
+  margin-bottom:2rem;animation:fadeUp .6s .2s ease both;
+}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+
+.hero-title{
+  position:relative;z-index:2;
+  font-family:var(--font-display);
+  font-size:clamp(2.8rem,7vw,7rem);
+  line-height:1.06;letter-spacing:-.03em;
+  color:var(--text);margin-bottom:1.5rem;
+  animation:fadeUp .7s .35s ease both;
+}
+.hero-title .word-blue{color:var(--blue);}
+.hero-title .word-green{color:var(--green);}
+.hero-title .word-red{color:var(--red);}
+
+.hero-sub{
+  position:relative;z-index:2;
+  font-size:clamp(.9rem,1.2vw,1.05rem);font-weight:400;color:var(--text-2);
+  max-width:520px;line-height:1.8;margin-bottom:2.5rem;
+  animation:fadeUp .7s .5s ease both;
+}
+
+/* Domain pills row */
+.domain-pills{
+  position:relative;z-index:2;
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  margin-bottom:3rem;animation:fadeUp .7s .65s ease both;
+}
+.dp{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:99px;font-size:.72rem;font-weight:600;letter-spacing:.06em;
+  border:1.5px solid;transition:transform .2s;cursor:default;
+}
+.dp:hover{transform:translateY(-2px);}
+.dp-blue{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue-text);}
+.dp-red{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dp-green{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dp-yellow{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.dp-dot{width:7px;height:7px;border-radius:50%;}
+.dp-blue .dp-dot{background:var(--blue);}
+.dp-red .dp-dot{background:var(--red);}
+.dp-green .dp-dot{background:var(--green);}
+.dp-yellow .dp-dot{background:var(--yellow);}
+
+/* Hero stats */
+.hero-stats{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;width:100%;max-width:520px;
+  box-shadow:var(--shadow-md);
+  animation:fadeUp .7s .8s ease both;
+}
+.hst{padding:1.4rem 1rem;text-align:center;border-right:1px solid var(--border);}
+.hst:last-child{border-right:none;}
+.hst-num{font-family:var(--font-display);font-size:2.6rem;color:var(--blue);line-height:1;}
+.hst-lbl{font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
+
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--text-3);
+  transition:opacity .4s;animation:fadeUp .7s 1.2s ease both;
+}
+.scroll-line{width:1px;height:32px;background:var(--blue-mid);overflow:hidden;position:relative;}
+.scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:linear-gradient(to bottom,var(--blue),var(--green));animation:dropLine 1.8s ease-in-out infinite;}
+@keyframes dropLine{0%{top:-100%}100%{top:100%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── BAND NAV ─── */
+.bnav-wrap{
+  background:var(--text);
+  position:sticky;top:60px;z-index:200;
+  border-bottom:none;
+}
+.bnav{max-width:1100px;margin:0 auto;display:flex;overflow-x:auto;}
+.btab{
+  flex-shrink:0;display:flex;align-items:center;gap:8px;
+  padding:1rem 1.8rem;
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);cursor:pointer;
+  border-bottom:3px solid transparent;
+  border-right:1px solid rgba(255,255,255,.07);
+  transition:all .2s;white-space:nowrap;
+}
+.btab:hover{color:rgba(255,255,255,.75);background:rgba(255,255,255,.04);}
+.btab.active{color:#fff;border-bottom-color:var(--blue);}
+.btab.complete{color:rgba(255,255,255,.55);}
+.btab.active.complete{color:#fff;}
+.tab-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;opacity:0;transition:opacity .2s;}
+.btab.complete .tab-dot{opacity:1;}
+.tab-pts{
+  font-size:.6rem;font-weight:400;letter-spacing:0;
+  padding:2px 8px;border-radius:99px;
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.3);
+  margin-left:2px;
+}
+.btab.active .tab-pts{background:rgba(74,128,212,.3);color:rgba(255,255,255,.7);}
+
+/* ─── MAIN ─── */
+.main{max-width:1100px;margin:0 auto;padding:3rem 2rem 6rem;}
+.bpanel{display:none;}
+.bpanel.active{display:block;}
+
+/* Band header */
+.bhead{
+  display:grid;grid-template-columns:1fr auto;gap:2.5rem;align-items:start;
+  padding:2.5rem 2rem 2rem;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);margin-bottom:1.5rem;
+  border-top:4px solid var(--blue);
+}
+.bey{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem;}
+.btitle{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.1;color:var(--text);margin-bottom:.5rem;}
+.bdesc{font-size:.88rem;color:var(--text-2);max-width:520px;line-height:1.75;}
+
+.bdom-row{display:flex;gap:6px;margin-top:1rem;flex-wrap:wrap;align-items:center;}
+.dchip{
+  padding:4px 12px;border-radius:99px;
+  font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  border:1.5px solid var(--border);color:var(--text-3);background:var(--surface-2);
+  transition:all .2s;
+}
+.dchip.p-done{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dchip.l-done{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dchip.s-done{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.bdom-note{font-size:.68rem;color:var(--text-3);}
+
+.bscore-blk{text-align:right;}
+.bscore-num{font-family:var(--font-display);font-size:3.5rem;color:var(--blue);line-height:1;}
+.bscore-sub{font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
+.bprog-track{height:3px;background:var(--blue-light);border-radius:99px;margin-top:10px;width:120px;margin-left:auto;}
+.bprog-fill{height:3px;background:var(--blue);border-radius:99px;transition:width .5s;width:0%;}
+
+/* Score row */
+.score-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;margin-bottom:1.5rem;
+  box-shadow:var(--shadow);
+}
+.src{background:var(--surface);padding:1.1rem 1rem;text-align:center;}
+.src-num{font-family:var(--font-display);font-size:1.8rem;color:var(--text);line-height:1;}
+.src-num.blue{color:var(--blue);}
+.src-num.grn{color:var(--green);}
+.src-lbl{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--text-3);margin-top:3px;}
+
+/* Unlock banner */
+.ub{
+  display:none;align-items:center;gap:12px;
+  padding:.9rem 1.4rem;
+  background:var(--green-light);border:1.5px solid var(--green-mid);
+  border-radius:var(--radius-sm);margin-bottom:1.5rem;
+  font-size:.85rem;color:var(--green-text);font-weight:500;
+}
+.ub.show{display:flex;}
+.ub strong{color:var(--green-dark);}
+.ub-icon{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+
+/* ─── ACTIVITY CARDS ─── */
+.act-list{display:flex;flex-direction:column;gap:6px;}
+.act{
+  background:var(--surface);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  transition:border-color .2s,box-shadow .2s,transform .15s;
+  box-shadow:var(--shadow);
+}
+.act:hover{border-color:var(--blue-mid);box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.act.open{border-color:var(--blue-mid);box-shadow:var(--shadow-md);}
+.act.open{border-left:3px solid var(--blue);}
+
+.atop{display:flex;align-items:flex-start;gap:14px;padding:1.3rem 1.4rem;cursor:pointer;}
+.anum{
+  width:28px;height:28px;border-radius:8px;
+  background:var(--blue-light);border:1.5px solid var(--blue-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:700;color:var(--blue);flex-shrink:0;margin-top:2px;
+  transition:all .2s;
+}
+.act.open .anum,.act:hover .anum{background:var(--blue);color:#fff;border-color:var(--blue);}
+.ainfo{flex:1;}
+.atitle{font-family:var(--font-display);font-size:1rem;color:var(--text);line-height:1.35;}
+.atag{font-size:.72rem;font-weight:500;color:var(--text-3);margin-top:3px;}
+.adchips{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;}
+.adc{
+  padding:2px 9px;border-radius:99px;
+  font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--text-3);background:var(--surface-2);
+  transition:all .2s;
+}
+.adc.pd{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.adc.ld{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.adc.sd{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.achev{font-size:.7rem;color:var(--text-3);flex-shrink:0;margin-top:5px;transition:transform .25s;}
+.act.open .achev{transform:rotate(180deg);color:var(--blue);}
+.abody{display:none;border-top:1px solid var(--border);padding:0 1.4rem 1.4rem;}
+.act.open .abody{display:block;}
+
+/* Domain tabs */
+.dtabs{display:flex;margin:1.2rem 0 1rem;gap:4px;}
+.dtab{
+  padding:6px 14px;border-radius:8px;
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);cursor:pointer;border:1.5px solid var(--border);background:var(--surface-2);
+  transition:all .2s;display:flex;align-items:center;gap:6px;
+}
+.dtab:hover{border-color:var(--blue-mid);color:var(--blue);}
+.dtab.pon{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dtab.lon{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dtab.son{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.dtcnt{
+  min-width:16px;height:16px;border-radius:99px;
+  font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;
+  background:rgba(0,0,0,.06);color:inherit;transition:all .2s;
+}
+.dpanel{display:none;}
+.dpanel.dp-on{display:block;}
+
+/* Example grid */
+.exgrid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+.exc{
+  background:var(--surface-2);
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:1.1rem;cursor:pointer;transition:all .2s;
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+.exc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .2s;}
+.exc:hover{border-color:var(--blue-mid);background:var(--surface);box-shadow:0 2px 12px rgba(74,128,212,.1);}
+.exc:hover::before,.exc.done::before{opacity:1;}
+
+/* Domain color accents on example cards */
+.dpanel[id*="_P"] .exc::before{background:var(--red);}
+.dpanel[id*="_L"] .exc::before{background:var(--green);}
+.dpanel[id*="_S"] .exc::before{background:var(--yellow);}
+.dpanel[id*="_P"] .exc:hover{border-color:var(--red-mid);}
+.dpanel[id*="_L"] .exc:hover{border-color:var(--green-mid);}
+.dpanel[id*="_S"] .exc:hover{border-color:var(--yellow-mid);}
+.dpanel[id*="_P"] .exc.done{background:var(--red-light);border-color:var(--red-mid);}
+.dpanel[id*="_L"] .exc.done{background:var(--green-light);border-color:var(--green-mid);}
+.dpanel[id*="_S"] .exc.done{background:var(--yellow-light);border-color:var(--yellow-mid);}
+
+.exn{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
+.extask{font-family:var(--font-display);font-size:.88rem;color:var(--text);margin-bottom:6px;line-height:1.4;flex:1;}
+.exdet{font-size:.75rem;color:var(--text-2);line-height:1.65;margin-bottom:10px;}
+.exfoot{display:flex;align-items:center;gap:6px;margin-top:auto;}
+.exbtn{
+  padding:5px 14px;border-radius:99px;
+  font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;border:1.5px solid var(--border-2);color:var(--text-3);background:var(--surface);
+  transition:all .2s;
+}
+.exbtn:hover{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue);}
+.exc.done .exbtn{background:var(--surface);border-color:var(--green-mid);color:var(--green-dark);}
+.ptspill{
+  padding:3px 9px;border-radius:99px;
+  font-size:.6rem;font-weight:700;letter-spacing:.06em;
+  background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);
+}
+
+/* Reveal animation */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--text);color:#fff;
+  padding:2rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.flogo{font-family:var(--font-display);font-size:1.3rem;}
+.flogo em{font-style:normal;color:var(--blue);}
+.fmeta{display:flex;flex-direction:column;gap:4px;text-align:right;}
+.fform{font-size:.8rem;color:rgba(255,255,255,.35);}
+.ftag{font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+
+/* Domain color lines on band header */
+.bhead.b0{border-top-color:var(--blue);}
+.bhead.b1{border-top-color:var(--green);}
+.bhead.b2{border-top-color:var(--red);}
+.bhead.b3{border-top-color:var(--yellow);}
+
+@media(max-width:760px){
+  nav{padding:.85rem 1.25rem;}
+  .nav-right{display:none;}
+  .hero-title{font-size:clamp(2.2rem,10vw,4rem);}
+  .hero-stats{grid-template-columns:1fr;}
+  .hst{border-right:none;border-bottom:1px solid var(--border);}
+  .hst:last-child{border-bottom:none;}
+  .bhead{grid-template-columns:1fr;}
+  .bscore-blk{text-align:left;}
+  .bprog-track{margin-left:0;}
+  .score-row{grid-template-columns:1fr 1fr;}
+  .exgrid{grid-template-columns:1fr;}
+  footer{text-align:center;justify-content:center;}
+  .fmeta{text-align:center;}
+  .btab{padding:.85rem 1.2rem;}
+  .bhead{padding:1.5rem 1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="PB"></div>
+
+<nav>
+  <div class="nav-logo">Claude <em>Supply Chain</em></div>
+  <div class="nav-tag">AI Skills Course</div>
+  <div class="nav-right">
+    <div class="nchip blue">Score <strong id="SV">0</strong>&thinsp;/ 1800</div>
+    <div class="nchip">Done <strong id="DV">0</strong>&thinsp;/ 180</div>
+    <div class="nchip">Bands <strong id="BV">0</strong>&thinsp;/ 4</div>
+    <div class="prog-wrap">
+      <div class="prog-lbl"><span>Overall</span><span id="PL">0%</span></div>
+      <div class="prog-track"><div class="prog-fill" id="PF"></div></div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+
+  <div class="hero-eyebrow"><div class="eyebrow-dot"></div>Self-Paced · 4 Bands · 180 Examples</div>
+
+  <h1 class="hero-title">
+    <span class="word-blue">Claude AI</span><br>
+    for <span class="word-green">Supply</span><br>
+    <span class="word-red">Chain</span>
+  </h1>
+
+  <p class="hero-sub">Built for VP, CPO & COO leaders, Logistics & Distribution teams, and Demand Planning professionals. Navigate freely — your score updates as you go.</p>
+
+  <div class="domain-pills">
+    <div class="dp dp-blue"><div class="dp-dot"></div>4 Bands</div>
+    <div class="dp dp-red"><div class="dp-dot"></div>Procurement &amp; Sourcing</div>
+    <div class="dp dp-green"><div class="dp-dot"></div>Logistics &amp; Operations</div>
+    <div class="dp dp-yellow"><div class="dp-dot"></div>Planning &amp; Strategy</div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hst"><div class="hst-num">1800</div><div class="hst-lbl">Max score</div></div>
+    <div class="hst"><div class="hst-num">20</div><div class="hst-lbl">Activities</div></div>
+    <div class="hst"><div class="hst-num">180</div><div class="hst-lbl">Examples</div></div>
+  </div>
+
+  <div class="scroll-hint" id="SH">scroll<div class="scroll-line"></div></div>
+</section>
+
+<div class="bnav-wrap"><div class="bnav" id="BN"></div></div>
+<div class="main"><div id="BP"></div></div>
+
+<footer>
+  <div class="flogo">IOO<em>Circles</em></div>
+  <div class="fmeta">
+    <div class="fform">I% Rule = O₂C</div>
+    <div class="ftag">Tech · Ideas · Actions</div>
+  </div>
+</footer>
+
+<script>
+const BANDS=[
+  {id:'b0',short:'Beginner',day:'Days 1–2',desc:'Fundamental Claude use: summarizing supply chain documents, fixing communications, drafting supplier emails, uploading contracts, and setting up Projects for vendor or lane management.'},
+  {id:'b1',short:'Practitioner',day:'Day 3',desc:'Structured prompting for supply chain analysis, building reusable Skills, researching markets and benchmarks, analyzing data from spreadsheets, and creating Artifacts and .md documents for team use.'},
+  {id:'b2',short:'Advanced',day:'Day 4',desc:'Extended thinking for complex supply chain decisions, 3-prompt chains for workflows, AI personas for procurement and logistics, multi-modal analysis of warehouse and data dashboards, and Cowork automation.'},
+  {id:'b3',short:'Strategist',day:'Day 5',desc:'API use cases for supply chain automation, multi-step pipeline design, output evaluation rubrics, AI governance policies for supply chain data, and designing AI onboarding for your supply chain team.'},
+];
+
+// Domains: P = Procurement & Sourcing, L = Logistics & Operations, S = Planning & Strategy
+const A={
+b0:[
+ {t:'Ask Claude to explain supply chain concepts and summarize documents',g:'Q&A · Multi-turn · Summarization',
+  P:[['Summarize a 40-page supplier RFP into a 5-point decision brief','Upload the RFP. Ask: "Summarize into 5 bullets. For each: the supplier\'s offer, key risk, pricing signal, compliance flag, and one question I should ask before shortlisting."'],
+     ['Ask Claude to explain Incoterms and when to use each one','Ask: "Explain the 11 Incoterms in plain English. For each: who bears risk, who pays freight, and the one scenario where this term is the right choice. Give me a decision cheat sheet."'],
+     ['Summarize a supplier audit report into leadership-ready talking points','Upload the audit PDF. Ask: "Summarize the top 3 compliance findings, the 2 highest-risk items, and what action I need to take before the next review cycle."']],
+  L:[['Summarize a carrier performance report into a quarterly review brief','Upload the report. Ask: "Extract on-time delivery rate, damage rate, and cost-per-lane vs. benchmark. Flag the 2 worst-performing lanes and the one carrier I should put on notice."'],
+     ['Ask Claude to explain the difference between 3PL, 4PL, and 5PL','Ask: "Explain 3PL vs. 4PL vs. 5PL for a VP of Logistics at a mid-sized manufacturer. When would I choose each? What are the hidden costs of each model?"'],
+     ['Summarize a freight audit invoice dispute into a claims letter outline','Paste the disputed invoice data. Ask: "Identify where the carrier overcharged based on agreed rates. Summarize the discrepancy in a format I can use to open a formal claims dispute."']],
+  S:[['Summarize last quarter\'s S&OP output into a leadership briefing','Paste the S&OP minutes or output. Ask: "Summarize: what consensus was reached, where demand and supply plans diverged, and the top 3 assumptions most at risk of being wrong this quarter."'],
+     ['Ask Claude to explain the bullwhip effect with real-world examples','Ask: "Explain the bullwhip effect for a demand planning manager. Give me: a plain-English definition, a real example from consumer electronics or FMCG, and 3 specific things I can do to dampen it."'],
+     ['Summarize a competitor\'s supply chain disruption announcement into strategic implications','Paste the press release. Ask: "What does this disruption tell me about their supply chain vulnerability? What market opportunity does this create? What risk does it pose if our supply base overlaps?"']]},
+ {t:'Fix, rewrite and control tone of supply chain communications',g:'Editing · Tone · Professional Writing',
+  P:[['Rewrite a supplier escalation email that sounds threatening','Paste the draft. Ask: "Rewrite to be firm and direct without damaging the relationship. The goal is to get a response and a corrective action plan — not to end the partnership."'],
+     ['Fix a procurement policy document that\'s too legalistic for the team to follow','Paste the policy. Ask: "Rewrite in plain English. Keep every rule intact but remove jargon. Format as numbered steps so a category manager can follow without a legal dictionary."'],
+     ['Rewrite an RFQ cover letter that buries what suppliers need to do','Paste it. Ask: "Rewrite so the first paragraph tells suppliers exactly what we\'re asking for, what the submission deadline is, and what criteria we\'ll use to evaluate them. No preamble."']],
+  L:[['Fix a carrier SLA document that\'s ambiguous on penalty clauses','Paste the SLA section. Ask: "Identify every clause that uses vague language. Rewrite each with a specific, measurable standard and a clear consequence for non-performance."'],
+     ['Rewrite a warehouse incident report that reads like a complaint','Paste it. Ask: "Rewrite as a factual incident report. Include: what happened, when, who was involved, what the immediate action was, and what the root cause appears to be. Neutral tone, no blame language."'],
+     ['Fix a last-mile delivery exception email to a customer that sounds dismissive','Paste it. Ask: "Rewrite to acknowledge the delay empathetically, explain what happened in one sentence, state the new delivery estimate, and offer a specific resolution. Under 100 words."']],
+  S:[['Rewrite a demand planning assumption log that\'s too technical for commercial review','Paste the log. Ask: "Rewrite for a commercial audience. Replace statistical terms with plain language. For each assumption: what we assumed, why, and what happens to the forecast if this assumption is wrong."'],
+     ['Fix a supply chain risk report that lists risks without prioritization','Paste it. Ask: "Reorganize into a prioritized risk register. For each risk: likelihood (H/M/L), impact (H/M/L), overall priority score, and one mitigation action. Add a \'watch list\' for emerging risks."'],
+     ['Rewrite an inventory policy memo that team members aren\'t following','Paste it. Ask: "Rewrite as a clear, actionable policy. Add: the reason this policy exists, what happens when it isn\'t followed, and who is accountable for enforcement. Under 400 words."']]},
+ {t:'Draft supply chain communications and documents in multiple styles',g:'Drafting · Variations · Stakeholder Communications',
+  P:[['Draft a supplier performance review email in 3 tones','Ask: "Write a supplier review email for a vendor who missed on-time delivery targets by 15% for 2 consecutive quarters. Write 3 versions: (A) formal and contractual, (B) collaborative and problem-solving, (C) final warning before tender."'],
+     ['Draft a sole-source justification memo in 3 formats','Ask: "Write a sole-source justification for procuring [item] from a single supplier. Write 3 versions: (A) executive one-pager, (B) detailed compliance memo for the audit file, (C) summarized version for a spend committee agenda."'],
+     ['Draft 3 versions of a supplier negotiation opening position statement','Ask: "Write 3 opening position statements for a price negotiation. (A) anchoring high with data, (B) collaborative framing around total cost of ownership, (C) competitive threat — signalling we\'re running a parallel tender."']],
+  L:[['Draft a 3PL RFP covering document in 3 levels of formality','Ask: "Write a covering letter for a 3PL RFP for our ambient warehouse and domestic distribution operation. (A) formal and corporate, (B) direct and commercial, (C) strategic partner framing for a long-term relationship."'],
+     ['Draft a carrier non-performance notice in 3 tones','Ask: "Write a formal notice for carrier [X] for 3 consecutive months of below-SLA on-time performance. (A) contractual notice, (B) collaborative improvement plan request, (C) termination warning with 60-day cure period."'],
+     ['Draft 3 versions of a customs delay explanation to a key customer','Ask: "Our shipment is delayed 8 days due to customs clearance. Write 3 customer-facing explanations: (A) formal apology with next steps, (B) brief and factual with revised ETA, (C) proactive with an alternative partial delivery offer."']],
+  S:[['Draft an S&OP pre-read document in 3 lengths','Ask: "Write an S&OP pre-read. Context: demand is tracking 12% above plan in one category and 8% below in another. Inventory cover is 6 weeks on the high side. Write: (A) 1-page exec summary, (B) 2-page detailed analysis, (C) 5-bullet Slack update."'],
+     ['Draft a supply chain disruption scenario briefing in 3 formats','Ask: "A key supplier has just announced a 6-week production halt. Write 3 versions of the internal disruption briefing: (A) immediate alert to leadership, (B) full risk assessment memo for the crisis team, (C) customer-facing holding statement."'],
+     ['Draft quarterly demand review commentary in 3 audience styles','Ask: "Write demand review commentary for Q3 where we overforecast by 18% in one SKU and underforecast by 22% in another. (A) for the commercial team, (B) for operations — what to do with the stock, (C) for the board — strategic implication."']]},
+ {t:'Upload supply chain documents and interrogate them',g:'Document Q&A · Contract Analysis · File Upload',
+  P:[['Upload a supplier contract and identify the 5 highest-risk clauses','Upload the contract. Ask: "Read this as a procurement lawyer. Identify the 5 clauses that most expose us to financial or operational risk. For each: what the clause says, why it\'s risky, and what I should negotiate to change it."'],
+     ['Upload a supplier\'s financial accounts and assess stability','Upload the PDF. Ask: "Assess this supplier\'s financial health. Look for: revenue trend, gross margin movement, debt-to-equity, cash position, and any going-concern flags. Give me a one-line verdict: low / medium / high supply chain risk."'],
+     ['Upload an existing supplier agreement and compare it to a new proposed contract','Upload both. Ask: "Compare these two contracts. What has the supplier changed to their advantage in the new version? What protections have been removed? What should I push back on before signing?"']],
+  L:[['Upload a lane profitability report and identify which routes to renegotiate','Upload the data. Ask: "Which lanes have the worst cost-per-unit vs. volume ratio? Which carriers are overcharging relative to market rates? Prioritize the top 3 renegotiation opportunities by expected annual saving."'],
+     ['Upload a warehouse layout plan and critique the flow design','Upload the image or PDF. Ask: "Review this warehouse layout. Where are the likely bottlenecks in pick-and-pack flow? What slotting changes would most improve throughput? What safety risks does this layout create?"'],
+     ['Upload a 3PL contract and identify clauses that favour the provider over us','Upload the contract. Ask: "Read this as a logistics commercial director. Identify where the contract protects the 3PL but not us — especially around: minimum volume commitments, KPI penalty caps, technology change costs, and exit clauses."']],
+  S:[['Upload last year\'s demand forecast vs. actuals and find the bias patterns','Upload the file. Ask: "Identify systematic forecast bias. Are we consistently over or under-forecasting? Does the bias concentrate in certain SKU categories, geographies, or time periods? What is the likely root cause?"'],
+     ['Upload an inventory aging report and recommend write-off and clearance actions','Upload the report. Ask: "Classify inventory by aging band. For stock over 180 days, recommend: write-off candidates, markdown/clearance candidates, and any that are genuinely strategic slow-movers. Quantify the total exposure."'],
+     ['Upload a supply chain risk assessment and stress-test the assumptions','Upload the document. Ask: "For each risk listed: is the likelihood realistic? Is the impact severity adequate? What scenario is not in this document that should be? Identify the single biggest gap in this risk assessment."']]},
+ {t:'Set up a Project and repurpose supply chain content across formats',g:'Projects · Memory · Content Repurposing',
+  P:[['Supplier Project + turn a negotiation debrief into 3 outputs','Create a Project with your supplier profile, contract terms, and negotiation history. Paste a debrief note. Ask Claude to generate: a formal outcome summary for the contract file, a leadership update email, and a lessons-learned note for future negotiations.'],
+     ['Category Project + repurpose a market analysis into 3 formats','Create a Category Project with your spend data and supplier landscape. Upload a market analysis. Ask Claude to: extract 5 executive insights, write a 1-page strategy recommendation, and draft a supplier briefing on market conditions.'],
+     ['Sourcing Project + turn tender evaluation scores into a recommendation memo','Create a Sourcing Project. Upload the tender scoring matrix. Ask Claude to write: a recommendation memo to the approval committee, a briefing for the unsuccessful suppliers, and a transition plan summary for the winning supplier.']],
+  L:[['Carrier Project + repurpose a QBR pack into 3 communication formats','Create a Carrier Project with your SLA terms and performance history. Upload a QBR pack. Ask Claude to generate: an executive summary of carrier performance, a formal notice for underperforming lanes, and a carrier improvement plan template.'],
+     ['Network Project + repurpose a distribution network review into 3 outputs','Create a Network Project. Upload a network review presentation. Ask Claude to produce: a leadership decision brief (1 page), a team briefing on proposed changes, and an FAQ document for operational staff affected by the network change.'],
+     ['3PL Project + turn contract negotiation notes into a position paper','Create a 3PL Project with the contract draft and your requirements. Upload the negotiation notes. Ask Claude to write: a formal position paper on 3 key sticking points, a counter-proposal email to the 3PL, and a risk log of unresolved commercial issues.']],
+  S:[['Demand Planning Project + repurpose an S&OP pack into 3 stakeholder formats','Create a Demand Planning Project with your forecast methodology and SKU hierarchy. Upload the S&OP pack. Ask Claude to generate: a commercial team briefing (what they need to do differently), an operations brief (what capacity decisions follow), and a 5-bullet board update.'],
+     ['Inventory Project + turn a slow-mover report into 3 action documents','Create an Inventory Project. Upload the slow-mover report. Ask Claude to generate: a clearance recommendation memo, a markdown approval request for finance, and a root cause analysis brief for the demand planning team.'],
+     ['Supply Risk Project + repurpose a risk register into 3 formats','Create a Supply Risk Project. Upload the risk register. Ask Claude to produce: a one-page board risk briefing, a detailed mitigation plan for the top 3 risks, and a supplier communication template for each critical risk scenario.']]}
+],
+b1:[
+ {t:'Write your first structured prompt (C+T+F+C) for supply chain tasks',g:'Prompt Engineering · Structured Inputs',
+  P:[['Build a structured prompt for supplier risk assessment briefs','"Context: I am head of procurement at a [industry] company. Task: assess the supply risk of [supplier name]. Format: structured brief — financial health, geographic risk, single-source dependency, recent performance, and recommended risk tier (Critical/Elevated/Managed). Constraints: flag any red flags explicitly. No vague statements."'],
+     ['Build a structured prompt for spend category analysis','"Context: I run category management for [category]. Task: analyze our current supplier base and spend distribution. Format: table — Supplier | Annual Spend | % of Category | Risk Level | Contract Status | Recommended Action. Constraints: highlight single-source dependencies and contracts expiring within 12 months."'],
+     ['Build a structured prompt for a supplier improvement plan','"Context: supplier [X] has missed on-time delivery targets for 3 consecutive months. Task: create a 90-day supplier improvement plan. Format: structured plan — root cause analysis, corrective actions, weekly milestones, success metrics, and escalation trigger. Constraints: measurable outcomes not process activities."']],
+  L:[['Build a structured prompt for a carrier performance scorecard','"Context: I manage [number] carrier relationships across [regions]. Task: create a quarterly performance scorecard for carrier [X]. Format: table — KPI | Target | Actual | RAG Status | Trend | Recommended Action. Include: on-time delivery, damage rate, claims resolution time, and cost-per-lane vs. tender rates."'],
+     ['Build a structured prompt for a freight mode analysis','"Context: I am a logistics manager reviewing our freight mode split. Task: analyze when we should use road vs. rail vs. air for [product type]. Format: decision matrix — Mode | Lead Time | Cost/kg | Carbon Footprint | Best Use Case | When to Switch. Include the total landed cost perspective."'],
+     ['Build a structured prompt for a warehouse capacity utilization brief','"Context: I manage [X] sq ft of warehouse space across [Y] sites. Task: assess current capacity utilization and identify optimisation opportunities. Format: brief — current utilization % by site, peak capacity risk, slotting issues, and top 3 recommended actions. Quantify the cost of inaction."']],
+  S:[['Build a structured prompt for a demand forecast accuracy review','"Context: I lead demand planning for [company]. Task: review forecast accuracy for [period] and identify systemic bias. Format: structured analysis — MAPE by category, bias direction (over/under), root causes, and 3 corrective actions with owners. Distinguish between structural bias and one-off events."'],
+     ['Build a structured prompt for an inventory policy recommendation','"Context: I manage inventory policy for [product range]. Task: recommend the right inventory model for [SKU/category]. Format: recommendation — current vs. recommended reorder point, safety stock calculation rationale, service level trade-off, and financial impact. Base recommendations on service level targets, not gut feel."'],
+     ['Build a structured prompt for a supply chain risk heat map brief','"Context: I lead supply chain strategy for [company]. Task: create a risk heat map summary for the current quarter. Format: heat map table — Risk | Likelihood (H/M/L) | Impact (H/M/L) | Priority Score | Owner | Status. Include only risks that require board-level awareness."']]},
+ {t:'Build a prompt library and save Claude Skills for supply chain',g:'Prompt Library · Claude Skills',
+  P:[['Save 3 Skills: supplier brief builder, negotiation prep generator, RFQ cover letter writer','Build a structured prompt for each. Supplier brief: company name in → risk profile out. Negotiation prep: supplier and topic in → position paper out. RFQ cover: category and requirements in → professional cover letter out.'],
+     ['Save a Skill: tender evaluation matrix → recommendation memo','Input: completed tender scoring matrix. Output: a formal recommendation memo to the approval authority with rationale for the recommended supplier and a risk note on the second-place option.'],
+     ['Save a Skill: contract clause → plain English summary with risk flag','Input: any contract clause. Output: plain English explanation, who it benefits, who it exposes, and a recommended negotiation position. One click — replaces 30 minutes of manual review per clause.']],
+  L:[['Save 3 Skills: lane analysis builder, carrier notice drafter, 3PL scorecard generator','Lane analysis: upload lane data → output performance vs. benchmark. Carrier notice: performance data in → formal notice letter out. 3PL scorecard: KPI inputs → formatted quarterly scorecard with RAG status.'],
+     ['Save a Skill: exception report → customer and management communication','Input: logistics exception data (delay, damage, short-ship). Output: two documents — a customer-facing explanation email and an internal root cause summary for management.'],
+     ['Save a Skill: freight invoice → dispute identification and claims letter','Input: freight invoice and agreed rate card. Output: identification of any overcharges, a summary of the disputed amount, and a formal claims letter ready to send to the carrier.']],
+  S:[['Save 3 Skills: forecast accuracy analyzer, slow-mover report writer, S&OP pre-read builder','Forecast accuracy: actuals vs. plan data → bias analysis + root cause. Slow-mover: aging inventory data → clearance and write-off recommendations. S&OP pre-read: demand/supply data → structured pre-read document.'],
+     ['Save a Skill: demand signal → replenishment recommendation','Input: point-of-sale or demand signal data. Output: a replenishment recommendation with quantity, timing, and rationale — factoring in lead time, current stock, and service level target.'],
+     ['Save a Skill: risk event input → mitigation plan and stakeholder alert','Input: description of a supply chain risk event. Output: immediate mitigation actions, stakeholder alert message, and 30-day contingency plan. One Skill that turns a crisis into an organized response within minutes.']]},
+ {t:'Research suppliers, markets and logistics benchmarks with web search',g:'Web Search · Deep Research · Market Intelligence',
+  P:[['Research a potential new supplier\'s market reputation and risk signals','Ask (web search on): "Research [supplier name]. Give me: recent news, any quality or compliance incidents in the last 12 months, financial health signals, customer reviews on industry platforms, and one thing I should ask them before awarding a contract."'],
+     ['Research commodity price trends for a key raw material','Ask: "What is the current price trend for [commodity] and what are the key drivers? What do analyst forecasts say for the next 6 months? What hedging strategies are companies in [industry] using to manage this exposure?"'],
+     ['Research best practice procurement KPIs for a company our size','Use Deep Research: "What are the benchmark procurement KPIs for a [industry] company with [revenue range]? What metrics do top quartile procurement functions track that average functions don\'t? Give me 3 credible sources."']],
+  L:[['Research current freight rate trends on key lanes','Ask (web search on): "What are current spot freight rates on the [origin-destination] lane? How do they compare to contract rates? What is driving the current rate environment and what do industry forecasts say for the next quarter?"'],
+     ['Research 3PL providers specializing in our sector','Use Deep Research: "Who are the leading 3PL providers for [industry/product type] in [region]? What differentiates the top 3? What do their customers say on industry forums? What are the most common complaints about each?"'],
+     ['Research last-mile delivery innovation trends for our sector','Ask: "What are the most significant last-mile delivery innovations being adopted by [industry] companies in 2025–2026? What\'s the evidence that they improve cost or service? Which are scalable for a company our size?"']],
+  S:[['Research demand planning software market and best-in-class tools','Use Deep Research: "What are the leading demand planning platforms for a [company size] business in [industry]? Compare the top 3 on: forecast accuracy improvement, ease of integration with [ERP], implementation time, and total cost of ownership."'],
+     ['Research industry forecast accuracy benchmarks for our category','Ask: "What is a benchmark MAPE for [product category] demand planning in [industry]? What MAPE do top quartile companies achieve? What are the top 3 practices that separate best-in-class planners from average?"'],
+     ['Research supply chain resilience frameworks being adopted post-2023','Use Deep Research: "What supply chain resilience frameworks are companies in [industry] adopting following recent disruptions? What does the evidence say actually improves resilience vs. what\'s just theory? Give me 3 frameworks with real-world case studies."']]},
+ {t:'Analyze supply chain data from spreadsheets and create Artifacts',g:'Data Analysis · Artifacts · .md Documents',
+  P:[['Upload spend data and identify consolidation and savings opportunities','Upload your spend CSV. Ask: "Segment spend by category, supplier, and business unit. Identify: top 10 suppliers by spend, categories with more than 5 suppliers that could be consolidated, and the estimated annual saving from a 5% price reduction on the top 3 categories. Output as a formatted table Artifact."'],
+     ['Upload supplier scorecard data and generate a risk-tiered supplier list','Upload the data. Ask: "Score and rank suppliers using the data provided. Tier them as: Strategic (top 20%), Preferred, Approved, and Watch List. Output a .md supplier classification report I can share with category managers."'],
+     ['Upload tender pricing responses and build a comparison matrix','Upload the pricing data from multiple suppliers. Ask: "Build a like-for-like comparison matrix. Normalize prices to a common unit. Flag the lowest total cost of ownership (not just unit price). Identify any pricing anomalies that suggest a supplier misunderstood the specification."']],
+  L:[['Upload carrier performance data and identify renegotiation priorities','Upload the CSV. Ask: "Rank carriers by on-time delivery performance. Flag any carrier below our SLA threshold. Identify the top 3 lanes where we\'re paying above-market rates. Output as a table Artifact with a recommended action column."'],
+     ['Upload warehouse throughput data and find efficiency bottlenecks','Upload the data. Ask: "Identify the hours of day, days of week, and product categories with the lowest pick-and-pack throughput. What is the gap between peak and trough performance? What does this suggest about staffing, slotting, or process issues? Create a .md analysis brief."'],
+     ['Upload freight invoice data and find overcharge patterns','Upload the invoice CSV. Ask: "Compare billed rates against contracted rates for each lane and carrier. Identify: total overcharge amount, which carrier has the most discrepancies, and whether errors are random or systematic. Output as a formal claims-ready Artifact."']],
+  S:[['Upload forecast vs. actuals data and produce an accuracy analysis Artifact','Upload the file. Ask: "Calculate MAPE, bias, and forecast error by SKU, category, and time period. Identify the top 10 worst-performing SKUs. Produce a .md accuracy report I can present at the S&OP review."'],
+     ['Upload inventory data and produce an ABC-XYZ classification Artifact','Upload the data. Ask: "Classify all SKUs by ABC (volume/value) and XYZ (demand variability). Output a classification matrix Artifact. For each quadrant, recommend the appropriate inventory policy."'],
+     ['Upload supply chain costs data and build a total landed cost model Artifact','Upload the costs data. Ask: "Build a total landed cost breakdown by: product cost, freight, customs, warehousing, and last-mile. Identify which cost element offers the greatest saving opportunity. Create an interactive Artifact I can use in a cost-reduction workshop."']]},
+ {t:'Create and publish Artifacts and .md documents for supply chain teams',g:'Artifacts · Published Artifacts · .md Docs',
+  P:[['Build an interactive supplier risk assessment tool as a published Artifact','Ask Claude to create an interactive risk assessment Artifact. Inputs: supplier revenue, single-source %, geography, financial score. Output: risk tier (Critical/Elevated/Managed) with rationale. Publish as a URL your category managers use before any new supplier approval.'],
+     ['Create a .md procurement policy handbook for category managers','Ask Claude to generate a .md procurement policy guide: approval thresholds, supplier qualification requirements, single-source justification process, conflict of interest rules, and a quick-reference decision tree. Save in the Procurement Project.'],
+     ['Create a supplier onboarding checklist as a published Artifact','Ask Claude to build an interactive supplier onboarding checklist: legal entity verification, bank details validation, insurance certificates, quality certifications, code of conduct sign-off, and system setup steps. Publish the URL for new suppliers to complete digitally.']],
+  L:[['Build an interactive freight mode selector as a published Artifact','Ask Claude to create an interactive Artifact where a logistics coordinator inputs: origin, destination, product weight/volume, lead time requirement, and budget. Output: recommended freight mode with cost and lead time estimate.'],
+     ['Create a .md carrier management playbook for the logistics team','Ask Claude to generate a .md playbook covering: how to run a carrier QBR, how to issue a formal non-performance notice, how to run a mini-tender on a lane, and how to manage a carrier exit. Save in the Carrier Project.'],
+     ['Create a warehouse KPI dashboard template as a published Artifact','Ask Claude to build an interactive KPI dashboard Artifact with editable fields for: units picked per hour, accuracy rate, damage rate, cost per unit, and capacity utilization. Publish the URL for warehouse managers to update weekly and share with leadership.']],
+  S:[['Build an interactive safety stock calculator as a published Artifact','Ask Claude to create an interactive safety stock calculator. Inputs: average demand, demand variability (std dev), lead time, desired service level. Output: recommended safety stock quantity and weeks of cover. Publish as a URL for planners to use without needing a spreadsheet.'],
+     ['Create a .md demand planning standards guide for the planning team','Ask Claude to generate a .md guide covering: how to run a statistical baseline, how to apply market intelligence overlays, how to document forecast assumptions, how to challenge commercial inputs, and how to measure and report forecast accuracy.'],
+     ['Create a supply chain risk register template as a published Artifact','Ask Claude to build a risk register Artifact with fields for: risk description, likelihood, impact, priority score, owner, mitigation actions, and review date. Add a summary dashboard showing risk distribution by category. Publish as a team-wide URL updated monthly.']]}
+],
+b2:[
+ {t:'Use extended thinking for complex supply chain decisions',g:'Extended Thinking · Strategic Reasoning',
+  P:[['Decide whether to dual-source a critical single-supplier component','Enable extended thinking. Provide: current spend, supplier performance, alternative supplier options, switching cost estimate, and lead time for qualification. Ask: "Think through the dual-sourcing decision carefully. What\'s the true cost of staying single-source? What\'s the qualification risk? What should I do in the next 30 days?"'],
+     ['Build a make-vs-buy decision framework for a component we currently outsource','Ask: "Here\'s the context: [current outsourced cost, quality performance, strategic importance, our own production capacity]. Think through this make-vs-buy decision carefully. Include: total cost of insourcing, capability gaps, strategic fit, and a recommended decision with the 3 assumptions it depends on."'],
+     ['Evaluate whether to extend or re-tender a major supplier contract expiring in 6 months','Provide contract details, supplier performance, and market conditions. Ask: "Think through this decision carefully. What does the market look like right now? What leverage do we have? What\'s the cost of a full re-tender process vs. a negotiated extension? What\'s your recommendation?"']],
+  L:[['Decide how to restructure our distribution network after losing a major customer','Enable extended thinking. Provide: current network, customer volume that\'s been lost, remaining customer base, and fixed cost structure. Ask: "Think through our network restructure options carefully. What should we close, consolidate, or repurpose? What\'s the sequencing? What\'s the transition risk?"'],
+     ['Evaluate whether to renew our 3PL contract or bring warehousing in-house','Provide: current 3PL cost, service performance, volumes, and capex required for in-house. Ask: "Think through this decision carefully. Beyond the financial analysis, what operational capability would we need to build? What\'s the risk if the transition goes wrong?"'],
+     ['Diagnose why our last-mile delivery cost has increased 28% despite flat volumes','Provide available data on cost drivers, carrier mix, network changes. Ask: "Think through every possible cause of this cost increase. Which are structural and which are one-off? What\'s the most likely root cause? What would you investigate first and change immediately?"']],
+  S:[['Build a 3-scenario demand plan for a product launch with high uncertainty','Enable extended thinking. Provide: the product, market assumptions, analogous launch data, and capacity constraints. Ask: "Think through how to construct 3 robust demand scenarios for this launch. What are the key uncertainty drivers? What triggers a switch between scenarios?"'],
+     ['Decide whether to build strategic inventory ahead of an anticipated supply disruption','Provide: the risk event, probability assessment, potential impact duration, and inventory carrying cost. Ask: "Think through the strategic stock decision carefully. What quantity makes economic sense? What\'s the risk of overstocking vs. understocking? What\'s the decision and what assumptions is it most sensitive to?"'],
+     ['Diagnose why our S&OP process is not improving forecast accuracy despite 18 months of effort','Provide: what\'s been tried, current MAPE, S&OP structure, and team feedback. Ask: "Think through what\'s really going wrong here. Is it a data quality issue, a process issue, a behavioural issue, or all three? What\'s the single highest-leverage change we could make in the next 90 days?"']]},
+ {t:'Build a 3-prompt chain for supply chain workflows',g:'Prompt Chaining · Workflow Design',
+  P:[['Chain: market scan → supplier shortlist → RFQ pack','P1: "Research the supplier landscape for [category]. List the top 8 potential suppliers with their capabilities, geographic presence, and key strengths." P2: "From this list, shortlist the top 4 based on our criteria: [list]. Explain why each made the cut." P3: "Write a professional RFQ cover letter and key data request for the shortlisted suppliers. Include: scope, evaluation criteria, submission requirements, and timeline."'],
+     ['Chain: spend analysis → savings hypothesis → business case','P1: "From this spend data, identify the top 3 cost reduction opportunities in [category]." P2: "For each opportunity, build a savings hypothesis: estimated annual saving, approach, risk, and time to realize." P3: "Write a 1-page business case for the highest-priority saving opportunity. Include: executive summary, financial case, implementation approach, and required approvals."'],
+     ['Chain: supplier incident → root cause analysis → corrective action plan','P1: "From this supplier incident report, extract: what happened, when, what was affected, and what the immediate response was." P2: "Analyze the root cause using a 5-Why framework. Identify whether this is a systemic issue or a one-off event." P3: "Write a formal Corrective and Preventive Action (CAPA) plan for the supplier. Include: root cause, corrective actions, preventive measures, verification milestones, and sign-off requirements."']],
+  L:[['Chain: lane data → carrier performance analysis → renegotiation brief','P1: "From this lane performance data, identify the 3 lanes with the worst cost and service performance." P2: "For each lane, analyze: what\'s driving poor performance, what the market rate benchmark is, and how much saving is available." P3: "Write a renegotiation brief for each lane. Include: our current position, target position, opening ask, walk-away point, and alternative options if the carrier doesn\'t move."'],
+     ['Chain: exception data → customer impact assessment → escalation communication','P1: "From these logistics exception records, extract all shipments delayed beyond our SLA threshold this week." P2: "For each exception, assess customer impact: what is the customer\'s stock position, have they already been impacted, and what is the relationship risk level?" P3: "Draft a prioritized communication plan: which customers get a proactive call, which get a written update, and what the recovery offer is for the highest-risk accounts."'],
+     ['Chain: network review data → cost model → redesign recommendation','P1: "From this network review data, identify the top 3 cost inefficiencies in our current distribution network." P2: "For each inefficiency, model the saving from the most likely structural change (consolidation, re-routing, mode switch, etc.)." P3: "Write a network redesign recommendation memo for leadership. Include: the proposed changes, total annual saving, one-off transition cost, and implementation timeline."']],
+  S:[['Chain: demand data → forecast error analysis → process improvement plan','P1: "From this demand vs. actuals data, calculate forecast error by SKU and identify where bias is most severe." P2: "Analyze the root causes of the worst forecast errors. Are they driven by: statistical model issues, market intelligence gaps, commercial over-rides, or data quality?" P3: "Write a demand planning improvement plan. For each root cause: a specific corrective action, who owns it, and a 30/60/90 day implementation timeline."'],
+     ['Chain: inventory snapshot → policy review → reorder point recommendation','P1: "From this inventory snapshot, flag all SKUs that are below safety stock, above maximum stock, or have not moved in 90+ days." P2: "For the out-of-policy items, diagnose: is this a demand signal issue, a replenishment trigger issue, or a supplier lead time issue?" P3: "Write a revised inventory policy recommendation for the top 20 out-of-policy SKUs. Include: new reorder point, new safety stock, and the rationale for each change."'],
+     ['Chain: risk event → scenario analysis → contingency plan','P1: "A key raw material supplier has announced a force majeure. Calculate: how many days of stock we have at current consumption rate and which products are most at risk." P2: "Model 3 scenarios: (A) 4-week disruption, (B) 8-week disruption, (C) 16-week disruption. For each: what is the revenue at risk and what alternative options exist?" P3: "Write a contingency response plan for each scenario. Include: immediate actions in the first 48 hours, alternative sourcing options with lead times, customer communication strategy, and financial impact estimate."']]},
+ {t:'Write a system prompt and build a supply chain AI persona',g:'System Prompts · AI Personas',
+  P:[['Build "Category Strategist" — AI persona for procurement category management','"You are Category Strategist, an expert procurement analyst for [company]. You know our spend under management is [amount], our top 10 categories are [list], and our key strategic suppliers are [list]. When I describe a category challenge, ask 3 clarifying questions, then give me a category strategy recommendation with: market analysis, supplier options, negotiation approach, and risk mitigation."'],
+     ['Build "Contract Reviewer" — AI persona that reads contracts like a procurement lawyer','"You are Contract Reviewer. When I share a supplier contract or clause, you analyze it from our perspective as the buying organization. For every clause you review: explain what it means in plain English, identify whether it favours us or the supplier, flag any missing protections we should add, and give a recommended negotiation position."'],
+     ['Build "Negotiation Coach" — prepares your team for high-stakes supplier negotiations','"You are Negotiation Coach. You know our procurement strategy, our typical supplier leverage points, and the categories where we have most power. When I describe an upcoming negotiation, ask me about: the supplier\'s alternatives, our alternatives, the value at stake, and any relationship considerations. Then give me: opening position, target position, concession plan, and tactics for the key sticking points."']],
+  L:[['Build "Logistics Analyst" — AI persona for carrier and network performance analysis','"You are Logistics Analyst. You know our carrier SLAs, our network structure [describe], and our service level commitments to customers. When I give you performance data, analyze it against our benchmarks and give me: performance verdict, root cause hypothesis, recommended action, and the commercial implication if we do nothing."'],
+     ['Build "3PL Procurement Advisor" — guides outsourcing and re-tendering decisions','"You are 3PL Procurement Advisor. You know our warehousing and distribution requirements, our current 3PL arrangement [describe], and our strategic priorities (cost / service / flexibility). When I describe a 3PL challenge or decision, give me: market context, make-vs-buy analysis, RFP approach recommendation, and the 5 things I must get right in the contract."'],
+     ['Build "Customs and Compliance Coach" — explains trade regulations in plain English','"You are Customs and Compliance Coach. When I describe a cross-border shipment or trade compliance question, explain: what the relevant regulation requires, what the risk is if we get it wrong, what documentation I need, and what I should ask our freight forwarder to verify. Always flag when I should get specialist legal advice."']],
+  S:[['Build "Demand Planning Coach" — challenges forecast inputs and improves accuracy','"You are Demand Planning Coach. You know our product range, our key customer segments, and our typical seasonality patterns. When I share a forecast or demand assumption, challenge me: what\'s the statistical basis for this? What commercial intelligence is being baked in? What scenario are we not planning for? Push me to be more rigorous without being obstructionist."'],
+     ['Build "S&OP Facilitator" — prepares and runs better S&OP review meetings','"You are S&OP Facilitator. You know our S&OP cadence [describe], the typical participants, and the decisions that need to come out of each review. When I give you the pre-read data or meeting notes, help me: identify the key decision points, frame the demand-supply trade-off clearly, prepare questions to challenge assumptions, and draft the consensus decisions and actions."'],
+     ['Build "Supply Chain Risk Officer" — monitors, prioritizes and escalates supply chain risks','"You are Supply Chain Risk Officer. You know our critical suppliers [list], our top 5 risk categories [list], and our risk tolerance as a business. When I describe a potential risk event, give me: probability assessment, impact analysis, risk priority score, recommended immediate actions, and an escalation recommendation — board level, leadership level, or operational level only."']]},
+ {t:'Multi-modal analysis — supply chain documents, dashboards, and site photos',g:'Vision · Multi-modal · Visual Analysis',
+  P:[['Upload a supplier factory site visit photo and assess operational risk','Upload the photo. Ask: "What does this factory environment tell you about operational maturity? Look for: housekeeping and organization (5S), equipment condition, visible safety practices, workforce density, and any red flags for quality or compliance risk."'],
+     ['Screenshot a supplier\'s product specification sheet and check for gaps','Upload the screenshot. Ask: "Read this as a procurement quality manager. What information is present, what\'s missing, and what questions would you ask the supplier before approving this specification for production use?"'],
+     ['Upload a competitive tender pricing comparison chart and identify anomalies','Upload the chart or table image. Ask: "What patterns do you see in this pricing data? Which supplier is pricing anomalously high or low? What might explain the outliers? What should I investigate before making a sourcing decision?"']],
+  L:[['Upload a warehouse heat map and identify throughput bottlenecks','Upload the image. Ask: "Read this warehouse heat map. Where is the highest activity concentration? Where are the likely congestion points? What slotting or layout changes would most improve flow? What safety risks does the current layout create?"'],
+     ['Screenshot a carrier tracking dashboard and extract key performance signals','Upload the screenshot. Ask: "From this carrier tracking dashboard, what are the on-time delivery trends? Which lanes or days show the most exceptions? What does the pattern suggest about root cause — carrier performance, network design, or demand variability?"'],
+     ['Upload a photo of a damaged goods incident and assess liability','Upload the photo. Ask: "Assess this damage incident. Based on what you can see: at what point in the supply chain did the damage most likely occur (transit, warehouse, loading)? What documentation should I collect? What is the likely basis for a carrier claim?"']],
+  S:[['Upload a demand forecast chart and identify potential bias patterns','Upload the chart image. Ask: "Looking at this forecast vs. actuals chart, do you see systematic over or under-forecasting? Is the bias consistent across time or seasonal? What does the pattern suggest about the forecasting process or the inputs being used?"'],
+     ['Screenshot an inventory dashboard and identify out-of-policy items','Upload the screenshot. Ask: "From this inventory dashboard, identify: SKUs below safety stock, SKUs above max stock, and any unusual patterns in the inventory profile. What are the 3 most urgent actions a planner should take today?"'],
+     ['Upload a supply chain network map and identify resilience gaps','Upload the image. Ask: "Looking at this supply chain network map, where are the single points of failure? Which nodes or links are most exposed to disruption? If you had to identify the 3 highest-risk points in this network, what would they be and why?"']]},
+ {t:'Build Cowork automations and supply chain SOPs',g:'Cowork · Automation · SOPs',
+  P:[['Build a supplier onboarding automation using Cowork','In Cowork: input new supplier name and category → Claude checks required documentation list → generates a customized onboarding checklist → creates a supplier folder → sends an onboarding instruction email to the supplier contact. Reduces manual onboarding from 2 hours to 10 minutes.'],
+     ['Build a contract expiry monitoring and renewal alert automation','In Cowork: scan the contract register weekly → for any contract expiring within 90 days → Claude generates a renewal recommendation brief (extend vs. re-tender) → creates a task in the procurement tracker → sends an alert to the category manager with a suggested next action.'],
+     ['Build a spend report generation automation from raw PO data','In Cowork: when a new PO data export is placed in /Data/PO-Raw → Claude processes it → generates a formatted spend report by category, supplier, and business unit → saves as .md and .xlsx to /Reports/Spend-Weekly → sends a link to the procurement team every Monday morning.']],
+  L:[['Build a carrier exception report automation using Cowork','In Cowork: when new shipment tracking data is uploaded → Claude identifies all exceptions (delays, damages, mis-routes) → generates a prioritized exception report → auto-drafts carrier notifications for the worst offenders → saves to /Reports/Carrier-Exceptions with a timestamp.'],
+     ['Build a warehouse daily performance brief automation','In Cowork: each morning at 7am, Claude reads the previous day\'s warehouse data export → generates a 1-page daily performance brief (throughput, accuracy, exceptions, staffing utilization) → saves as .md to /Reports/Warehouse-Daily → sends to the warehouse manager and logistics director.'],
+     ['Build an automated freight rate benchmark alert system','In Cowork: weekly, Claude checks current spot rates on key lanes → compares against contracted rates → flags any lane where spot rates have moved more than 10% vs. contract → generates a renegotiation opportunity brief → sends an alert to the logistics commercial manager.']],
+  S:[['Build a weekly forecast accuracy monitoring automation','In Cowork: each Monday, Claude reads the forecast vs. actuals file → calculates MAPE and bias by category → flags any category where MAPE has worsened by more than 5 percentage points vs. prior month → generates a root cause investigation brief → sends to demand planning leads.'],
+     ['Build an S&OP pre-read document generator from standard data inputs','In Cowork: demand planner uploads 3 standard data files (demand plan, supply plan, inventory snapshot) → Claude processes them → generates a structured S&OP pre-read document (demand summary, supply gaps, inventory risk, decision required) → saves as .md and sends to S&OP participants 48 hours before the meeting.'],
+     ['Build an inventory policy exception alert automation','In Cowork: weekly, Claude reads the inventory report → identifies SKUs outside policy (below safety stock, above max, or >90 days no movement) → generates a prioritized action list by planner → sends each planner their personal exception list with recommended actions every Tuesday morning.']]}
+],
+b3:[
+ {t:'Explore the API and design a supply chain automation use case',g:'API Literacy · Workflow Architecture',
+  P:[['Design a supplier risk monitoring API that flags changes automatically','"Design an API workflow: Claude monitors supplier news, financial filings, and risk databases weekly → scores each critical supplier on our risk criteria → flags any supplier whose score has deteriorated by more than a defined threshold → generates a risk alert brief → sends to the category manager and CPO. Walk me through the data inputs, API calls, and human review checkpoints."'],
+     ['Design a spend analytics API that generates category insights from raw PO data','"Design an API: raw PO data from our ERP exports weekly → Claude processes and segments by category, supplier, business unit, and time period → generates a spend analytics brief with anomaly detection → identifies potential savings opportunities → pushes to a Notion dashboard and sends a summary to procurement leadership. What are the data quality risks?"'],
+     ['Design a contract management API that tracks obligations and triggers renewals','"Design an API workflow: contract database exports monthly → Claude reads all active contracts → extracts key obligations, expiry dates, and performance clauses → generates a contract obligation calendar → flags any contract expiring within 120 days → triggers a renewal or re-tender recommendation based on performance data. What does the API architecture look like?"']],
+  L:[['Design a real-time carrier performance monitoring API','"Design an API: carrier tracking data feeds in daily → Claude scores each carrier against our SLA targets → calculates a rolling 13-week performance trend → auto-generates a formal notice for any carrier below threshold for 3 consecutive weeks → sends a performance dashboard to the logistics director every Friday. What are the integration requirements and failure modes?"'],
+     ['Design a freight rate optimization API for dynamic lane management','"Design an API: weekly, our shipment requirements are exported → Claude compares against contracted rates and current spot rates on each lane → recommends the optimal carrier and mode mix for next week\'s volumes → outputs a routing instruction file for the TMS. What data does this need? What human approval is required before routing decisions are executed?"'],
+     ['Design a warehouse labour planning API based on forecast demand','"Design an API: demand plan data flows from the planning system daily → Claude translates demand into warehouse labour requirements by shift → compares against current roster → flags any over or under-staffing situation → generates a labour adjustment recommendation for the warehouse manager. What are the key assumptions? How does this handle last-minute demand changes?"']],
+  S:[['Design a demand sensing API that augments statistical forecasts with market signals','"Design an API: point-of-sale data, weather data, and social/news sentiment signals feed in weekly → Claude detects demand signals that the statistical model hasn\'t captured → generates a demand adjustment recommendation by SKU → sends to demand planners for review and approval before the forecast is updated. What are the data sources, how are signals weighted, and what\'s the override process?"'],
+     ['Design an automated S&OP data preparation API','"Design an API: 5 standard data sources (demand plan, supply plan, inventory, open orders, production schedule) are exported from the ERP weekly → Claude processes, reconciles, and identifies gaps → generates the S&OP pre-read document, demand-supply gap analysis, and decision agenda → distributes to participants 48 hours before the meeting. What reconciliation logic is needed?"'],
+     ['Design a supply chain risk early warning API connected to external data','"Design an API: Claude monitors external data sources (news, trade databases, weather, geopolitical risk feeds) daily → matches signals against our critical supplier and lane list → scores each signal for relevance and severity → generates a daily risk digest for the supply chain director → escalates high-severity alerts immediately to the CPO. How do we prevent alert fatigue?"']]},
+ {t:'Design a multi-step automated supply chain pipeline',g:'Multi-Agent · Batch Processing · Pipeline Design',
+  P:[['Build a full source-to-contract pipeline for new category sourcing','Map it: sourcing request submitted → Claude researches supplier market → generates RFQ and shortlist criteria → suppliers submit responses → Claude scores responses against criteria → generates recommendation memo → approved supplier receives contract template → Claude redlines contract based on our standard positions. Map each step, the data needed, and where human approval is required.'],
+     ['Build a supplier performance management pipeline','Map it: monthly performance data uploads → Claude calculates KPIs vs. SLA → generates individual supplier scorecards → issues automated improvement notices to under-performers → schedules QBR meetings for suppliers below threshold → tracks corrective action plan completion → escalates persistent under-performers to leadership. Design the escalation logic.'],
+     ['Build a procurement savings tracking and reporting pipeline','Map it: savings initiatives logged by category managers → Claude validates savings methodology (cash vs. cost avoidance) → calculates annualized saving → updates the savings tracker → generates a monthly savings report for leadership → compares against annual target → flags any initiative at risk of not delivering. How does Claude verify that savings are genuine?']],
+  L:[['Build a carrier tender and selection pipeline','Map it: tender requirement defined → Claude drafts RFQ for each lane → carriers submit pricing → Claude normalizes and compares pricing → generates a lane-by-lane recommendation → commercial approval received → Claude drafts award letters and non-award notifications → new rates loaded into TMS. Identify the data handoffs and the human decision points.'],
+     ['Build an end-to-end shipment exception management pipeline','Map it: shipment tracking data feeds in daily → Claude identifies all SLA exceptions → categorizes by severity and customer impact → auto-drafts carrier recovery communications → generates customer impact report → creates claims for chargeable delays → tracks recovery to closure → updates carrier performance record. What triggers human intervention vs. automated action?'],
+     ['Build a 3PL performance review and re-tender decision pipeline','Map it: quarterly 3PL KPI data exports → Claude calculates performance vs. SLA → generates a comprehensive QBR pack → identifies cost and service trends → models the financial impact of re-tendering vs. contract extension → produces a recommendation memo → if re-tender approved, launches the 3PL sourcing process. Design the decision logic.']],
+  S:[['Build a monthly demand planning cycle pipeline','Map it: statistical baseline generated from ERP → market intelligence inputs collected from commercial team → Claude reconciles and identifies key assumptions → demand plan circulated for review → challenge questions auto-generated by Claude → revised plan submitted → accuracy vs. prior period benchmarked → improvements and deteriorations flagged for root cause analysis. Map the human touchpoints.'],
+     ['Build a supply chain risk monitoring and escalation pipeline','Map it: risk register updated weekly by risk owners → Claude scores each risk against likelihood and impact criteria → identifies risks that have escalated since last period → generates board-ready risk summary → auto-alerts risk owners when their risk approaches trigger thresholds → tracks mitigation action completion → produces monthly risk trend report. Design the escalation tiers.'],
+     ['Build an inventory optimization pipeline from signal to replenishment order','Map it: daily demand signal from POS/ERP → Claude runs reorder point check for all SKUs → generates replenishment recommendations → validates against supplier lead times and MOQs → checks budget availability → creates draft purchase orders for buyer approval → approved POs sent to supplier → delivery tracked against expected date. What are the guard rails?']]},
+ {t:'Build output evaluation rubrics for supply chain decisions',g:'Decision Quality · Model Evaluation · Governance',
+  P:[['Build a tender evaluation rubric for major sourcing decisions','Ask: "Create a supplier tender evaluation rubric. Criteria: (1) total cost of ownership score, (2) quality and compliance evidence, (3) financial stability, (4) supply chain resilience and capacity, (5) sustainability and ESG credentials, (6) innovation and continuous improvement capability. Score each 1–5. Include what a 1, 3, and 5 looks like for each criterion. Add a minimum score threshold before a supplier is shortlisted."'],
+     ['Build a make-vs-buy decision quality rubric','Ask: "Build a rubric for evaluating the quality of a make-vs-buy analysis. Criteria: total cost of ownership completeness, strategic alignment assessment, capability gap analysis, risk analysis (supply, quality, IP), sensitivity analysis on key assumptions, and board-ready recommendation clarity. Score 1–5 per criterion."'],
+     ['Build a supplier selection decision rubric for category managers','Ask: "Build a rubric category managers use to self-check supplier selection decisions before submitting for approval. Criteria: competitive process evidence, total cost justification, risk assessment completeness, contract terms review, and stakeholder alignment. Score 1–5. Add a \'send for approval / revise / escalate\' output based on total score."']],
+  L:[['Build a carrier selection rubric for new lane awards','Ask: "Create a rubric for carrier selection on new lanes. Criteria: (1) price competitiveness vs. benchmark, (2) on-time performance track record, (3) network coverage, (4) technology and visibility capability, (5) financial stability, (6) claims and damage performance. Score each 1–5. What minimum score is required before awarding a lane?"'],
+     ['Build a 3PL provider evaluation rubric','Ask: "Build a comprehensive 3PL evaluation rubric for a warehousing and distribution outsourcing decision. Criteria: operational capability and track record, technology platform and WMS quality, cultural fit and account management quality, financial health and contract terms, scalability and flexibility, sustainability credentials. Score 1–5."'],
+     ['Build a network change decision rubric to prevent under-analysed restructures','Ask: "Build a rubric to evaluate whether a proposed network change has been sufficiently analysed before seeking approval. Criteria: demand and volume assumptions robustness, cost model completeness (capex, opex, transition), service level impact assessment, risk analysis, change management plan quality, and financial payback period credibility. Score 1–5."']],
+  S:[['Build a demand forecast review rubric teams use before S&OP sign-off','Ask: "Build a forecast quality rubric for demand planners to self-check before S&OP. Criteria: statistical baseline quality, market intelligence incorporation, commercial over-ride documentation, assumption documentation, accuracy vs. prior periods, and exception flagging. Score 1–5. What minimum score is required for a forecast to be accepted at S&OP without further challenge?"'],
+     ['Build an inventory policy recommendation rubric','Ask: "Build a rubric for evaluating inventory policy recommendations. Criteria: service level target clarity, safety stock calculation methodology, reorder point logic, financial impact quantification, supplier lead time assumptions, and implementation feasibility. Score 1–5."'],
+     ['Build a supply chain risk assessment quality rubric','Ask: "Build a rubric for scoring the quality of supply chain risk assessments. Criteria: risk identification completeness, likelihood and impact assessment rigour, mitigation action specificity, owner assignment, review and escalation process clarity, and board communication quality. Score 1–5."']]},
+ {t:'Draft an AI usage policy for supply chain teams',g:'AI Governance · Data Policy · Responsible Use',
+  P:[['Write an AI policy for the procurement team covering supplier data and negotiations','Draft a 1-page policy: what supplier data can enter Claude (public company info yes, pricing data from live negotiations no), how AI-generated analysis must be reviewed before use in supplier meetings, what to do when Claude produces inaccurate supplier intelligence, who owns AI quality for procurement decisions, and disclosure requirements to suppliers.'],
+     ['Write a policy on AI use in contract drafting and review','Draft covering: what role Claude can play in contract drafting (first draft generation yes, legal sign-off no), what human review is required before any AI-drafted clause is included in a contract, how to handle AI-generated language that misrepresents market standard terms, and which contract types are excluded from AI drafting entirely.'],
+     ['Write an AI policy for supplier risk assessment and due diligence','Draft covering: how AI-generated risk scores are validated before being used in supplier decisions, what data sources Claude is permitted to access for supplier research, how to handle conflicting AI and human risk assessments, who has final authority on supplier risk tier classification, and how AI-assisted due diligence is documented for audit purposes.']],
+  L:[['Write an AI policy for logistics operations covering carrier data and routing','Draft a policy: what carrier performance data can be entered into Claude (aggregated SLA data yes, individual driver or contractor data no), how AI-generated routing recommendations are reviewed before implementation, what the approval threshold is for AI-assisted carrier award decisions, and what escalation path exists when AI and operations teams disagree.'],
+     ['Write a policy on AI use in customs and trade compliance processes','Draft covering: what role Claude can play in customs tariff classification and documentation review (research tool yes, definitive ruling no), mandatory human verification before any AI-assisted customs submission, how to handle AI outputs that conflict with official customs authority guidance, and when specialist legal advice is required regardless of AI analysis.'],
+     ['Write an AI policy for warehouse and logistics data handling','Draft covering: what operational data is approved for Claude, how AI-generated workforce planning recommendations are reviewed for fairness and compliance, data retention rules for AI conversations involving operational data, and how AI is used (and not used) in safety-critical decisions.']],
+  S:[['Write an AI policy for demand planning and inventory management decisions','Draft a policy: what data can be used in Claude for demand planning (aggregated demand data yes, commercially sensitive new product launch data no), how AI-generated forecasts are documented and attributed in the S&OP process, what human override authority exists for AI-assisted replenishment recommendations, and who is accountable for decisions made with AI assistance.'],
+     ['Write a policy on AI use in supply chain risk and crisis management','Draft covering: what risk intelligence Claude is permitted to process (public news and market data yes, confidential business continuity plans no), how AI-generated risk assessments are validated before board reporting, what human escalation is required for high-severity risk events regardless of AI analysis, and how to prevent over-reliance on AI in genuine supply chain crises.'],
+     ['Write a cross-functional supply chain AI policy for a company of 500+ employees','Draft a one-page policy covering all supply chain functions: data classification framework (what can and cannot enter Claude by function), review and approval requirements before AI output is used in decisions, escalation path for AI errors affecting supplier relationships or customer service, and training requirements for supply chain team members using AI tools.']]},
+ {t:'Design a 2-hour AI onboarding for your supply chain team',g:'AI Literacy · Program Design · Full-Stack Mastery',
+  P:[['Design "AI for Procurement" onboarding — category managers and buyers','Ask: "Design a 2-hour onboarding for 15 category managers and buyers. Goals: use Claude for supplier research 3x faster, draft better RFQs and supplier communications, and analyze tender data without manual spreadsheet work. What 3 activities run in the session? What Skills do they set up? What does their prompt library cover? What do they commit to using in their next sourcing event?"'],
+     ['Design "AI for Strategic Sourcing" onboarding — senior procurement leaders','Ask: "Design a 2-hour session for 8 senior procurement professionals. Goals: use extended thinking for make-vs-buy decisions, build AI personas for negotiation prep, and design a first automation using Cowork. What 3 activities work at this level? What system prompt do they build? What governance decision do they leave with?"'],
+     ['Design "AI for Procurement Operations" onboarding — PO administrators and coordinators','Ask: "Design a 2-hour session for procurement operations staff who process POs, manage supplier onboarding, and track contract compliance. Goals: automate the 3 most repetitive tasks, use Claude for supplier communication drafting, and set up Skills for their most common requests. What activities are most relevant? What immediate time saving can they achieve on Monday morning?"']],
+  L:[['Design "AI for Logistics Management" onboarding — logistics managers and coordinators','Ask: "Design a 2-hour onboarding for 12 logistics managers. Goals: use Claude to analyze carrier performance faster, draft exception communications without starting from blank, and build a first Cowork automation for their most repetitive report. What 3 activities run in the session? What Skill do they set up? What does their carrier management prompt library look like?"'],
+     ['Design "AI for Network and Distribution Strategy" onboarding — network design and 3PL management teams','Ask: "Design a 2-hour session for distribution strategy professionals. Goals: use extended thinking for network optimization decisions, build AI personas for 3PL negotiations, and design an API use case for their highest-volume data workflow. What 3 activities work at this level? What does their evaluation rubric cover?"'],
+     ['Design "AI for Warehouse Operations" onboarding — warehouse managers and team leaders','Ask: "Design a 2-hour session for 20 warehouse managers. They need practical tools, not theory. Goals: use Claude to generate shift briefings, write exception and incident reports faster, and analyze daily performance data. What 3 hands-on activities work? What Skills do they set up? What commitment do they make for their first week back?"']],
+  S:[['Design "AI for Demand Planning" onboarding — demand planners and S&OP leads','Ask: "Design a 2-hour onboarding for the demand planning team. Goals: use Claude to analyze forecast accuracy bias faster, draft S&OP pre-reads without manual effort, and set up a prompt library for their most common planning tasks. What 3 activities cover this? What Skills do they set up? How do they integrate Claude into their weekly planning cycle without disrupting the current process?"'],
+     ['Design "AI for Supply Chain Leadership" onboarding — VP, CPO, COO audience','Ask: "Design a 90-minute session for supply chain executives. They\'re time-poor and need to see strategic value quickly. Goals: use extended thinking for one complex supply chain decision, understand what\'s possible at the API level without being technical, and leave with a governance framework for their team\'s AI use. What 3 activities work at this level? What\'s the governance decision they make in the room?"'],
+     ['Design "AI for S&OP and IBP" onboarding — cross-functional S&OP teams','Ask: "Design a 2-hour session for a cross-functional S&OP team (demand planning, supply planning, finance, commercial). Goals: use Claude to prepare better S&OP pre-reads, challenge forecast assumptions more rigorously, and document consensus decisions with less manual effort. What 3 activities work across functions? What shared prompt library do they build? What\'s the process change they agree to adopt?"']]}
+]};
+
+let ST={done:{}};
+let AB=0;
+function k(bi,ai,dm,ei){return`${bi}_${ai}_${dm}_${ei}`;}
+function isDone(bi,ai,dm,ei){return!!ST.done[k(bi,ai,dm,ei)];}
+function ddib(bi,dm){let n=0;A[BANDS[bi].id].forEach((_,ai)=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dm,ei))n++;}});return n;}
+function bc(bi){return ddib(bi,'P')>=1&&ddib(bi,'L')>=1&&ddib(bi,'S')>=1;}
+function bsc(bi){let s=0;A[BANDS[bi].id].forEach((_,ai)=>{['P','L','S'].forEach(dm=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dm,ei))s+=10;}});});return s;}
+function tsc(){return BANDS.reduce((s,_,bi)=>s+bsc(bi),0);}
+function tdn(){let n=0;BANDS.forEach((_,bi)=>{A[BANDS[bi].id].forEach((_,ai)=>{['P','L','S'].forEach(dm=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dm,ei))n++;}});});});return n;}
+
+async function tgl(bi,ai,dm,ei){
+  ST.done[k(bi,ai,dm,ei)]=!ST.done[k(bi,ai,dm,ei)];
+  try{await window.storage.set('sc_course_v2',JSON.stringify(ST));}catch(e){}
+  rr();
+}
+
+function rr(){
+  const sc=tsc(),dn=tdn(),pct=Math.round(dn/180*100),bc_=BANDS.filter((_,bi)=>bc(bi)).length;
+  document.getElementById('SV').textContent=sc;
+  document.getElementById('DV').textContent=dn;
+  document.getElementById('BV').textContent=bc_;
+  document.getElementById('PL').textContent=pct+'%';
+  document.getElementById('PF').style.width=pct+'%';
+  BANDS.forEach((_,bi)=>{ubn(bi);ubc(bi);});
+}
+
+function ubn(bi){
+  const t=document.getElementById('bt_'+bi);
+  if(!t)return;
+  const c=bc(bi),s=bsc(bi);
+  t.className='btab'+(AB===bi?' active':'')+(c?' complete':'');
+  t.innerHTML=(c?'<div class="tab-dot"></div>':'')+BANDS[bi].short+`<span class="tab-pts">${s}pt</span>`;
+}
+
+function ubc(bi){
+  if(AB!==bi)return;
+  const pd=ddib(bi,'P'),ld=ddib(bi,'L'),sd=ddib(bi,'S');
+  const pct=Math.round((Math.min(pd,1)+Math.min(ld,1)+Math.min(sd,1))/3*100);
+  const bsEl=document.getElementById('bs_'+bi);
+  if(bsEl)bsEl.textContent=bsc(bi);
+  const scel=document.getElementById('sc_'+bi);
+  if(scel)scel.textContent=bsc(bi);
+  const pf=document.getElementById('bp_'+bi);
+  if(pf)pf.style.width=pct+'%';
+  const ub=document.getElementById('ub_'+bi);
+  if(ub){
+    if(bc(bi)){
+      ub.classList.add('show');
+      const nx=BANDS[bi+1];
+      ub.innerHTML=`<div class="ub-icon"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Band complete! ${nx?'<strong>'+nx.short+'</strong> is next.':'You\'ve completed all 4 bands.'}</span>`;
+    } else {
+      ub.classList.remove('show');
+    }
+  }
+  [['P','Procurement & Sourcing','p-done'],['L','Logistics & Operations','l-done'],['S','Planning & Strategy','s-done']].forEach(([dm,lbl,cls])=>{
+    const ch=document.getElementById(`dch_${bi}_${dm}`);
+    if(ch){const n=ddib(bi,dm);ch.className='dchip'+(n>=1?' '+cls:'');ch.textContent=(n>=1?'✓ ':'')+lbl+(n>0?' ('+n+')'  :'');}
+  });
+  A[BANDS[bi].id].forEach((_,ai)=>{
+    [['P','pd'],['L','ld'],['S','sd']].forEach(([dm,cls])=>{
+      const c=document.getElementById(`adc_${bi}_${ai}_${dm}`);
+      const any=[0,1,2].some(ei=>isDone(bi,ai,dm,ei));
+      if(c)c.className='adc'+(any?' '+cls:'');
+      const cnt=document.getElementById(`cnt_${bi}_${ai}_${dm}`);
+      if(cnt){let n=0;for(let ei=0;ei<3;ei++)if(isDone(bi,ai,dm,ei))n++;cnt.textContent=n;}
+      for(let ei=0;ei<3;ei++){
+        const ec=document.getElementById(`exc_${bi}_${ai}_${dm}_${ei}`);
+        const eb=document.getElementById(`exb_${bi}_${ai}_${dm}_${ei}`);
+        if(ec)ec.className='exc'+(isDone(bi,ai,dm,ei)?' done':'');
+        if(eb)eb.textContent=isDone(bi,ai,dm,ei)?'✓ Done':'Mark done';
+      }
+    });
+  });
+}
+
+function swb(bi){
+  AB=bi;
+  document.querySelectorAll('.bpanel').forEach((p,i)=>p.style.display=i===bi?'block':'none');
+  rr();
+  const ne=document.querySelector('.bnav-wrap');
+  if(ne)window.scrollTo({top:ne.offsetTop-68,behavior:'smooth'});
+}
+function tga(bi,ai){const c=document.getElementById(`ac_${bi}_${ai}`);if(c)c.classList.toggle('open');}
+function swd(bi,ai,dm){
+  ['P','L','S'].forEach(d=>{
+    const t=document.getElementById(`dt_${bi}_${ai}_${d}`);
+    const p=document.getElementById(`dp_${bi}_${ai}_${d}`);
+    if(t)t.classList.remove('pon','lon','son');
+    if(p)p.className='dpanel';
+  });
+  const at=document.getElementById(`dt_${bi}_${ai}_${dm}`);
+  const ap=document.getElementById(`dp_${bi}_${ai}_${dm}`);
+  const cls=dm==='P'?'pon':dm==='L'?'lon':'son';
+  if(at)at.classList.add(cls);
+  if(ap)ap.className='dpanel dp-on';
+}
+
+const bandColors=['b0','b1','b2','b3'];
+function bui(){
+  const nav=document.getElementById('BN'),panels=document.getElementById('BP');
+  BANDS.forEach((band,bi)=>{
+    const tab=document.createElement('div');
+    tab.id='bt_'+bi;tab.onclick=()=>swb(bi);
+    nav.appendChild(tab);
+    const panel=document.createElement('div');
+    panel.className='bpanel';
+    panel.style.display=bi===0?'block':'none';
+    const maxS=A[band.id].length*3*3*10,totalEx=A[band.id].length*3*3;
+    const bh=`<div class="bhead ${bandColors[bi]} reveal">
+      <div>
+        <div class="bey">${band.day} · Band ${bi+1}</div>
+        <div class="btitle">${band.short}</div>
+        <div class="bdesc">${band.desc}</div>
+        <div class="bdom-row">
+          <div class="dchip" id="dch_${bi}_P">Procurement &amp; Sourcing</div>
+          <div class="dchip" id="dch_${bi}_L">Logistics &amp; Operations</div>
+          <div class="dchip" id="dch_${bi}_S">Planning &amp; Strategy</div>
+          <span class="bdom-note">Complete 1 from each to finish this band</span>
+        </div>
+      </div>
+      <div class="bscore-blk">
+        <div class="bscore-num" id="bs_${bi}">0</div>
+        <div class="bscore-sub">of ${maxS} pts</div>
+        <div class="bprog-track"><div class="bprog-fill" id="bp_${bi}"></div></div>
+      </div>
+    </div>`;
+    const ub=`<div class="ub" id="ub_${bi}"></div>`;
+    const sr=`<div class="score-row reveal">
+      <div class="src"><div class="src-num blue" id="sc_${bi}">0</div><div class="src-lbl">Band score</div></div>
+      <div class="src"><div class="src-num">${maxS}</div><div class="src-lbl">Max score</div></div>
+      <div class="src"><div class="src-num grn">${A[band.id].length}</div><div class="src-lbl">Activities</div></div>
+      <div class="src"><div class="src-num">${totalEx}</div><div class="src-lbl">Examples</div></div>
+    </div>`;
+    const dmLabels={P:'Procurement & Sourcing',L:'Logistics & Operations',S:'Planning & Strategy'};
+    const actsH=A[band.id].map((act,ai)=>{
+      const dtH=['P','L','S'].map((dm,di)=>`<div class="dtab${di===0?' pon':''}" id="dt_${bi}_${ai}_${dm}" onclick="swd(${bi},${ai},'${dm}')">${dmLabels[dm]}<span class="dtcnt" id="cnt_${bi}_${ai}_${dm}">0</span></div>`).join('');
+      const dpH=['P','L','S'].map((dm,di)=>{
+        const exH=act[dm].map((ex,ei)=>`<div class="exc" id="exc_${bi}_${ai}_${dm}_${ei}" onclick="tgl(${bi},${ai},'${dm}',${ei})"><div class="exn">Example ${ei+1}</div><div class="extask">${ex[0]}</div><div class="exdet">${ex[1]}</div><div class="exfoot"><button class="exbtn" id="exb_${bi}_${ai}_${dm}_${ei}">Mark done</button><span class="ptspill">+10 pts</span></div></div>`).join('');
+        return`<div class="dpanel${di===0?' dp-on':''}" id="dp_${bi}_${ai}_${dm}"><div class="exgrid">${exH}</div></div>`;
+      }).join('');
+      const adcH=[['P','pd','P · Procurement'],['L','ld','L · Logistics'],['S','sd','S · Planning']].map(([dm,cls,lbl])=>`<span class="adc" id="adc_${bi}_${ai}_${dm}">${lbl}</span>`).join('');
+      return`<div class="act reveal" id="ac_${bi}_${ai}"><div class="atop" onclick="tga(${bi},${ai})"><div class="anum">${ai+1}</div><div class="ainfo"><div class="atitle">${act.t}</div><div class="atag">${act.g}</div><div class="adchips">${adcH}</div></div><div class="achev">▼</div></div><div class="abody"><div class="dtabs">${dtH}</div>${dpH}</div></div>`;
+    }).join('');
+    panel.innerHTML=bh+ub+sr+`<div class="act-list">${actsH}</div>`;
+    panels.appendChild(panel);
+  });
+}
+
+window.addEventListener('scroll',()=>{
+  const dh=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('PB').style.width=(window.scrollY/dh*100)+'%';
+  const sh=document.getElementById('SH');if(sh)sh.style.opacity=window.scrollY>80?'0':'1';
+});
+const io=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');io.unobserve(el.target);}});},{threshold:0.08});
+(async()=>{
+  try{const r=await window.storage.get('sc_course_v2');if(r&&r.value){const p=JSON.parse(r.value);if(p&&p.done)ST=p;}}catch(e){}
+  bui();
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  rr();
+})();
+window.tgl=tgl;window.tga=tga;window.swd=swd;window.swb=swb;
+</script>
+</body>
+</html>
