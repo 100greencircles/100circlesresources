@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude AI for Marketing, Sales & Management · IOOCircles</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Comfortaa:wght@300;400;700&family=Outfit:wght@100;200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg:#F3F6FF;
+  --surface:#FFFFFF;
+  --surface-2:#EEF3FF;
+
+  --blue:#4A7FD4;
+  --blue-light:#EAF1FF;
+  --blue-mid:#BED1F5;
+  --blue-dark:#2A58A8;
+  --blue-text:#1B3D7A;
+
+  --red:#E05568;
+  --red-light:#FFF0F2;
+  --red-mid:#F9C2C8;
+  --red-dark:#B73244;
+  --red-text:#8B1C2A;
+
+  --green:#2EB87A;
+  --green-light:#EAFAF3;
+  --green-mid:#A8E4C8;
+  --green-dark:#1A8852;
+  --green-text:#105432;
+
+  --yellow:#D4930A;
+  --yellow-light:#FFFBEC;
+  --yellow-mid:#F5D888;
+  --yellow-dark:#A07008;
+  --yellow-text:#6B4800;
+
+  --text:#181D35;
+  --text-2:#485068;
+  --text-3:#8896AB;
+  --border:#DDE6F8;
+  --border-2:#C2D2EE;
+  --soft:#E8EEF9;
+
+  --font-display:'Fredoka',sans-serif;
+  --font-brand:'Comfortaa',sans-serif;
+  --font-body:'Outfit',sans-serif;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 2px 14px rgba(74,127,212,0.08);
+  --shadow-md:0 6px 28px rgba(74,127,212,0.13);
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.75;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--blue-mid);border-radius:99px;}
+
+#PB{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--green),var(--red));width:0%;z-index:400;transition:width .1s linear;}
+
+/* NAV */
+nav{
+  position:fixed;top:3px;left:0;right:0;z-index:300;
+  display:flex;align-items:center;gap:10px;flex-wrap:nowrap;overflow:hidden;
+  padding:.75rem 1.8rem;
+  background:rgba(243,246,255,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:var(--font-brand);font-weight:700;font-size:1.05rem;letter-spacing:.04em;color:var(--text);}
+.nav-logo em{font-style:normal;color:var(--blue);}
+.nav-tag{font-size:.6rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:var(--text-3);padding:3px 10px;background:var(--blue-light);border-radius:99px;border:1px solid var(--blue-mid);font-family:var(--font-brand);}
+.nav-right{}
+.nchip{display:flex;align-items:center;gap:5px;padding:4px 12px;border-radius:99px;font-family:var(--font-brand);font-size:.65rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--border);color:var(--text-3);background:var(--surface);}
+.nchip.blue{border-color:var(--blue-mid);color:var(--blue);background:var(--blue-light);}
+.nchip strong{color:var(--blue);font-size:.8rem;letter-spacing:0;font-weight:700;}
+.pw{min-width:88px;}
+.pl{font-family:var(--font-brand);font-size:.58rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px;display:flex;justify-content:space-between;}
+.pl span:last-child{color:var(--blue);font-weight:700;}
+.pt{height:4px;background:var(--blue-light);border-radius:99px;overflow:hidden;}
+.pf{height:4px;background:linear-gradient(90deg,var(--blue),#82B6F5);border-radius:99px;transition:width .5s ease;width:0%;}
+
+/* HERO */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:9rem 2rem 5rem;text-align:center;background:var(--bg);
+}
+.blob{position:absolute;border-radius:50%;filter:blur(65px);pointer-events:none;animation:blobF 9s ease-in-out infinite;}
+.b1{width:540px;height:540px;background:rgba(74,127,212,0.12);top:-180px;left:-150px;}
+.b2{width:400px;height:400px;background:rgba(46,184,122,0.1);bottom:-120px;right:-80px;animation-delay:-4s;}
+.b3{width:260px;height:260px;background:rgba(212,147,10,0.09);top:30%;right:7%;animation-delay:-7s;}
+.b4{width:200px;height:200px;background:rgba(224,85,104,0.09);top:22%;left:6%;animation-delay:-2.5s;}
+@keyframes blobF{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(16px,-20px) scale(1.04);}66%{transform:translate(-12px,14px) scale(.97);}}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(74,127,212,0.14) 1.5px,transparent 1.5px);
+  background-size:30px 30px;opacity:.45;pointer-events:none;
+}
+.hero-ew{
+  position:relative;z-index:2;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 18px;border-radius:99px;
+  background:var(--blue-light);border:1.5px solid var(--blue-mid);
+  font-family:var(--font-brand);font-size:.65rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);
+  margin-bottom:2rem;animation:fadeUp .6s .2s ease both;
+}
+.ew-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.75);}}
+.hero-title{
+  position:relative;z-index:2;
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(2.8rem,7vw,7.5rem);
+  line-height:.96;letter-spacing:-.02em;
+  margin-bottom:1.5rem;color:var(--text);
+  animation:fadeUp .7s .35s ease both;
+}
+.tw-blue{color:var(--blue);}
+.tw-red{color:var(--red);}
+.tw-green{color:var(--green);}
+.tw-yellow{color:var(--yellow);}
+.hero-sub{
+  position:relative;z-index:2;
+  font-size:clamp(.88rem,1.2vw,1rem);font-weight:300;color:var(--text-2);
+  max-width:520px;line-height:1.85;margin-bottom:2.5rem;
+  font-family:var(--font-body);
+  animation:fadeUp .7s .5s ease both;
+}
+.domain-pills{
+  position:relative;z-index:2;
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  margin-bottom:3rem;animation:fadeUp .7s .65s ease both;
+}
+.dp{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.68rem;font-weight:300;letter-spacing:.1em;
+  text-transform:uppercase;border:1.5px solid;transition:transform .2s;cursor:default;
+}
+.dp:hover{transform:translateY(-2px);}
+.dp-blue{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue-text);}
+.dp-red{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dp-green{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dp-yellow{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.dp-dot{width:7px;height:7px;border-radius:50%;}
+.dp-blue .dp-dot{background:var(--blue);}
+.dp-red .dp-dot{background:var(--red);}
+.dp-green .dp-dot{background:var(--green);}
+.dp-yellow .dp-dot{background:var(--yellow);}
+.hero-stats{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;width:100%;max-width:520px;
+  box-shadow:var(--shadow-md);animation:fadeUp .7s .8s ease both;
+}
+.hst{padding:1.4rem 1rem;text-align:center;border-right:1px solid var(--border);}
+.hst:last-child{border-right:none;}
+.hst-num{font-family:var(--font-display);font-weight:500;font-size:2.5rem;color:var(--blue);line-height:1;}
+.hst-lbl{font-family:var(--font-brand);font-size:.6rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-top:5px;}
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-family:var(--font-brand);font-size:.52rem;font-weight:300;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--text-3);transition:opacity .4s;animation:fadeUp .7s 1.2s ease both;
+}
+.sh-line{width:1px;height:30px;background:var(--blue-mid);overflow:hidden;position:relative;}
+.sh-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:linear-gradient(to bottom,var(--blue),var(--green));animation:dLine 1.8s ease-in-out infinite;}
+@keyframes dLine{0%{top:-100%}100%{top:100%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* BAND NAV */
+.bnav-wrap{background:var(--text);position:sticky;top:68px;z-index:200;overflow:visible;}
+.bnav{max-width:1100px;margin:0 auto;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.btab{
+  flex-shrink:0;display:flex;align-items:center;gap:8px;
+  padding:.85rem 1.1rem;
+  font-family:var(--font-brand);font-size:.62rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);cursor:pointer;
+  border-bottom:3px solid transparent;border-right:1px solid rgba(255,255,255,.07);
+  transition:all .2s;white-space:nowrap;
+}
+.btab:hover{color:rgba(255,255,255,.72);background:rgba(255,255,255,.04);}
+.btab.active{color:#fff;border-bottom-color:var(--blue);}
+.btab.complete .tab-dot{opacity:1;}
+.tab-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;opacity:0;transition:opacity .2s;}
+.tab-pts{font-size:.58rem;font-weight:300;letter-spacing:0;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.28);}
+.btab.active .tab-pts{background:rgba(74,127,212,.3);color:rgba(255,255,255,.7);}
+
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:3rem 2rem 6rem;}
+.bpanel{display:none;}
+.bpanel.active{display:block;}
+
+/* BAND HEADER */
+.bhead{
+  display:grid;grid-template-columns:1fr auto;gap:2.5rem;align-items:start;
+  padding:2.5rem 2rem 2rem;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);margin-bottom:1.5rem;border-top:4px solid var(--blue);
+}
+.bhead.bb1{border-top-color:var(--blue);}
+.bhead.bb2{border-top-color:var(--green);}
+.bhead.bb3{border-top-color:var(--red);}
+.bhead.bb4{border-top-color:var(--yellow);}
+.bey{font-family:var(--font-brand);font-size:.62rem;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--blue);margin-bottom:.65rem;}
+.btitle{font-family:var(--font-display);font-weight:500;font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.08;color:var(--text);margin-bottom:.5rem;}
+.bdesc{font-size:.88rem;color:var(--text-2);max-width:520px;line-height:1.75;font-family:var(--font-body);}
+.bdom-row{display:flex;gap:6px;margin-top:1rem;flex-wrap:wrap;align-items:center;}
+.dchip{
+  padding:4px 12px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.6rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;
+  border:1.5px solid var(--border);color:var(--text-3);background:var(--surface-2);transition:all .2s;
+}
+.dchip.s-done{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dchip.m-done{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dchip.g-done{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.bdom-note{font-family:var(--font-brand);font-size:.62rem;font-weight:300;color:var(--text-3);}
+.bscore-blk{text-align:right;}
+.bscore-num{font-family:var(--font-display);font-weight:500;font-size:3.5rem;color:var(--blue);line-height:1;}
+.bscore-sub{font-family:var(--font-brand);font-size:.58rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
+.bp-track{height:3px;background:var(--blue-light);border-radius:99px;margin-top:10px;width:120px;margin-left:auto;}
+.bp-fill{height:3px;background:var(--blue);border-radius:99px;transition:width .5s;width:0%;}
+
+/* SCORE ROW */
+.score-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow);
+}
+.src{background:var(--surface);padding:1.1rem 1rem;text-align:center;}
+.src-num{font-family:var(--font-display);font-weight:500;font-size:1.8rem;color:var(--text);line-height:1;}
+.src-num.blue{color:var(--blue);}
+.src-num.grn{color:var(--green);}
+.src-lbl{font-family:var(--font-brand);font-size:.56rem;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin-top:3px;}
+
+/* UNLOCK BANNER */
+.ub{
+  display:none;align-items:center;gap:12px;padding:.9rem 1.4rem;
+  background:var(--green-light);border:1.5px solid var(--green-mid);border-radius:var(--radius-sm);
+  margin-bottom:1.5rem;font-size:.85rem;color:var(--green-text);font-weight:400;
+}
+.ub.show{display:flex;}
+.ub strong{color:var(--green-dark);}
+.ub-icon{width:22px;height:22px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* ACTIVITY CARDS */
+.act-list{display:flex;flex-direction:column;gap:6px;}
+.act-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .15s;box-shadow:var(--shadow);
+}
+.act-card:hover{border-color:var(--blue-mid);box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.act-card.open{border-color:var(--blue-mid);box-shadow:var(--shadow-md);border-left:3px solid var(--blue);}
+.act-top{display:flex;align-items:flex-start;gap:14px;padding:1.3rem 1.4rem;cursor:pointer;}
+.act-num{
+  width:28px;height:28px;border-radius:var(--radius-sm);
+  background:var(--blue-light);border:1.5px solid var(--blue-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-brand);font-size:.68rem;font-weight:700;color:var(--blue);
+  flex-shrink:0;margin-top:2px;transition:all .2s;
+}
+.act-card.open .act-num,.act-card:hover .act-num{background:var(--blue);color:#fff;border-color:var(--blue);}
+.act-info{flex:1;}
+.act-title-txt{font-family:var(--font-brand);font-weight:700;font-size:.9rem;color:var(--text);line-height:1.35;}
+.act-tag-txt{font-family:var(--font-body);font-size:.72rem;font-weight:300;color:var(--text-3);margin-top:3px;}
+.act-dom-chips{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;}
+.adc{
+  padding:2px 9px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.58rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--text-3);background:var(--surface-2);transition:all .2s;
+}
+.adc.s-done{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.adc.m-done{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.adc.g-done{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.act-chev{font-size:.7rem;color:var(--text-3);flex-shrink:0;margin-top:5px;transition:transform .25s;}
+.act-card.open .act-chev{transform:rotate(180deg);color:var(--blue);}
+.act-body{display:none;border-top:1px solid var(--border);padding:0 1.4rem 1.4rem;}
+.act-card.open .act-body{display:block;}
+
+/* DOMAIN TABS */
+.dom-tabs{display:flex;gap:4px;margin:1.2rem 0 1rem;}
+.dtab{
+  padding:6px 14px;border-radius:var(--radius-sm);
+  font-family:var(--font-brand);font-size:.62rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);cursor:pointer;border:1.5px solid var(--border);background:var(--surface-2);
+  transition:all .2s;display:flex;align-items:center;gap:6px;
+}
+.dtab:hover{border-color:var(--blue-mid);color:var(--blue);}
+.dtab.s-on{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dtab.m-on{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dtab.g-on{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.dtab-cnt{
+  min-width:16px;height:16px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.58rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;padding:0 4px;
+  background:rgba(0,0,0,.06);color:inherit;transition:all .2s;
+}
+.dom-panel{display:none;}
+.dom-panel.dp-on{display:block;}
+
+/* EXAMPLE GRID */
+.ex-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.ex-card{
+  background:var(--surface-2);border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:1.1rem;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+.ex-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .2s;}
+.ex-card:hover{border-color:var(--blue-mid);background:var(--surface);box-shadow:0 2px 12px rgba(74,127,212,.1);}
+.ex-card:hover::before,.ex-card.done::before{opacity:1;}
+
+/* Domain color stripes on example cards */
+#dpan_0_0_S .ex-card::before,#dpan_1_0_S .ex-card::before,#dpan_2_0_S .ex-card::before,#dpan_3_0_S .ex-card::before,
+#dpan_0_1_S .ex-card::before,#dpan_1_1_S .ex-card::before,#dpan_2_1_S .ex-card::before,#dpan_3_1_S .ex-card::before,
+#dpan_0_2_S .ex-card::before,#dpan_1_2_S .ex-card::before,#dpan_2_2_S .ex-card::before,#dpan_3_2_S .ex-card::before,
+#dpan_0_3_S .ex-card::before,#dpan_1_3_S .ex-card::before,#dpan_2_3_S .ex-card::before,#dpan_3_3_S .ex-card::before,
+#dpan_0_4_S .ex-card::before,#dpan_1_4_S .ex-card::before,#dpan_2_4_S .ex-card::before,#dpan_3_4_S .ex-card::before{background:var(--red);}
+#dpan_0_0_M .ex-card::before,#dpan_1_0_M .ex-card::before,#dpan_2_0_M .ex-card::before,#dpan_3_0_M .ex-card::before,
+#dpan_0_1_M .ex-card::before,#dpan_1_1_M .ex-card::before,#dpan_2_1_M .ex-card::before,#dpan_3_1_M .ex-card::before,
+#dpan_0_2_M .ex-card::before,#dpan_1_2_M .ex-card::before,#dpan_2_2_M .ex-card::before,#dpan_3_2_M .ex-card::before,
+#dpan_0_3_M .ex-card::before,#dpan_1_3_M .ex-card::before,#dpan_2_3_M .ex-card::before,#dpan_3_3_M .ex-card::before,
+#dpan_0_4_M .ex-card::before,#dpan_1_4_M .ex-card::before,#dpan_2_4_M .ex-card::before,#dpan_3_4_M .ex-card::before{background:var(--green);}
+[id$="_G"] .ex-card::before{background:var(--yellow);}
+
+/* Domain done states */
+[id$="_S"] .ex-card.done{background:var(--red-light);border-color:var(--red-mid);}
+[id$="_M"] .ex-card.done{background:var(--green-light);border-color:var(--green-mid);}
+[id$="_G"] .ex-card.done{background:var(--yellow-light);border-color:var(--yellow-mid);}
+[id$="_S"] .ex-card:hover:not(.done){border-color:var(--red-mid);}
+[id$="_M"] .ex-card:hover:not(.done){border-color:var(--green-mid);}
+[id$="_G"] .ex-card:hover:not(.done){border-color:var(--yellow-mid);}
+
+.ex-n{font-family:var(--font-brand);font-size:.56rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
+.ex-task{font-family:var(--font-brand);font-weight:700;font-size:.84rem;color:var(--text);margin-bottom:6px;line-height:1.4;flex:1;}
+.ex-card.done .ex-task{color:var(--blue);}
+.ex-det{font-size:.74rem;color:var(--text-2);line-height:1.65;margin-bottom:10px;font-family:var(--font-body);font-weight:300;}
+.ex-footer{display:flex;align-items:center;gap:6px;margin-top:auto;}
+.ex-btn{
+  padding:5px 14px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.6rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;border:1.5px solid var(--border-2);color:var(--text-3);background:var(--surface);
+  transition:all .2s;
+}
+.ex-btn:hover{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue);}
+.ex-card.done .ex-btn{background:var(--surface);border-color:var(--green-mid);color:var(--green-dark);}
+.pts-pill{
+  padding:3px 9px;border-radius:99px;font-family:var(--font-brand);
+  font-size:.58rem;font-weight:300;letter-spacing:.06em;
+  background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);
+}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+footer{
+  background:#111827;color:#fff;padding:2rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.flogo{font-family:var(--font-brand);font-weight:700;font-size:1.1rem;color:#fff;}
+.flogo em{font-style:normal;color:var(--blue);}
+.fmeta{display:flex;flex-direction:column;gap:4px;text-align:right;}
+.fform{font-family:var(--font-brand);font-size:.8rem;font-weight:300;color:rgba(255,255,255,.3);}
+.ftag{font-family:var(--font-brand);font-size:.6rem;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+
+@media(max-width:760px){
+  nav{padding:.85rem 1.25rem;}
+  .nav-right{}
+  .hero-title{font-size:clamp(2.2rem,10vw,4rem);}
+  .hero-stats{grid-template-columns:1fr;}
+  .hst{border-right:none;border-bottom:1px solid var(--border);}
+  .hst:last-child{border-bottom:none;}
+  .bhead{grid-template-columns:1fr;}
+  .bscore-blk{text-align:left;}
+  .bp-track{margin-left:0;}
+  .score-row{grid-template-columns:1fr 1fr;}
+  .ex-grid{grid-template-columns:1fr;}
+  footer{text-align:center;justify-content:center;}
+  .fmeta{text-align:center;}
+}
+
+/* ── DARK MODE ── */
+body.dark{
+  --bg:#0F1322;
+  --surface:#171D30;
+  --surface-2:#1D2440;
+  --text:#E8EDF8;
+  --text-2:#A0AECF;
+  --text-3:#5A6A90;
+  --border:#2A3558;
+  --border-2:#384470;
+  --soft:#1D2440;
+  --blue-light:#1A2A50;
+  --blue-mid:#2A4480;
+  --blue-text:#90B8F8;
+  --red-light:#2A1520;
+  --red-mid:#6A2030;
+  --red-text:#F5A0A8;
+  --green-light:#0E2018;
+  --green-mid:#1A5030;
+  --green-text:#80DCA8;
+  --yellow-light:#1E1500;
+  --yellow-mid:#503800;
+  --yellow-text:#F0C868;
+  --shadow:0 2px 14px rgba(0,0,0,0.35);
+  --shadow-md:0 6px 28px rgba(0,0,0,0.5);
+}
+body.dark nav{background:rgba(15,19,34,0.95);}
+body.dark .hero::before{opacity:.25;}
+body.dark .hero-stats{background:var(--surface);border-color:var(--border);}
+body.dark .act-card{background:var(--surface);}
+body.dark .ex-card{background:var(--surface-2);}
+body.dark .ex-card:hover{background:var(--surface);}
+body.dark .score-row{background:var(--border);}
+body.dark .src{background:var(--surface);}
+body.dark .bhead{background:var(--surface);}
+body.dark .dtab{background:var(--surface-2);}
+body.dark .nchip{background:var(--surface);}
+body.dark .flogo em,.body.dark .nav-logo em{color:#7AB4F8;}
+
+/* Dark mode toggle */
+.dm-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 13px;border-radius:99px;cursor:pointer;
+  border:1.5px solid var(--border-2);background:var(--surface);
+  font-family:var(--font-brand);font-size:.62rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);transition:all .2s;flex-shrink:0;
+}
+.dm-btn:hover{border-color:var(--blue-mid);color:var(--blue);}
+body.dark .dm-btn{border-color:var(--border-2);color:var(--text-3);}
+.dm-icon{font-size:12px;line-height:1;}
+
+/* ── ABOUT MODAL ── */
+.about-btn{display:flex;align-items:center;gap:5px;padding:5px 13px;border-radius:99px;cursor:pointer;border:1.5px solid var(--border-2);background:var(--surface);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);transition:all .2s;flex-shrink:0;font-family:var(--font-brand,'Comfortaa',sans-serif);}
+.about-btn:hover{border-color:var(--blue-mid);color:var(--blue);}
+.about-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,14,28,0.72);backdrop-filter:blur(6px);}
+.about-overlay.open{display:flex;align-items:flex-start;justify-content:center;padding:5rem 1.5rem 2rem;}
+.about-modal{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;width:100%;max-width:940px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.35);}
+.about-modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.8rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+.about-modal-title{font-family:var(--font-display,'Fredoka',sans-serif);font-size:1.4rem;font-weight:500;color:var(--text);}
+.about-modal-sub{font-size:.78rem;color:var(--text-3);margin-top:3px;font-family:var(--font-body,'Outfit',sans-serif);}
+.about-close{width:30px;height:30px;border-radius:999px;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--text-3);transition:all .2s;}
+.about-close:hover{border-color:var(--blue-mid);color:var(--blue);}
+.about-modal-body{overflow-y:auto;padding:1.5rem 1.8rem 2rem;flex:1;}
+.about-intro{padding:1rem 1.2rem;border-radius:10px;background:var(--blue-light);border:1px solid var(--blue-mid);font-size:.85rem;color:var(--blue-text);font-family:var(--font-body,'Outfit',sans-serif);line-height:1.7;margin-bottom:1.5rem;}
+.about-table-wrap{overflow-x:auto;}
+.caps-table{width:100%;border-collapse:collapse;font-size:.8rem;font-family:var(--font-body,'Outfit',sans-serif);}
+.caps-table thead th{padding:.7rem .9rem;text-align:left;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);background:var(--surface-2);border-bottom:2px solid var(--border);white-space:nowrap;}
+.caps-table .col-num{width:36px;}
+.caps-table .col-where{width:190px;}
+.caps-table .col-band{width:120px;}
+.caps-table .col-act{width:90px;text-align:center;}
+.caps-table tbody tr{border-bottom:1px solid var(--border);transition:background .12s;}
+.caps-table tbody tr:hover{background:var(--surface-2);}
+.caps-table tbody td{padding:.65rem .9rem;color:var(--text-2);vertical-align:middle;}
+.caps-table tbody td:first-child{color:var(--text-3);font-size:.72rem;font-weight:700;}
+.caps-table tbody td:nth-child(2){color:var(--text);font-weight:500;}
+.caps-table tbody td:nth-child(3){font-size:.75rem;color:var(--text-3);}
+.caps-table tbody td:last-child{text-align:center;font-size:.72rem;color:var(--text-3);}
+.band-b1{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:var(--blue-light);color:var(--blue-text);border:1px solid var(--blue-mid);}
+.band-b2{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:var(--green-light);color:var(--green-text);border:1px solid var(--green-mid);}
+.band-b3{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:var(--red-light);color:var(--red-text);border:1px solid var(--red-mid);}
+.band-b4{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:var(--yellow-light);color:var(--yellow-text);border:1px solid var(--yellow-mid);}
+body.dark .about-modal{background:var(--surface);}
+body.dark .caps-table thead th{background:var(--surface-2);}
+body.dark .caps-table tbody tr:hover{background:var(--surface-2);}
+
+body.dark .btab{color:rgba(255,255,255,0.58);}
+body.dark .btab:hover{color:rgba(255,255,255,0.88);}
+body.dark .btab.active{color:#fff;}
+body.dark .tab-pts{color:rgba(255,255,255,0.3);}
+body.dark .btab.active .tab-pts{color:rgba(130,182,248,0.75);}
+body.dark .bnav-wrap{background:#1C2038;}
+body.dark footer{background:#0D1220;}
+
+
+
+/* Nav layout */
+nav{justify-content:flex-start;gap:8px;flex-wrap:nowrap;overflow:hidden;}
+.nav-scores{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto;}
+.nav-controls{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+@media(max-width:900px){.nav-scores{display:none;}}
+
+.copy-row{margin:4px 0 8px;}
+.copy-btn{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 11px;border-radius:99px;cursor:pointer;
+  border:1px solid var(--border-2);background:transparent;
+  font-size:.62rem;font-weight:500;color:var(--text-3);
+  transition:all .2s;font-family:var(--font-brand,'Comfortaa',sans-serif);
+  letter-spacing:.06em;
+}
+.copy-btn:hover{border-color:var(--blue-mid);color:var(--blue);background:var(--blue-light);}
+.copy-btn.copied{border-color:var(--green-mid,#a8e4c8);color:var(--green-text,#105432);background:var(--green-light,#eafaf3);}
+
+.hero-for{font-size:clamp(1.2rem,2.5vw,2.2rem);color:var(--text-3);font-weight:300;font-family:var(--font-body);;display:inline;}
+.hero-sub-title{font-size:clamp(1.8rem,4vw,4.2rem)!important;}
+</style>
+</head>
+<body>
+
+<div id="progressBar"></div>
+
+<nav>
+  <div class="nav-logo"><em>IOO</em>Circles</div>
+  <div class="nav-tag">AI Skills Course</div>
+  <div class="nav-scores">
+    <div class="nchip blue">Score <strong id="scoreVal">0</strong>&thinsp;/ 1800</div>
+    <div class="nchip">Done <strong id="doneVal">0</strong>&thinsp;/ 180</div>
+    <div class="nchip">Bands <strong id="bandsVal">0</strong>&thinsp;/ 4</div>
+    <div class="pw">
+      <div class="pl"><span>Progress</span><span id="pctLbl">0%</span></div>
+      <div class="pt"><div class="pf" id="topFill"></div></div>
+    </div>
+  </div>
+  <div class="nav-controls">
+    <button class="about-btn" onclick="openAbout()">&#9776; Curriculum</button>
+    <button class="dm-btn" id="dmToggle" onclick="toggleDark()"><span class="dm-icon" id="dmIcon">&#9790;</span><span id="dmLabel">Dark</span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="hero-ew"><div class="ew-dot"></div>Self-Paced &thinsp;·&thinsp; 4 Bands &thinsp;·&thinsp; 20 Activities &thinsp;·&thinsp; 46 Capabilities</div>
+  <h1 class="hero-title">
+    <span class="tw-blue">Claude AI</span> <span class="hero-for">for</span><br>
+    <span class="tw-red hero-sub-title">Sales, Marketing &amp; Gen.&nbsp;Mgmt</span>
+  </h1>
+  <p class="hero-sub">5 days. 2 hours each. 20 activities. 46 Claude capabilities. One clear path from Beginner to Practitioner to Builder to Strategist.</p>
+  <div class="domain-pills">
+    <div class="dp dp-blue"><div class="dp-dot"></div>4 Bands</div>
+    <div class="dp dp-red"><div class="dp-dot"></div>Sales</div>
+    <div class="dp dp-green"><div class="dp-dot"></div>Marketing</div>
+    <div class="dp dp-yellow"><div class="dp-dot"></div>Management</div>
+  </div>
+  <div class="hero-stats">
+    <div class="hst"><div class="hst-num" style="font-size:1.8rem;line-height:1.2;">46</div><div class="hst-lbl">Claude Capabilities</div></div>
+    <div class="hst"><div class="hst-num">20</div><div class="hst-lbl">Activities</div></div>
+    <div class="hst"><div class="hst-num">180</div><div class="hst-lbl">Examples</div></div>
+  </div>
+  <div class="scroll-hint" id="scrollHint">scroll<div class="sh-line"></div></div>
+</section>
+
+<div class="bnav-wrap"><div class="bnav" id="bandNav"></div></div>
+<div class="main"><div id="bandPanels"></div></div>
+
+<footer>
+  <div class="flogo"><em>IOO</em>Circles</div>
+  <div class="fmeta">
+    <div class="fform">I% Rule = O₂C</div>
+    <div class="ftag">Tech · Ideas · Actions</div>
+  </div>
+</footer>
+
+<script>
+const BANDS=[
+  {id:'b0',short:'Beginner',day:'Days 1–2',desc:'Fundamental Claude interaction through to real work output, Projects, and content repurposing.'},
+  {id:'b1',short:'Practitioner',day:'Day 3',desc:'Structured prompting, Artifacts, Skills, .md files, web search, data analysis, and Deep Research.'},
+  {id:'b2',short:'Builder',day:'Day 4',desc:'Extended thinking, prompt chaining, system prompts, AI personas, multi-modal analysis, Cowork, and no-code automation.'},
+  {id:'b3',short:'Strategist',day:'Day 5',desc:'API, multi-agent pipelines, evaluation frameworks, governance, and program design.'},
+];
+
+const A={
+b0:[
+ {t:'Ask Claude anything + summarize real work content',g:'Q&A · Multi-turn · Summarization',
+  S:[['Summarize a 20-page RFP into 5 decision criteria','Upload the PDF. Ask: "Summarize into 5 bullets. For each: the requirement, evaluation criterion, and what would disqualify a vendor."'],
+     ['Summarize a prospect\'s annual report into 3 priorities','Paste the strategy section. Ask: "What are their top 3 stated priorities? What metrics are they held to? What pressures do they mention?"'],
+     ['Turn a competitor\'s case study into a counter-narrative','Paste the text. Ask: "What does this claim? What\'s exaggerated or missing? Give me 3 talking points I could use if a prospect shows me this."']],
+  M:[['Summarize last quarter\'s campaign results for leadership','Paste the results email. Ask: "Summarize into an exec brief: what worked, what didn\'t, what we\'re changing, what we\'re spending next quarter."'],
+     ['Summarize a 50-page industry report into 5 actionable trends','Upload the PDF. Ask: "Extract the 5 most actionable trends — one sentence on each, one implication for content strategy."'],
+     ['Ask Claude to explain a marketing term you keep hearing','Ask: "Explain intent data and how B2B marketers use it. Give me a plain-English definition, one real example, and the one metric I should track."']],
+  G:[['Summarize last month\'s team retro notes into themes and actions','Paste the notes. Ask: "Pull the top 3 recurring themes, the top 3 action items with no owner yet, and one risk the team hasn\'t named."'],
+     ['Summarize a board deck into a 5-bullet team briefing','Upload it. Ask: "Write a 5-bullet internal briefing: what the board focused on, decisions made, and what it means for our team."'],
+     ['Ask Claude to explain OKRs vs KPIs with examples','Ask: "Explain the difference for a non-technical team lead. Give me 2 examples of each for a B2B SaaS sales team."']]},
+ {t:'Fix, rewrite and control tone of any piece of writing',g:'Editing · Tone · Variations',
+  S:[['Rewrite a limp follow-up email in 3 tones','Paste your draft. Get 3 rewrites: (A) formal and executive-facing, (B) warm and peer-to-peer, (C) short and direct with urgency.'],
+     ['Fix a proposal intro that\'s too long and feature-heavy','Paste it. Ask: "Rewrite to lead with the customer\'s problem not our product. Cut it by 40%. The reader should understand in 15 seconds why this matters."'],
+     ['Rewrite an objection response that sounds defensive','Paste your response to "we already have a vendor." Ask: "Rewrite to sound confident and curious, not defensive. Acknowledge their situation, open a door."']],
+  M:[['Fix a product description that\'s too technical','Paste it. Ask: "Rewrite for a non-technical B2B buyer. Remove jargon. Lead with the outcome not the feature. End with one sentence that makes them want to ask a question."'],
+     ['Rewrite a launch announcement that sounds like a press release','Paste it. Ask: "Rewrite as a founder LinkedIn post. Conversational, excited, human. Tell the story of why we built this. Under 200 words."'],
+     ['Fix a case study intro that buries the lead','Paste it. Ask: "The most interesting part is buried. Find it and rewrite the opening paragraph to lead with that. Reader should know the outcome by sentence two."']],
+  G:[['Rewrite a project update that sounds apologetic','Paste it. Ask: "Rewrite to sound confident, action-oriented, forward-looking. Keep the facts. Change framing from \'we\'re behind\' to \'here\'s what we\'re doing about it.\'"'],
+     ['Fix a job description that\'s attracting the wrong candidates','Paste it. Ask: "What signals attract the wrong profile? Identify 3 phrases that are too vague or too senior, then rewrite those sections."'],
+     ['Rewrite a performance review section that\'s too vague','Paste it. Ask: "Rewrite to be specific and evidence-based. Replace every adjective with a behavior. Replace every vague statement with an example or metric."']]},
+ {t:'Draft and generate variations of any work content',g:'Long-form Drafting · A/B Variations',
+  S:[['Draft 3 cold email openers for the same ICP','Ask: "Write 3 openers for a VP of Sales at a 100-person SaaS company. A: reference a company milestone. B: lead with a pain. C: use a surprising stat."'],
+     ['Draft 3 subject lines for a post-demo follow-up','Ask: "Write 3 subject lines. A: references something they said. B: leads with the ROI number discussed. C: creates gentle urgency around timing."'],
+     ['Draft a 2-minute elevator pitch in 3 styles','Ask: "Write a 2-min pitch in 3 styles: (A) data-led for a CFO, (B) story-led for a CEO, (C) outcome-first for a VP who has 90 seconds."']],
+  M:[['Write 3 versions of a product launch LinkedIn post','Ask: "Write 3 posts announcing our feature. A: founder story. B: customer problem solved. C: data-led stat. Each under 160 words."'],
+     ['Write 3 subject line variations for a webinar invite','Ask: "Write 3 email subject lines. A: curiosity gap. B: direct value with a number. C: social proof — references who else is attending."'],
+     ['Write 3 Instagram caption styles for the same visual','For a post showing [image], ask: "Write 3 captions: (A) educational — teaches in 3 bullets, (B) behind-the-scenes story, (C) bold opinion that invites debate."']],
+  G:[['Write a job posting in 3 different culture tones','Ask: "Write a Senior Account Manager posting in 3 tones: (A) traditional corporate, (B) fast-paced startup, (C) mission-driven and values-led."'],
+     ['Write a reorg announcement in 3 tones','Ask: "Write the internal announcement as: (A) formal and process-driven, (B) direct and transparent about why, (C) optimistic and forward-looking."'],
+     ['Write an OKR summary for 3 different audiences','Paste your Q2 OKRs. Ask: "Write 3 versions: (A) for the board — metrics only, (B) for the team — daily work implications, (C) for an external partner — no sensitive numbers."']]},
+ {t:'Upload a document and interrogate it',g:'Document Q&A · File Upload · Analysis',
+  S:[['Upload a competitor\'s case study and build a counter-brief','Upload the PDF. Ask: "What makes their proof points credible? What\'s absent? Give me 3 counter-arguments for a competitive deal."'],
+     ['Upload a prospect\'s annual report and find pain signals','Upload it. Ask: "What are the 3 biggest challenges this company mentions? What metrics are they being pressured on? What suggests they\'d be open to our category?"'],
+     ['Upload your own proposal and ask Claude to find weaknesses','Upload the draft. Ask: "Read this as a sceptical buyer. Where is the value prop vague? Where would you push back? What section is missing?"']],
+  M:[['Upload last quarter\'s campaign brief and audit it','Upload it. Ask: "What assumptions were baked in here? Which metrics were missing? What did the target audience definition get wrong? Give me 5 things I\'d change."'],
+     ['Upload a competitor\'s whitepaper and extract their positioning','Upload it. Ask: "What claim are they trying to own? What\'s their strongest point? What would I do differently in a competing piece?"'],
+     ['Upload your content calendar and find what\'s missing','Upload or paste it. Ask: "What content types are over-represented? What audience segments are ignored? Suggest 5 additions that fill the gaps."']],
+  G:[['Upload a vendor proposal and find the gaps before signing','Upload it. Ask: "What\'s vague or undefined? What commitments are implied but not written? What are the 5 questions I should ask before we move forward?"'],
+     ['Upload a strategic plan and surface unstated assumptions','Upload it. Ask: "What assumptions does this plan rely on that aren\'t stated? Which ones are most likely to be wrong? What would cause this to fail in 6 months?"'],
+     ['Upload an employee survey report and theme the findings','Upload it. Ask: "What are the 3 strongest themes? Are there patterns by team or seniority? What\'s the most surprising finding? What are the top 2 actions for a manager?"']]},
+ {t:'Set up a Project and repurpose content across formats',g:'Projects · Memory · Repurposing',
+  S:[['Sales Project + turn a discovery call into 3 outputs','Create a Project with your ICP, product, and top 5 objections. Paste a call transcript. Ask Claude to generate: a follow-up email, a proposal intro, and a 3-bullet CRM note.'],
+     ['Prospect Project + repurpose an email thread into a proposal section','Create a Project for a specific deal. Upload the email thread. Ask: "Based on what this prospect has said, write the Executive Summary using their exact language for the problem."'],
+     ['Competitive Intel Project + turn battle cards into a call cheat sheet','Create a Project and upload your battle cards. Ask: "Create a 1-page quick-reference: for each competitor — their #1 claim, our best counter, and the question that exposes their weakness."']],
+  M:[['Brand Project + repurpose one blog post into 3 channel formats','Create a Project with your brand voice guide. Paste a blog post. Ask Claude to create: a LinkedIn post (hook-led, 150w), newsletter section (insight + application), and a 60-second video script.'],
+     ['Campaign Project + repurpose a webinar into 5 assets','Upload a webinar transcript to a Campaign Project. Ask Claude to generate: 3 LinkedIn posts (one per key insight), 1 email to attendees, 1 email to no-shows.'],
+     ['Newsletter Project + repurpose last month\'s posts into one edition','Create a Newsletter Project with your format guide. Paste your last 8 posts. Ask: "Find the 3 most connected pieces and weave them into one newsletter edition."']],
+  G:[['Team Project + turn a board deck into 3 internal formats','Create a Team Project with your org structure. Upload the deck. Ask Claude to write: a team briefing email, a client-facing update (no internal numbers), and a Slack summary under 100 words.'],
+     ['Hiring Project + repurpose a job posting across 3 channels','Create a Hiring Project. Paste the JD. Ask Claude to adapt it for: LinkedIn (hook-led), a referral email to current employees (personal), and a job board (keyword-rich).'],
+     ['Strategy Project + cascade quarterly goals to 3 audience levels','Create a Strategy Project with your OKRs. Ask Claude to write: (A) all-hands message, (B) manager briefing with team implications, (C) 3-bullet board progress update.']]}
+],
+b1:[
+ {t:'Write your first structured prompt (C+T+F+C)',g:'Prompt Engineering · Structured Inputs',
+  S:[['Build a structured prompt for prospect research briefs','"Context: I sell [X] to [ICP]. Task: identify 3 pain points. Format: 1-page brief — overview, pain signals, decision-maker, hook. Constraints: no generic statements, specific details only."'],
+     ['Build a structured prompt for competitive win/loss analysis','"Context: I\'m a sales rep, we lost a deal to [competitor]. Task: analyze why. Format: debrief — what they won on, what we got wrong, 3 changes for next time."'],
+     ['Build a structured prompt for a mutual action plan','"Context: I just had a discovery call with [company type]. Task: turn these notes into a mutual action plan. Format: table — Step | Owner | Deadline | Purpose. Committed steps only."']],
+  M:[['Build a structured prompt for on-brand LinkedIn posts','"Context: I am [role] at [company] posting for [audience]. Task: write a LinkedIn post on [topic]. Format: hook, 3 short paragraphs, question CTA, under 180 words. No jargon, no bullets."'],
+     ['Build a structured prompt for a campaign brief','"Context: launching [product] for [ICP]. Task: write a campaign brief. Format: 6 sections — objective, audience, message, channels, KPIs, creative direction. One sentence per section."'],
+     ['Build a structured prompt for turning testimonials into case studies','"Context: testimonial from [company type]. Task: turn into a case study outline. Format: 5 sections — background, challenge, solution, results, quote. No invented details."']],
+  G:[['Build a structured prompt for extracting meeting action items','"Context: I run a [team type] team. Task: extract action items. Format: table — Action | Owner | Deadline | Priority. Decisions only, flag items with no named owner."'],
+     ['Build a structured prompt for a weekly team status report','"Context: I manage [team]. Task: format these raw updates into a weekly report. Format: 3 sections — Progress, Blockers, Next week. Max 3 bullets per person."'],
+     ['Build a structured prompt for a performance review summary','"Context: I\'m writing mid-year reviews. Task: turn notes into a review summary. Format: 3 paragraphs — strengths with examples, areas to develop, H2 recommended focus."']]},
+ {t:'Build a prompt library and save Claude Skills',g:'Prompt Library · Claude Skills',
+  S:[['Save 3 Skills: brief builder, objection handler, follow-up writer','Build a structured prompt for each. Save as a Claude Skill. Test each with a real deal. The brief builder alone should save 20 min per prospect.'],
+     ['Save a Skill: call notes → CRM update + follow-up email','Build a prompt: raw call notes in → structured CRM note + follow-up email out. Save as one Skill. Run it after every single call.'],
+     ['Save a Skill: generate 5 subject lines for any outreach topic','Build using the 6 Hook Formula. Input: topic + ICP. Output: 5 subject lines — curiosity-gap, number-led, story-led, credibility, direct. Save as a Skill.']],
+  M:[['Save 3 Skills: hook generator, caption writer, campaign brief builder','Hook generator: topic → 6 hooks. Caption writer: content → LinkedIn, Instagram, YouTube Shorts. Brief builder: topic + ICP → full content brief. One click each.'],
+     ['Save a Skill: blog post → 4 repurposed assets','Input: blog post. Output: LinkedIn post (150w), newsletter section (120w), Instagram caption (80w), YouTube Short script (60 sec). One Skill, four assets.'],
+     ['Save a Skill: score any LinkedIn post before publishing','Input: draft post. Output: score 1–5 on hook strength, readability, engagement likelihood, brand voice, CTA. Plus one rewrite suggestion for the lowest-scoring element.']],
+  G:[['Save 3 Skills: status formatter, decision memo writer, retro summarizer','Status: raw updates → structured report. Decision memo: context → one-pager. Retro: notes → themes, actions, owners. Three Skills, three recurring tasks eliminated.'],
+     ['Save a Skill: meeting notes → structured action items','Input: raw meeting notes. Output: table with Action | Owner | Deadline | Priority + a 2-sentence meeting summary. Run immediately after every team meeting.'],
+     ['Save a Skill: weekly update from bullet-point inputs','Each team member submits 3 bullets. Skill groups by theme, removes duplication, formats into a manager-ready update. Zero formatting time.']]},
+ {t:'Research with web search and Deep Research',g:'Web Search · Deep Research · Synthesis',
+  S:[['Research a prospect 10 minutes before a discovery call','Ask (web search on): "Research [company]. Give me: recent news, their stated priorities, any leadership changes, likely pain points, and one thing I can reference in the call."'],
+     ['Research a competitor\'s recent moves and pricing changes','Ask: "What has [competitor] announced in the last 3 months? Any new features, pricing changes, or negative reviews? What should a sales rep know before competing against them today?"'],
+     ['Research top objections in your category using third-party sources','Use Deep Research: "What are the most common objections buyers raise when evaluating [product category]? Use G2, Gartner, and LinkedIn. Give me top 5 objections and best responses."']],
+  M:[['Research what competitors are saying about a topic to find a content gap','Use Deep Research: "What are the top 5 B2B SaaS companies saying about [topic] right now? What angle is overused? What angle is nobody taking that I could own?"'],
+     ['Research the top-performing content formats in your industry','Ask: "What content formats are getting the most engagement in [industry] on LinkedIn right now? Give me 3 specific examples with reasons why they worked."'],
+     ['Research viral LinkedIn posts in your category and find the hook pattern','Ask: "Find 5 high-engagement posts in [topic] from the last 30 days. For each: hook type, emotion triggered, structural pattern. What should I steal?"']],
+  G:[['Research industry benchmarks for a key metric','Ask: "What is a benchmark [metric] for a [company type] in [industry]? Give me 3 credible sources, the range (low/median/high), and where our current number sits."'],
+     ['Research how peer companies structure remote work policies','Use Deep Research: "How are B2B SaaS companies with 50–200 employees structuring remote work in 2026? What\'s the most common approach? What\'s the biggest mistake?"'],
+     ['Research the latest thinking on performance management','Ask: "What are the most current frameworks for performance management in fast-growing B2B companies? What does the research say actually improves performance vs. what\'s just popular?"']]},
+ {t:'Analyze data and create Artifacts and .md docs',g:'CSV Analysis · Artifacts · .md Files',
+  S:[['Upload a pipeline CSV and get a deal health audit','Upload your pipeline. Ask: "Flag deals with no activity in 14+ days, deals missing a next step, and the 3 highest-risk accounts. Output as a formatted table Artifact."'],
+     ['Upload win/loss data and identify top 3 reasons you\'re losing','Upload the data. Ask: "What are the top 3 reasons we lose deals? Break down by deal size and competitor. Output a .md summary for our next sales all-hands."'],
+     ['Upload activity data and find which rep behaviors predict faster close','Upload rep activity data. Ask: "Which behaviors correlate with shorter sales cycles? Which reps are outliers on the positive side? Output a .md coaching brief."']],
+  M:[['Upload campaign data and find the best and worst performing channel','Upload the CSV. Ask: "Which channel had the lowest CAC and highest conversion? Which had good engagement but low conversion? Create a .md report for our campaign retro."'],
+     ['Upload email performance data and identify subject line patterns','Upload the data. Ask: "What patterns do the top 20% of emails by open rate share? What do the bottom 20% have in common? Create a .md cheat sheet of subject line rules."'],
+     ['Upload social analytics and build a content doubling-down report','Upload analytics. Ask: "Which content types get the most saves and shares? What topics over-index on our ICP? Create a .md report on what to produce more of."']],
+  G:[['Upload utilization data and flag over/under-allocation','Upload the spreadsheet. Ask: "Who is over 100% allocated? Who has capacity? Recommend one rebalancing action. Output a .md status brief for the team."'],
+     ['Upload NPS survey data and surface themes by customer segment','Upload the data. Ask: "What are the top 5 themes in negative responses? Are detractors concentrated in any segment? Create a .md summary for the product team."'],
+     ['Upload hiring funnel data and find where candidates are dropping out','Upload the funnel data. Ask: "At which stage do we lose the most qualified candidates? What\'s our conversion rate vs. benchmark? Create a .md report with 3 interventions."']]},
+ {t:'Create and publish Artifacts and .md documents',g:'Artifacts · Published Artifacts · .md Docs',
+  S:[['Build an interactive ROI calculator as a published Artifact','Ask Claude to create an interactive ROI calculator. Input: customer\'s current cost + team size. Output: projected saving. Publish as a URL to send to prospects before a close call.'],
+     ['Build a competitive battle card as a .md file in a Sales Project','Ask Claude to create a .md battle card for your top competitor: strengths, weaknesses, our differentiators, 3 questions to expose their gaps, and 3 best counter-lines.'],
+     ['Create a proposal template Artifact with deal-specific placeholders','Ask Claude to build a proposal template with labeled placeholders: [COMPANY_PROBLEM], [SOLUTION], [ROI_ESTIMATE], [TIMELINE], [INVESTMENT]. Save with persistent storage for all reps.']],
+  M:[['Create a .md brand voice guide the whole team references','Ask Claude to generate a .md guide: tone descriptors, vocabulary (words we use / avoid), banned phrases, example good/bad sentences, and a 10-point quick-reference checklist.'],
+     ['Build an interactive campaign planning template as a published Artifact','Ask Claude to create a campaign planning Artifact with fields for audience, goal, message, channels, KPIs, timeline, budget. Publish the URL — every campaign brief starts here.'],
+     ['Create a content brief .md template from your brand context','With your Brand Project open, ask Claude to generate a .md content brief template that auto-fills ICP, tone, and brand guidelines — leaving only topic and CTA for the writer.']],
+  G:[['Create a published Artifact new hire onboarding checklist','Ask Claude to build an interactive onboarding checklist Artifact: checkboxes, sections by week (W1/W2/W4), progress tracker, and links to key docs. Publish the URL for every new joiner.'],
+     ['Build a .md OKR tracking template teams fill in each sprint','Ask Claude to create a .md template: Objective | Key Result | % | RAG | Owner | Last updated | Blocker. Every team copies and fills in their numbers each sprint.'],
+     ['Create a decision log Artifact — a living record of every major decision','Ask Claude to build a decision log: Date | Decision | Context | Options considered | Rationale | Owner | Review date. Save with persistent storage so it accumulates over time.']]}
+],
+b2:[
+ {t:'Use extended thinking for a complex decision',g:'Extended Thinking · Strategic Reasoning',
+  S:[['Get a multi-scenario strategy for a complex stalled deal','Enable extended thinking. Paste: stage, stakeholders, budget signals, competition, objections. Ask: "Think through this carefully. What\'s the most likely reason this stalls? What\'s the fastest path to close?"'],
+     ['Decide whether to discount or hold firm on a price-sensitive deal','Ask: "Here\'s the deal context: [paste]. Think through the discount decision. What does discounting signal? What\'s the cost of holding firm? What\'s the third option I\'m not considering?"'],
+     ['Build a 90-day territory strategy from scratch','Ask: "Here\'s my territory: [accounts, segments, pipeline]. Think through how I should prioritize my 90 days. What should I stop doing? Rank my top 10 accounts by likelihood to close with reasoning."']],
+  M:[['Analyze your brand position vs. 5 competitors','Enable extended thinking. Paste each competitor\'s positioning. Ask: "Where is the whitespace? What claim can we own that none of them are making? What\'s the risk? What proof do we need?"'],
+     ['Decide between two campaign strategies with incomplete data','Ask: "I have budget for one campaign: Option A is [describe] and Option B is [describe]. Our data is limited. Which to choose given the uncertainty? What assumption matters most?"'],
+     ['Diagnose why a high-traffic content piece isn\'t converting','Ask: "This post gets 5,000 views/week but 0.2% CTR. Here\'s the content: [paste]. Think through every possible reason it\'s not converting. Rank by likelihood. What\'s the highest-leverage fix?"']],
+  G:[['Build a decision framework across 4 strategic options','Enable extended thinking. Paste the 4 options and context. Ask: "Think through each carefully. Assess: risk, reversibility, resources, strategic fit, second-order effects. Recommend one with full reasoning."'],
+     ['Design an org restructure that minimises disruption','Ask: "We need to restructure our [team]. Here are the constraints: [paste]. Think through how to redesign this without losing key people. What\'s the order of operations? What\'s most likely to go wrong?"'],
+     ['Diagnose why a team\'s velocity has dropped without obvious causes','Ask: "Our team\'s output dropped 30% over 6 weeks. Nothing obvious has changed. Here\'s what I know: [paste]. Think through possible causes — individual, structural, cultural. What\'s the most likely root cause?"']]},
+ {t:'Build a 3-prompt chain',g:'Prompt Chaining · Workflow Design',
+  S:[['Chain: prospect research → pain mapping → personalized cold email','P1: "Research [company]. List their top 3 business challenges with sources." P2: "Map those challenges to our top 3 capabilities. Which is the strongest fit and why?" P3: "Write a cold email referencing the #1 fit. Under 75 words. One specific detail from the research."'],
+     ['Chain: call notes → objection analysis → tailored follow-up','P1: "From these call notes, extract every objection raised — explicit and implied." P2: "For each objection, identify the underlying concern and strongest counter." P3: "Write a follow-up email addressing the top 2 objections without sounding defensive."'],
+     ['Chain: win/loss data → pattern identification → updated talk track','P1: "From this data, identify the top 3 patterns in why we lose." P2: "For each loss pattern, identify the moment in the sales cycle where it could have been caught." P3: "Write an updated talk track section for each moment — the question to ask and the pivot to make."']],
+  M:[['Chain: topic research → outline → full LinkedIn article','P1: "Research the current conversation around [topic]. What\'s overused? What\'s the contrarian angle?" P2: "Build a 6-section outline using the contrarian angle." P3: "Write the full 800-word article. Conversational, no jargon, specific examples."'],
+     ['Chain: customer interview notes → insights → case study draft','P1: "Extract the 5 most quotable moments and 3 most compelling outcomes." P2: "Map outcomes to a before/after structure: problem → solution → result with metrics." P3: "Write a 500-word case study draft. Start with the customer\'s problem in their own words."'],
+     ['Chain: campaign brief → 5 ad variations → scoring to pick the best','P1: "Extract the core message, target audience, and desired action." P2: "Write 5 ad variations for [channel]: different hooks, same core message." P3: "Score each on: audience relevance, CTA clarity, stopping power, brand fit. Recommend one to test first."']],
+  G:[['Chain: meeting notes → action items → stakeholder update email','P1: "Extract every decision and commitment from these notes." P2: "Organise into a table: Action | Owner | Due | Priority. Flag items with no named owner." P3: "Write a 150-word stakeholder update email summarising decisions and next steps."'],
+     ['Chain: quarterly data → performance narrative → board memo','P1: "From these metrics, identify what exceeded target, what missed, what\'s trending wrong." P2: "For each underperforming area, identify the most likely root cause and one corrective action." P3: "Write a 1-page board update: results, key risks, corrective actions, Q3 outlook."'],
+     ['Chain: employee feedback → theme clustering → manager action plan','P1: "From these survey responses, identify the top 5 themes — positive and negative." P2: "For each negative theme, assess: systemic or individual? In manager\'s control?" P3: "Write a manager action plan with one specific action per theme and a 30/60/90 day timeline."']]},
+ {t:'Write a system prompt and build an AI persona',g:'System Prompts · AI Personas',
+  S:[['Build "Deal Coach" — your personal AI sales strategist','"You are Deal Coach. You know our ICP is [describe], our top 3 differentiators are [list], and our most common objections are [list]. When I describe a deal, ask 3 clarifying questions first, then give me a strategy with a primary and fallback move."'],
+     ['Build "Objection Handler" — knows your product and every objection','"You are Objection Handler. Your knowledge base: [product], [top 10 objections + best responses], [2 customer proof points per objection]. When I give you an objection, tell me: the underlying concern, the best response, and the follow-up question to keep the conversation moving."'],
+     ['Build "Proposal Writer" — turns call notes into a structured proposal','"You are Proposal Writer. You know our proposal structure: [paste template]. When I give you discovery call notes, draft a filled-in proposal. Always use the customer\'s exact language for the problem statement."']],
+  M:[['Build "Brand Editor" — your on-brand copy reviewer','"You are Brand Editor. Our brand voice: [describe]. You review any copy and score it 1–5 on: tone accuracy, clarity, CTA strength, jargon count, hook quality. Always flag the lowest-scoring element and rewrite that specific section."'],
+     ['Build "Content Strategist" — knows your ICP, competitors, content pillars','"You are Content Strategist. You know our ICP [describe], content pillars [list], and top 3 competitors [name]. When I give you a topic, tell me: which pillar it fits, how competitors have covered it, and the angle that would differentiate us."'],
+     ['Build "Campaign Critic" — reviews any campaign brief','"You are Campaign Critic. Score any brief on: audience specificity, message clarity, channel rationale, KPI measurability, creative direction. Score each 1–5. Give the single most important fix."']],
+  G:[['Build "Chief of Staff" — communication and clarity assistant','"You are Chief of Staff. You know our team structure [describe], current OKRs [paste], and my communication style [describe]. When I give you raw thinking or notes, turn it into a polished memo, crisp email, or structured decision."'],
+     ['Build "Hiring Manager" — evaluates candidates against criteria','"You are Hiring Manager. The open role: [paste JD]. Must-haves: [list]. Nice-to-haves: [list]. When I give you a CV or interview notes, score the candidate on each criterion, flag gaps, and generate 3 interview questions targeting the weakest area."'],
+     ['Build "OKR Coach" — helps teams write better objectives','"You are OKR Coach. Company-level OKRs: [paste]. When a team shares their draft OKRs, assess: do key results have specific numbers? Are they measurable? Do they ladder up to company objectives? Flag misalignment and suggest one rewrite per weak KR."']]},
+ {t:'Multi-modal analysis — image, text, and data combined',g:'Vision · Multi-modal · Screenshot Analysis',
+  S:[['Upload a prospect\'s homepage and extract buying signals','Screenshot their homepage. Ask: "What problem is this company solving? What does their messaging tell you about their buyer\'s sophistication? What product category would they most likely buy into right now?"'],
+     ['Screenshot a competitor\'s pricing page and analyze their strategy','Upload it. Ask: "What positioning strategy is embedded here? Who is the target buyer for each tier? What does the feature list reveal about what customers care most about?"'],
+     ['Upload a photo of a whiteboard from a customer discovery session','Photo the whiteboard. Ask: "Extract every idea, pain point, and decision. Group into themes. Identify what the customer is most worried about vs. most excited about. Turn into a 1-page discovery summary."']],
+  M:[['Compare your ad creative vs. a top competitor\'s side by side','Upload both ads. Ask: "Compare positioning, visual hierarchy, emotional tone, headline strategy, and CTA strength. What one specific change to our ad would have the most impact on stopping power?"'],
+     ['Upload 5 Instagram posts from a competitor and extract their strategy','Upload or screenshot them. Ask: "What visual style are they using consistently? What emotions do they target? What are they NOT doing that we could own?"'],
+     ['Screenshot your landing page and get a conversion critique','Upload the screenshot. Ask: "Read this as a first-time visitor. What\'s confusing in the first 5 seconds? Where does attention go instead of the CTA? What\'s the single highest-leverage fix?"']],
+  G:[['Turn a whiteboard photo into a structured strategic brief','Photo the board after a strategy session. Ask: "Extract every idea, group into themes, identify the top 3 decisions, list open questions, and write a 1-page brief for stakeholders who weren\'t in the room."'],
+     ['Upload a screenshot of your project board and get a risk assessment','Screenshot the board (Trello/Jira/Notion). Ask: "Which items are at risk of missing their deadline? Where are the bottlenecks? What\'s the most dangerous dependency that isn\'t being tracked?"'],
+     ['Upload your org chart as an image and find structural gaps','Upload it. Ask: "What does this org structure suggest about how decisions get made? Where are the communication bottlenecks? What\'s missing for a scaling company at this stage?"']]},
+ {t:'Claude Cowork, no-code automation, and team SOPs',g:'Cowork · Automation · SOPs',
+  S:[['Build a pre-call research SOP using Cowork','In Cowork: company name input → Claude researches → outputs a 1-page brief → auto-saves to a folder named after the prospect. No code. Runs in 90 seconds before any discovery call.'],
+     ['Automate proposal generation from a discovery template','In Cowork: rep fills in discovery template (problem, stakeholders, timeline, budget) → Claude maps inputs to proposal template → generates first draft → saves as .docx to the deal folder.'],
+     ['Build a Cowork workflow that monitors a deal folder and updates a summary','Set up folder-watch: whenever a new file is added to a prospect\'s folder → Claude reads it and updates a running deal summary doc → adds a timestamp and what changed. Always current.']],
+  M:[['Automate weekly content repurposing with Cowork','In Cowork: when a new blog post is saved to /Drafts → Claude generates LinkedIn post, newsletter section, and Instagram caption → saves to /Repurposed with date. Runs every time a post is published.'],
+     ['Build a social brief automation — content calendar to platform captions','Set up Cowork: each Monday, Claude reads the content calendar → generates platform-specific captions for each piece → saves as a .md file in /Content/Weekly → sends a Slack message with the link.'],
+     ['Automate customer testimonial repurposing into 3 formats','Cowork: when a new testimonial is saved → Claude outputs 3 files: quote card brief (.md), case study opener (150w), LinkedIn post draft → saves to /Assets/Testimonial-Repurposed.']],
+  G:[['Automate weekly status reports from raw team inputs','Cowork: every Friday, Claude reads the team update doc → formats into a structured report (Progress / Blockers / Next week) → saves as .md → sends Slack notification. Manager spends 0 minutes formatting.'],
+     ['Build an automated onboarding doc generator for new hires','Cowork: input name, role, start date → Claude generates personalized Day 1 checklist, 30-60-90 plan, and team introduction email → saves all three to the new hire\'s onboarding folder.'],
+     ['Build a Cowork workflow that alerts when OKR metrics drop below threshold','OKR tracker updated weekly → Claude reads values → for any metric below 60% with 3+ weeks left → generates a 3-bullet action suggestion → sends Slack alert to the metric owner.']]}
+],
+b3:[
+ {t:'Explore the API and design a use case',g:'API Literacy · Workflow Design',
+  S:[['Design an inbound lead qualification API workflow','"When a lead emails us → Claude reads it → scores ICP fit 1–5 → extracts company, role, pain point → routes to CRM with a priority tag and suggested opening response. Walk me through what each API call does and where the human review checkpoint is."'],
+     ['Design a post-call coaching API for sales reps','"Call transcript in → Claude identifies: questions asked, objections raised, talk-to-listen ratio, missed discovery opportunities → outputs a structured coaching brief per call → sends to rep and manager. What are the failure points?"'],
+     ['Design a renewal risk scoring API using CRM data','"Weekly CRM export for accounts renewing in 90 days → Claude scores churn probability based on activity, NPS, and support tickets → flags high-risk accounts → sends to CSM with recommended intervention. Design the data flow."']],
+  M:[['Design a content pipeline API — from RSS to multi-channel drafts','"Blog RSS triggers when a post publishes → Claude generates LinkedIn post, newsletter blurb, Instagram caption → saves to Notion with source URL and date. Design the API structure, the prompt for each output, and the review step."'],
+     ['Design a social listening + response API for brand mentions','"Brand mentions from [tool] come in → Claude reads and categorizes as positive/neutral/negative → drafts a suggested response → routes to community manager for approval. What edge cases exist? What should Claude never respond to automatically?"'],
+     ['Design a campaign personalization API for email sequences','"Contact data (role, company, last action) goes in → Claude generates a personalized subject line, intro, and CTA for each contact → outputs CSV for HubSpot import. Design the prompt structure, variable inputs, and quality check."']],
+  G:[['Design a metrics-to-narrative API for Monday morning updates','"Every Monday, analytics sends a JSON of weekly KPIs → Claude writes a 200-word narrative: highlights, risks, one recommended action → posts to #leadership Slack. What does the API chain look like? What happens when data is missing?"'],
+     ['Design a performance review drafting API','"Manager submits notes + 360 feedback → Claude generates a structured review draft → saves as .docx for manager review. Design the input schema and output format. Where does bias monitoring happen?"'],
+     ['Design a hiring screening API for first-round CV review','"CV text submitted → Claude scores against JD criteria → generates top 3 interview questions targeting weakest criteria → outputs a brief for the hiring manager. What are the bias risks? What does the human always decide?"']]},
+ {t:'Design a multi-step automated pipeline',g:'Multi-Agent · Batch Processing · Pipelines',
+  S:[['Build a lead enrichment and personalized outreach pipeline','Map it: upload 50 company names → Claude batch-researches each → generates a 1-para personalized opener → outputs a CSV: Company | Pain Point | Opener | Subject line. Where does a human review before send?'],
+     ['Build a weekly deal review pipeline for sales managers','Map it: weekly CRM export → Claude flags at-risk deals → generates a coaching note per rep → sends a structured briefing to the sales manager every Monday at 8am. Identify 3 human checkpoints.'],
+     ['Build a competitive intelligence monitoring pipeline','Map it: Claude monitors competitor blog, G2 reviews, and LinkedIn posts weekly → summarizes new product claims, pricing changes, customer complaints → formats as a weekly briefing → delivers to sales team Slack every Friday.']],
+  M:[['Build a content quality and SEO pipeline','Map it: draft submitted → Claude reviews for brand voice → checks keyword density and suggests SEO improvements → scores readability → outputs a quality brief with pass/fail per criterion.'],
+     ['Build a campaign performance narrative pipeline','Map it: weekly metrics CSV → Claude writes narrative (what worked, why) → flags underperformers with root cause hypotheses → recommends budget reallocation → sends to marketing lead with one recommended action.'],
+     ['Build a UGC and social proof pipeline','Map it: customer reviews scraped weekly → Claude categorizes by sentiment → extracts 5 best quotes → drafts 3 LinkedIn posts using those quotes → saves to /Assets/Social-Proof. Human approves before publishing.']],
+  G:[['Build a monthly OKR review pipeline','Map it: OKR data CSV → Claude calculates progress → flags at-risk OKRs (below 60%) → generates board update narrative → sends Slack alerts to owners of flagged OKRs with 3 recommended actions.'],
+     ['Build a hiring pipeline review automation','Map it: ATS exports applications weekly → Claude scores each against JD criteria → flags top 5 per role → generates interview prep briefs for the hiring manager → sends a weekly digest.'],
+     ['Build a team health monitoring pipeline','Map it: weekly pulse survey → Claude identifies morale trends → flags anomalies (score drops 15%+ in one week) → generates anonymous theme summary → creates confidential alert to manager with 2 suggested conversation openers.']]},
+ {t:'Build an output evaluation rubric',g:'Model Evaluation · Quality Control',
+  S:[['Build a cold email scoring rubric your team uses before every send','Ask: "Create a rubric scoring cold emails on: (1) personalization, (2) value prop clarity, (3) CTA specificity, (4) length under 80 words, (5) spam signal risk. 1–5 scale. What\'s a 1 vs. 5 for each? Add a minimum score before sending."'],
+     ['Build a discovery call quality rubric for rep coaching','Ask: "Build a rubric for discovery call quality: problem uncovered, budget qualified, decision-maker identified, next step confirmed, rapport built. For each: what does a 5 look like vs. a 1? Add a \'needs coaching\' threshold."'],
+     ['Build a proposal quality rubric for deal reviews','Ask: "Score proposals on: problem statement accuracy, solution fit, ROI clarity (specific number?), competitive differentiation, CTA strength. 1–5 scale. What total score determines it goes to the prospect vs. back for revision?"']],
+  M:[['Build a LinkedIn post quality rubric for the content team','Ask: "Build a rubric: hook strength, readability, engagement likelihood, brand voice accuracy, CTA quality. 1–5 scale. Add a minimum score before publishing without editorial review."'],
+     ['Build a campaign brief quality rubric','Ask: "Score campaign briefs on: audience specificity (ICP defined?), goal clarity (one number?), message differentiation (ownable angle?), channel rationale, measurement plan. What score requires a brief rewrite before the creative team starts?"'],
+     ['Build a case study quality rubric for the content team','Ask: "Score case studies on: customer problem specificity, solution clarity, results measurability (3+ metrics?), quote authenticity, and scannability. What\'s the minimum score before publishing on the website?"']],
+  G:[['Build a strategic memo scoring rubric for leadership submissions','Ask: "Build a rubric for strategic memos: clarity of ask, quality of evidence, strength of recommendation, consideration of alternatives, actionability of next steps. 1–5. Output: \'approve / revise / rethink.\'"'],
+     ['Build a job description quality rubric for the hiring process','Ask: "Score JDs on: role clarity, requirements realism, culture signal strength, compensation transparency, inclusion language quality. 1–5. What score do we require before posting externally?"'],
+     ['Build a meeting effectiveness rubric teams self-score each week','Ask: "Build a rubric: clear agenda, decisions made, action items assigned, time kept, follow-through from previous meeting. 1–5. Total score under 15: this meeting shouldn\'t have happened."']]},
+ {t:'Draft an AI usage policy for your team',g:'AI Governance · Data Policy',
+  S:[['Write a sales team AI policy covering outreach and data use','Draft a 1-page policy: what prospect data can enter Claude (company info yes, NDA content no), how AI-generated outreach must be reviewed before sending, what to do when Claude produces inaccurate info, who owns AI quality.'],
+     ['Write a policy on AI-assisted proposal writing with disclosure rules','Draft covering: what portions of a proposal can be AI-generated, what human review is required, whether we disclose AI use to prospects, what happens if a proposal contains a factual error from Claude.'],
+     ['Write a policy on AI-generated competitive intelligence','Draft covering: what sources Claude can use for competitive research, verification requirements before sharing intel, how to handle confident-sounding outputs that might be outdated, who approves competitive briefs.']],
+  M:[['Write a marketing AI policy on content creation and brand risk','Draft a policy: what content types can be AI-generated (first drafts yes, case study quotes no), human review process before publishing, which brand assets cannot be fed into public AI tools.'],
+     ['Write a policy on AI-generated visuals and brand safety','Draft covering: which AI image tools are approved, brand safety review required before any AI visual goes live, how to handle AI images that resemble real people or competitors.'],
+     ['Write a policy on AI use in paid campaigns and A/B testing','Draft covering: what ad copy can be AI-generated, what human review is required before spend goes live, how to audit for brand voice drift across AI-generated campaign assets over time.']],
+  G:[['Write a leadership AI policy covering decisions and confidentiality','Draft: which internal docs can be uploaded to Claude (board decks no, retros yes with names removed), how AI-assisted decisions get documented, which tools are approved vs. shadow IT.'],
+     ['Write an HR AI policy covering hiring, reviews, and employee data','Draft covering: what employee data can be used in AI tools, how AI can assist in hiring and performance reviews, what bias monitoring is required, how employees can flag concerns.'],
+     ['Write a cross-functional AI policy for a 50-person company','Draft a one-page company-wide policy: approved tools by function, data classification, review requirements before AI output is used externally, escalation path for errors, and how new tools get approved.']]},
+ {t:'Design a 2-hour AI onboarding for your team',g:'AI Literacy · Program Design · Full-Stack Mastery',
+  S:[['Design "AI for SDRs" — 10 reps, prospecting and outreach','Ask: "Design a 2-hour onboarding for 10 SDRs. Goals: research accounts 3x faster, write better openers, prep for calls smarter. What are the 3 activities? What Skill do they set up? What can they do on Monday that they couldn\'t do Friday?"'],
+     ['Design "AI for Account Managers" — renewal, QBR prep, expansion','Ask: "Design a 2-hour session for AMs. Goals: identify renewal risk early, prepare QBRs faster, spot expansion signals. What 3 activities cover this? What system prompt do they build? What does their prompt library look like at the end?"'],
+     ['Design "AI for Sales Leaders" — pipeline review and rep coaching','Ask: "Design a 2-hour session for sales managers. Goals: use Claude for pipeline review and rep coaching. What 3 activities build the right habits? What\'s the governance decision they leave with?"']],
+  M:[['Design "AI for Content Teams" — 5 people, speed and consistency','Ask: "Design a 2-hour session for a content team. Goals: repurpose faster, maintain brand voice, never start from blank. What 3 activities run in the session? What Skills do they set up? What does their Brand Project look like at the end?"'],
+     ['Design "AI for Campaign Managers" — briefs, analysis, optimisation','Ask: "Design for campaign managers. Goals: write better briefs in half the time, turn data into decisions faster, test more variations. What 3 activities? What structured prompts do they leave with?"'],
+     ['Design "AI for Brand Managers" — competitive monitoring and positioning','Ask: "Design for brand managers. Goals: monitor competitor positioning, keep brand voice consistent, stress-test positioning claims. What 3 activities? What system prompt is the big output?"']],
+  G:[['Design "AI for C-Suite" — 90 minutes, strategic thinking and comms','Ask: "Design a 90-minute session for founders and C-suite. Goals: use Claude for one strategic task and one communication task; understand what it can\'t do. What 3 activities work at their level? How do you handle the \'it\'s just autocomplete\' objection in the room?"'],
+     ['Design "AI for People Managers" — team comms, performance, hiring','Ask: "Design a 2-hour session for 15 people managers. Goals: team communications, performance conversations, and supporting the hiring process. What 3 activities? What system prompt do they build?"'],
+     ['Design "AI for Chiefs of Staff and Ops" — reporting and decisions','Ask: "Design a 2-hour session for CoS and ops leads. Goals: meeting management, cross-functional reporting, decision documentation. What automation do they set up in Cowork? What does their prompt library cover?"']]}
+]};
+
+let STATE={done:{}};
+let activeBand=0;
+
+function key(bi,ai,dom,ei){return`${bi}_${ai}_${dom}_${ei}`;}
+function isDone(bi,ai,dom,ei){return!!STATE.done[key(bi,ai,dom,ei)];}
+function domDoneInBand(bi,dom){let n=0;A[BANDS[bi].id].forEach((_,ai)=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dom,ei))n++;}});return n;}
+function bandComplete(bi){return domDoneInBand(bi,'S')>=1&&domDoneInBand(bi,'M')>=1&&domDoneInBand(bi,'G')>=1;}
+function bandScore(bi){let s=0;A[BANDS[bi].id].forEach((_,ai)=>{['S','M','G'].forEach(dom=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dom,ei))s+=10;}});});return s;}
+function totalScore(){return BANDS.reduce((s,_,bi)=>s+bandScore(bi),0);}
+function totalDone(){let n=0;BANDS.forEach((_,bi)=>{A[BANDS[bi].id].forEach((_,ai)=>{['S','M','G'].forEach(dom=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dom,ei))n++;}});});});return n;}
+
+async function toggleDone(bi,ai,dom,ei){
+  STATE.done[key(bi,ai,dom,ei)]=!STATE.done[key(bi,ai,dom,ei)];
+  try{await window.storage.set('sm_course_v3',JSON.stringify(STATE));}catch(e){}
+  rerender();
+}
+
+function rerender(){
+  const sc=totalScore(),dn=totalDone(),pct=Math.round(dn/180*100),bc=BANDS.filter((_,bi)=>bandComplete(bi)).length;
+  document.getElementById('scoreVal').textContent=sc;
+  document.getElementById('doneVal').textContent=dn;
+  document.getElementById('bandsVal').textContent=bc;
+  document.getElementById('pctLbl').textContent=pct+'%';
+  document.getElementById('topFill').style.width=pct+'%';
+  document.getElementById('progressBar').style.width=pct+'%';
+  BANDS.forEach((_,bi)=>{updateBandNav(bi);updateBandContent(bi);});
+}
+
+function updateBandNav(bi){
+  const tab=document.getElementById('bnav_'+bi);if(!tab)return;
+  const c=bandComplete(bi),s=bandScore(bi);
+  tab.className='btab'+(activeBand===bi?' active':'')+(c?' complete':'');
+  tab.innerHTML=(c?'<div class="tab-dot"></div>':'')+BANDS[bi].short+`<span class="tab-pts">${s}pt</span>`;
+}
+
+function updateBandContent(bi){
+  if(activeBand!==bi)return;
+  const sd=domDoneInBand(bi,'S'),md=domDoneInBand(bi,'M'),gd=domDoneInBand(bi,'G');
+  const pct=Math.round((Math.min(sd,1)+Math.min(md,1)+Math.min(gd,1))/3*100);
+  const bsEl=document.getElementById('bs_'+bi);if(bsEl)bsEl.textContent=bandScore(bi);
+  const scel=document.getElementById('sc_'+bi);if(scel)scel.textContent=bandScore(bi);
+  const pf=document.getElementById('bp_'+bi);if(pf)pf.style.width=pct+'%';
+  const ub=document.getElementById('ubanner_'+bi);
+  if(ub){
+    if(bandComplete(bi)){
+      ub.classList.add('show');
+      const nx=BANDS[bi+1];
+      ub.innerHTML=`<div class="ub-icon"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Band complete! ${nx?'<strong>'+nx.short+'</strong> is next.':'You\'ve finished all 4 bands — AI-Native Strategist achieved.'}</span>`;
+    } else {
+      ub.classList.remove('show');
+    }
+  }
+  [['S','s-done','Sales'],['M','m-done','Marketing'],['G','g-done','Management']].forEach(([dm,cls,lbl])=>{
+    const ch=document.getElementById(`bchip_${bi}_${dm}`);
+    if(ch){const n=domDoneInBand(bi,dm);ch.className='dchip'+(n>=1?' '+cls:'');ch.textContent=(n>=1?'✓ ':'')+lbl+(n>0?' ('+n+')'  :'');}
+  });
+  A[BANDS[bi].id].forEach((_,ai)=>{
+    ['S','M','G'].forEach((dom,di)=>{
+      const chip=document.getElementById(`adc_${bi}_${ai}_${dom}`);
+      const any=[0,1,2].some(ei=>isDone(bi,ai,dom,ei));
+      if(chip)chip.className='adc'+(any?[' s-done',' m-done',' g-done'][di]:'');
+      const cnt=document.getElementById(`dcnt_${bi}_${ai}_${dom}`);
+      if(cnt){let n=0;for(let ei=0;ei<3;ei++)if(isDone(bi,ai,dom,ei))n++;cnt.textContent=n;}
+      for(let ei=0;ei<3;ei++){
+        const c=document.getElementById(`exc_${bi}_${ai}_${dom}_${ei}`);
+        const b=document.getElementById(`exb_${bi}_${ai}_${dom}_${ei}`);
+        if(c)c.className='ex-card'+(isDone(bi,ai,dom,ei)?' done':'');
+        if(b)b.textContent=isDone(bi,ai,dom,ei)?'✓ Done':'Mark done';
+      }
+    });
+  });
+}
+
+function switchBand(bi){
+  activeBand=bi;
+  document.querySelectorAll('.bpanel').forEach((p,i)=>p.style.display=i===bi?'block':'none');
+  rerender();
+  const ne=document.querySelector('.bnav-wrap');
+  if(ne)window.scrollTo({top:ne.offsetTop-68,behavior:'smooth'});
+}
+function togAct(bi,ai){const c=document.getElementById(`actcard_${bi}_${ai}`);if(c)c.classList.toggle('open');}
+function swDom(bi,ai,dom){
+  ['S','M','G'].forEach(d=>{
+    const t=document.getElementById(`dtab_${bi}_${ai}_${d}`);
+    const p=document.getElementById(`dpan_${bi}_${ai}_${d}`);
+    if(t)t.classList.remove('s-on','m-on','g-on');
+    if(p)p.className='dom-panel';
+  });
+  const at=document.getElementById(`dtab_${bi}_${ai}_${dom}`);
+  const ap=document.getElementById(`dpan_${bi}_${ai}_${dom}`);
+  if(at)at.classList.add(dom==='S'?'s-on':dom==='M'?'m-on':'g-on');
+  if(ap)ap.className='dom-panel dp-on';
+}
+
+const bandBorderClasses=['bb1','bb2','bb3','bb4'];
+
+function buildUI(){
+  const nav=document.getElementById('bandNav'),panels=document.getElementById('bandPanels');
+  BANDS.forEach((band,bi)=>{
+    const tab=document.createElement('div');
+    tab.id='bnav_'+bi;tab.onclick=()=>switchBand(bi);
+    nav.appendChild(tab);
+    const panel=document.createElement('div');
+    panel.className='bpanel';
+    panel.style.display=bi===0?'block':'none';
+    const maxS=A[band.id].length*3*3*10,totalEx=A[band.id].length*3*3;
+    const bh=`<div class="bhead ${bandBorderClasses[bi]} reveal">
+      <div>
+        <div class="bey">${band.day} &thinsp;·&thinsp; Band ${bi+1}</div>
+        <div class="btitle">${band.short}</div>
+        <div class="bdesc">${band.desc}</div>
+        <div class="bdom-row">
+          <div class="dchip" id="bchip_${bi}_S">Sales</div>
+          <div class="dchip" id="bchip_${bi}_M">Marketing</div>
+          <div class="dchip" id="bchip_${bi}_G">Management</div>
+          <span class="bdom-note">Complete 1 from each to finish this band</span>
+        </div>
+      </div>
+      <div class="bscore-blk">
+        <div class="bscore-num" id="bs_${bi}">0</div>
+        <div class="bscore-sub">of ${maxS} pts</div>
+        <div class="bp-track"><div class="bp-fill" id="bp_${bi}"></div></div>
+      </div>
+    </div>`;
+    const ub=`<div class="ub" id="ubanner_${bi}"></div>`;
+    const sr=`<div class="score-row reveal">
+      <div class="src"><div class="src-num blue" id="sc_${bi}">0</div><div class="src-lbl">Band score</div></div>
+      <div class="src"><div class="src-num">${maxS}</div><div class="src-lbl">Max score</div></div>
+      <div class="src"><div class="src-num grn">${A[band.id].length}</div><div class="src-lbl">Activities</div></div>
+      <div class="src"><div class="src-num">${totalEx}</div><div class="src-lbl">Examples</div></div>
+    </div>`;
+    const actsH=A[band.id].map((act,ai)=>{
+      const dtH=['S','M','G'].map((dom,di)=>{
+        const labels=['Sales','Marketing','Management'];
+        const cls=['s-on','m-on','g-on'][di];
+        return`<div class="dtab${di===0?' s-on':''}" id="dtab_${bi}_${ai}_${dom}" onclick="swDom(${bi},${ai},'${dom}')">${labels[di]}<span class="dtab-cnt" id="dcnt_${bi}_${ai}_${dom}">0</span></div>`;
+      }).join('');
+      const dpH=['S','M','G'].map((dom,di)=>{
+        const exH=act[dom].map((ex,ei)=>{
+          const promptAttr=ex[1].replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          return`<div class="ex-card" id="exc_${bi}_${ai}_${dom}_${ei}" data-prompt="${promptAttr}" onclick="toggleDone(${bi},${ai},'${dom}',${ei})"><div class="ex-n">Example ${ei+1}</div><div class="ex-task">${ex[0]}</div><div class="ex-det">${ex[1]}</div><div class="copy-row"><button class="copy-btn" onclick="event.stopPropagation();copyPromptFromCard(this)">&#128203; Copy prompt</button></div><div class="ex-footer"><button class="ex-btn" id="exb_${bi}_${ai}_${dom}_${ei}">Mark done</button><span class="pts-pill">+10 pts</span></div></div>`;}).join('');
+        return`<div class="dom-panel${di===0?' dp-on':''}" id="dpan_${bi}_${ai}_${dom}"><div class="ex-grid">${exH}</div></div>`;
+      }).join('');
+      const adcH=[['S',' ','S · Sales'],['M',' ','M · Marketing'],['G',' ','G · Management']].map(([dm,,lbl])=>`<span class="adc" id="adc_${bi}_${ai}_${dm}">${lbl}</span>`).join('');
+      return`<div class="act-card reveal" id="actcard_${bi}_${ai}"><div class="act-top" onclick="togAct(${bi},${ai})"><div class="act-num">${ai+1}</div><div class="act-info"><div class="act-title-txt">${act.t}</div><div class="act-tag-txt">${act.g}</div><div class="act-dom-chips">${adcH}</div></div><div class="act-chev">▼</div></div><div class="act-body"><div class="dom-tabs">${dtH}</div>${dpH}</div></div>`;
+    }).join('');
+    panel.innerHTML=bh+ub+sr+`<div class="act-list">${actsH}</div>`;
+    panels.appendChild(panel);
+  });
+}
+
+window.addEventListener('scroll',()=>{
+  const dh=document.documentElement.scrollHeight-window.innerHeight;
+  const pct=(window.scrollY/dh*100)+'%';
+  document.getElementById('progressBar').style.width=pct;
+  const sh=document.getElementById('scrollHint');if(sh)sh.style.opacity=window.scrollY>80?'0':'1';
+});
+const io=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');io.unobserve(el.target);}});},{threshold:0.08});
+(async()=>{
+  try{const r=await window.storage.get('sm_course_v3');if(r&&r.value){const p=JSON.parse(r.value);if(p&&p.done)STATE=p;}}catch(e){}
+  buildUI();
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  rerender();
+})();
+
+function toggleDark(){
+  const isDark=document.body.classList.toggle('dark');
+  document.getElementById('dmIcon').textContent=isDark?'☀':'☾';
+  document.getElementById('dmLabel').textContent=isDark?'Light':'Dark';
+  try{localStorage.setItem('dm_light',isDark?'1':'0');}catch(e){}
+}
+
+
+
+function copyPromptFromCard(btn) {
+  const card = btn.closest('[data-prompt]');
+  if (!card) return;
+  const text = card.getAttribute('data-prompt')
+    .replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+  navigator.clipboard.writeText(text).then(function(){
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.innerHTML = '&#128203; Copy prompt'; btn.classList.remove('copied'); }, 2000);
+  }).catch(function(){
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      btn.textContent = '✓ Copied'; btn.classList.add('copied');
+      setTimeout(function(){ btn.innerHTML = '&#128203; Copy prompt'; btn.classList.remove('copied'); }, 2000);
+    } catch(e) { alert('Copy failed — please select and copy manually.'); }
+  });
+}
+function openAbout(){document.getElementById('aboutOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeAbout(){document.getElementById('aboutOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAbout();});
+window.toggleDone=toggleDone;
+window.togAct=togAct;
+window.swDom=swDom;
+window.switchBand=switchBand;
+</script>
+
+<div class="about-overlay" id="aboutOverlay" onclick="if(event.target===this)closeAbout()">
+  <div class="about-modal">
+    <div class="about-modal-head">
+      <div>
+        <div class="about-modal-title">Curriculum — Claude Capabilities Across Skill Bands</div>
+        <div class="about-modal-sub">46 Claude capabilities across 4 skill bands and 20 activities</div>
+      </div>
+      <button class="about-close" onclick="closeAbout()">&#x2715;</button>
+    </div>
+    <div class="about-modal-body">
+      <div class="about-intro">5 days. 2 hours each. 20 activities. 46 Claude capabilities. One clear path from Beginner to Practitioner to Builder to Strategist.</div>
+      <div class="about-table-wrap">
+<table class="caps-table">
+<thead><tr><th class="col-num">#</th><th class="col-cap">Capability</th><th class="col-where">Where it lives</th><th class="col-band">Band</th><th class="col-act">Activity</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Basic Q&amp;A and conversation</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>2</td><td>Multi-turn conversation</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>3</td><td>Summarization</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>4</td><td>Brainstorming and ideation</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>5</td><td>Grammar, editing, rewriting</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 2</td></tr>
+<tr><td>6</td><td>Explaining concepts and learning</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>7</td><td>Long-form content drafting</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 3</td></tr>
+<tr><td>8</td><td>Tone and format control</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 2</td></tr>
+<tr><td>9</td><td>Content variations and A/B versions</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 3</td></tr>
+<tr><td>10</td><td>File upload — PDF and documents</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 4</td></tr>
+<tr><td>11</td><td>Image upload and vision analysis</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 4</td></tr>
+<tr><td>12</td><td>Projects — persistent context workspace</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 5</td></tr>
+<tr><td>13</td><td>Memory across conversations</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 5</td></tr>
+<tr><td>14</td><td>Style customization in settings</td><td>Claude.ai — settings</td><td><span class="band-b1">Beginner</span></td><td>Activity 5</td></tr>
+<tr><td>15</td><td>Structured prompting (C+T+F+C)</td><td>Claude.ai — any plan</td><td><span class="band-b2">Practitioner</span></td><td>Activity 6</td></tr>
+<tr><td>16</td><td>Web search — live internet access</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 8</td></tr>
+<tr><td>17</td><td>CSV and spreadsheet analysis</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 9</td></tr>
+<tr><td>18</td><td>Artifacts — documents, tables, text</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 9</td></tr>
+<tr><td>19</td><td>Artifacts — code, SVG, charts, interactive</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 10</td></tr>
+<tr><td>20</td><td>Artifacts with persistent storage</td><td>Claude.ai — Pro+</td><td><span class="band-b2">Practitioner</span></td><td>Activity 10</td></tr>
+<tr><td>21</td><td>Claude Skills — task automation</td><td>Claude.ai — Pro+</td><td><span class="band-b2">Practitioner</span></td><td>Activity 7</td></tr>
+<tr><td>22</td><td>Deep Research / Research mode</td><td>Claude.ai — Pro+</td><td><span class="band-b2">Practitioner</span></td><td>Activity 8</td></tr>
+<tr><td>23</td><td>Conversation sharing via public link</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 5</td></tr>
+<tr><td>24</td><td>Published Artifacts — public URL</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 10</td></tr>
+<tr><td>44</td><td>Markdown (.md) files</td><td>Claude.ai — any plan</td><td><span class="band-b2">Practitioner</span></td><td>Activity 9</td></tr>
+<tr><td>46</td><td>Claude Skills — saving and running automations</td><td>Claude.ai — Pro+</td><td><span class="band-b2">Practitioner</span></td><td>Activity 7</td></tr>
+<tr><td>25</td><td>Extended thinking</td><td>Claude.ai — Pro+</td><td><span class="band-b3">Builder</span></td><td>Activity 11</td></tr>
+<tr><td>26</td><td>Prompt chaining — multi-step workflows</td><td>Claude.ai — any plan</td><td><span class="band-b3">Builder</span></td><td>Activity 12</td></tr>
+<tr><td>27</td><td>System prompts and AI personas</td><td>Claude.ai / API</td><td><span class="band-b3">Builder</span></td><td>Activity 13</td></tr>
+<tr><td>28</td><td>MCP connectors (Asana, Slack, Gmail)</td><td>Claude.ai — Pro/Max/Team</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>29</td><td>Artifacts with MCP integration</td><td>Claude.ai — Pro/Max/Team/Enterprise</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>30</td><td>Multi-modal analysis — image + text + data</td><td>Claude.ai — any plan</td><td><span class="band-b3">Builder</span></td><td>Activity 14</td></tr>
+<tr><td>31</td><td>Claude desktop app — Mac and Windows</td><td>Claude desktop — free</td><td><span class="band-b3">Builder</span></td><td>Activity 14</td></tr>
+<tr><td>32</td><td>Claude Cowork — GUI desktop automation</td><td>Claude Cowork — Pro+</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>33</td><td>Claude in Chrome — browser agent</td><td>Chrome extension — Pro+</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>34</td><td>Claude in Microsoft 365 — Excel &amp; PowerPoint</td><td>Max plan</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>45</td><td>Workflow automation — no-code</td><td>Claude.ai / Cowork / MCP</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>35</td><td>Claude API — basic calls and completions</td><td>Anthropic API</td><td><span class="band-b4">Strategist</span></td><td>Activity 16</td></tr>
+<tr><td>36</td><td>Claude API — tool use and function calling</td><td>Anthropic API</td><td><span class="band-b4">Strategist</span></td><td>Activity 16</td></tr>
+<tr><td>37</td><td>Claude API — batch processing</td><td>Anthropic API</td><td><span class="band-b4">Strategist</span></td><td>Activity 17</td></tr>
+<tr><td>38</td><td>Claude API — prompt caching</td><td>Anthropic API</td><td><span class="band-b4">Strategist</span></td><td>Activity 18</td></tr>
+<tr><td>39</td><td>Extended context window — 200K to 1M tokens</td><td>API + Claude.ai Pro+</td><td><span class="band-b4">Strategist</span></td><td>Activity 16</td></tr>
+<tr><td>40</td><td>Computer use — Claude controls a computer</td><td>Anthropic API — beta</td><td><span class="band-b4">Strategist</span></td><td>Activity 17</td></tr>
+<tr><td>41</td><td>Claude Code — CLI, VS Code, iOS</td><td>Claude Code — Pro+</td><td><span class="band-b4">Strategist</span></td><td>Activity 16</td></tr>
+<tr><td>42</td><td>Multi-agent orchestration</td><td>API / Claude Code</td><td><span class="band-b4">Strategist</span></td><td>Activity 17</td></tr>
+<tr><td>43</td><td>Enterprise admin — SSO, RBAC, audit, cloud</td><td>Claude Enterprise</td><td><span class="band-b4">Strategist</span></td><td>Activity 19</td></tr>
+<tr><td>—</td><td>Design a 2-hour AI onboarding for your team <span style="font-size:.7rem;color:var(--text-3)">(synthesises all 46 caps)</span></td><td>Claude.ai — all plans</td><td><span class="band-b4">Strategist</span></td><td>Activity 20</td></tr>
+</tbody></table></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
