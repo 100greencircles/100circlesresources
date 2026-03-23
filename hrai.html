@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude AI for People & HR · IOOCircles</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Comfortaa:wght@300;400;700&family=Outfit:wght@100;200;300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --bg:#F3F6FF;
+  --surface:#FFFFFF;
+  --surface-2:#EEF3FF;
+
+  --blue:#4A7FD4;
+  --blue-light:#EAF1FF;
+  --blue-mid:#BED1F5;
+  --blue-dark:#2A58A8;
+  --blue-text:#1B3D7A;
+
+  --red:#E05568;
+  --red-light:#FFF0F2;
+  --red-mid:#F9C2C8;
+  --red-dark:#B73244;
+  --red-text:#8B1C2A;
+
+  --green:#2EB87A;
+  --green-light:#EAFAF3;
+  --green-mid:#A8E4C8;
+  --green-dark:#1A8852;
+  --green-text:#105432;
+
+  --yellow:#D4930A;
+  --yellow-light:#FFFBEC;
+  --yellow-mid:#F5D888;
+  --yellow-dark:#A07008;
+  --yellow-text:#6B4800;
+
+  --text:#181D35;
+  --text-2:#485068;
+  --text-3:#8896AB;
+  --border:#DDE6F8;
+  --border-2:#C2D2EE;
+  --soft:#E8EEF9;
+
+  --font-display:'Fredoka',sans-serif;
+  --font-brand:'Comfortaa',sans-serif;
+  --font-body:'Outfit',sans-serif;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 2px 14px rgba(74,127,212,0.08);
+  --shadow-md:0 6px 28px rgba(74,127,212,0.13);
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.75;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--blue-mid);border-radius:99px;}
+
+#PB{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--green),var(--red));width:0%;z-index:400;transition:width .1s linear;}
+
+/* NAV */
+nav{
+  position:fixed;top:3px;left:0;right:0;z-index:300;
+  display:flex;align-items:center;gap:10px;flex-wrap:nowrap;overflow:hidden;
+  padding:.75rem 1.8rem;
+  background:rgba(243,246,255,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:var(--font-brand);font-weight:700;font-size:1.05rem;letter-spacing:.04em;color:var(--text);}
+.nav-logo em{font-style:normal;color:var(--blue);}
+.nav-tag{font-size:.6rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:var(--text-3);padding:3px 10px;background:var(--blue-light);border-radius:99px;border:1px solid var(--blue-mid);font-family:var(--font-brand);}
+.nav-right{}
+.nchip{display:flex;align-items:center;gap:5px;padding:4px 12px;border-radius:99px;font-family:var(--font-brand);font-size:.65rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--border);color:var(--text-3);background:var(--surface);}
+.nchip.blue{border-color:var(--blue-mid);color:var(--blue);background:var(--blue-light);}
+.nchip strong{color:var(--blue);font-size:.8rem;letter-spacing:0;font-weight:700;}
+.pw{min-width:88px;}
+.pl{font-family:var(--font-brand);font-size:.58rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px;display:flex;justify-content:space-between;}
+.pl span:last-child{color:var(--blue);font-weight:700;}
+.pt{height:4px;background:var(--blue-light);border-radius:99px;overflow:hidden;}
+.pf{height:4px;background:linear-gradient(90deg,var(--blue),#82B6F5);border-radius:99px;transition:width .5s ease;width:0%;}
+
+/* HERO */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:9rem 2rem 5rem;text-align:center;background:var(--bg);
+}
+.blob{position:absolute;border-radius:50%;filter:blur(65px);pointer-events:none;animation:blobF 9s ease-in-out infinite;}
+.b1{width:540px;height:540px;background:rgba(74,127,212,0.12);top:-180px;left:-150px;}
+.b2{width:400px;height:400px;background:rgba(46,184,122,0.1);bottom:-120px;right:-80px;animation-delay:-4s;}
+.b3{width:260px;height:260px;background:rgba(212,147,10,0.09);top:30%;right:7%;animation-delay:-7s;}
+.b4{width:200px;height:200px;background:rgba(224,85,104,0.09);top:22%;left:6%;animation-delay:-2.5s;}
+@keyframes blobF{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(16px,-20px) scale(1.04);}66%{transform:translate(-12px,14px) scale(.97);}}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(74,127,212,0.14) 1.5px,transparent 1.5px);
+  background-size:30px 30px;opacity:.45;pointer-events:none;
+}
+.hero-ew{
+  position:relative;z-index:2;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 18px;border-radius:99px;
+  background:var(--blue-light);border:1.5px solid var(--blue-mid);
+  font-family:var(--font-brand);font-size:.65rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);
+  margin-bottom:2rem;animation:fadeUp .6s .2s ease both;
+}
+.ew-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.75);}}
+.hero-title{
+  position:relative;z-index:2;
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(2.8rem,7vw,7.5rem);
+  line-height:.96;letter-spacing:-.02em;
+  margin-bottom:1.5rem;color:var(--text);
+  animation:fadeUp .7s .35s ease both;
+}
+.tw-blue{color:var(--blue);}
+.tw-red{color:var(--red);}
+.tw-green{color:var(--green);}
+.tw-yellow{color:var(--yellow);}
+.hero-sub{
+  position:relative;z-index:2;
+  font-size:clamp(.88rem,1.2vw,1rem);font-weight:300;color:var(--text-2);
+  max-width:520px;line-height:1.85;margin-bottom:2.5rem;
+  font-family:var(--font-body);
+  animation:fadeUp .7s .5s ease both;
+}
+.domain-pills{
+  position:relative;z-index:2;
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  margin-bottom:3rem;animation:fadeUp .7s .65s ease both;
+}
+.dp{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.68rem;font-weight:300;letter-spacing:.1em;
+  text-transform:uppercase;border:1.5px solid;transition:transform .2s;cursor:default;
+}
+.dp:hover{transform:translateY(-2px);}
+.dp-blue{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue-text);}
+.dp-red{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dp-green{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dp-yellow{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.dp-dot{width:7px;height:7px;border-radius:50%;}
+.dp-blue .dp-dot{background:var(--blue);}
+.dp-red .dp-dot{background:var(--red);}
+.dp-green .dp-dot{background:var(--green);}
+.dp-yellow .dp-dot{background:var(--yellow);}
+.hero-stats{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;width:100%;max-width:520px;
+  box-shadow:var(--shadow-md);animation:fadeUp .7s .8s ease both;
+}
+.hst{padding:1.4rem 1rem;text-align:center;border-right:1px solid var(--border);}
+.hst:last-child{border-right:none;}
+.hst-num{font-family:var(--font-display);font-weight:500;font-size:2.5rem;color:var(--blue);line-height:1;}
+.hst-lbl{font-family:var(--font-brand);font-size:.6rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);margin-top:5px;}
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-family:var(--font-brand);font-size:.52rem;font-weight:300;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--text-3);transition:opacity .4s;animation:fadeUp .7s 1.2s ease both;
+}
+.sh-line{width:1px;height:30px;background:var(--blue-mid);overflow:hidden;position:relative;}
+.sh-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:linear-gradient(to bottom,var(--blue),var(--green));animation:dLine 1.8s ease-in-out infinite;}
+@keyframes dLine{0%{top:-100%}100%{top:100%}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* BAND NAV */
+.bnav-wrap{background:var(--text);position:sticky;top:68px;z-index:200;overflow:visible;}
+.bnav{max-width:1100px;margin:0 auto;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.btab{
+  flex-shrink:0;display:flex;align-items:center;gap:8px;
+  padding:.85rem 1.1rem;
+  font-family:var(--font-brand);font-size:.62rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);cursor:pointer;
+  border-bottom:3px solid transparent;border-right:1px solid rgba(255,255,255,.07);
+  transition:all .2s;white-space:nowrap;
+}
+.btab:hover{color:rgba(255,255,255,.72);background:rgba(255,255,255,.04);}
+.btab.active{color:#fff;border-bottom-color:var(--blue);}
+.btab.complete .tab-dot{opacity:1;}
+.tab-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;opacity:0;transition:opacity .2s;}
+.tab-pts{font-size:.58rem;font-weight:300;letter-spacing:0;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.28);}
+.btab.active .tab-pts{background:rgba(74,127,212,.3);color:rgba(255,255,255,.7);}
+
+/* MAIN */
+.main{max-width:1100px;margin:0 auto;padding:3rem 2rem 6rem;}
+.bpanel{display:none;}
+.bpanel.active{display:block;}
+
+/* BAND HEADER */
+.bhead{
+  display:grid;grid-template-columns:1fr auto;gap:2.5rem;align-items:start;
+  padding:2.5rem 2rem 2rem;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);margin-bottom:1.5rem;border-top:4px solid var(--blue);
+}
+.bhead.bb1{border-top-color:var(--blue);}
+.bhead.bb2{border-top-color:var(--green);}
+.bhead.bb3{border-top-color:var(--red);}
+.bhead.bb4{border-top-color:var(--yellow);}
+.bey{font-family:var(--font-brand);font-size:.62rem;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--blue);margin-bottom:.65rem;}
+.btitle{font-family:var(--font-display);font-weight:500;font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.08;color:var(--text);margin-bottom:.5rem;}
+.bdesc{font-size:.88rem;color:var(--text-2);max-width:520px;line-height:1.75;font-family:var(--font-body);}
+.bdom-row{display:flex;gap:6px;margin-top:1rem;flex-wrap:wrap;align-items:center;}
+.dchip{
+  padding:4px 12px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.6rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;
+  border:1.5px solid var(--border);color:var(--text-3);background:var(--surface-2);transition:all .2s;
+}
+.dchip.s-done{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dchip.m-done{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dchip.g-done{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.bdom-note{font-family:var(--font-brand);font-size:.62rem;font-weight:300;color:var(--text-3);}
+.bscore-blk{text-align:right;}
+.bscore-num{font-family:var(--font-display);font-weight:500;font-size:3.5rem;color:var(--blue);line-height:1;}
+.bscore-sub{font-family:var(--font-brand);font-size:.58rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
+.bp-track{height:3px;background:var(--blue-light);border-radius:99px;margin-top:10px;width:120px;margin-left:auto;}
+.bp-fill{height:3px;background:var(--blue);border-radius:99px;transition:width .5s;width:0%;}
+
+/* SCORE ROW */
+.score-row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:1.5rem;box-shadow:var(--shadow);
+}
+.src{background:var(--surface);padding:1.1rem 1rem;text-align:center;}
+.src-num{font-family:var(--font-display);font-weight:500;font-size:1.8rem;color:var(--text);line-height:1;}
+.src-num.blue{color:var(--blue);}
+.src-num.grn{color:var(--green);}
+.src-lbl{font-family:var(--font-brand);font-size:.56rem;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);margin-top:3px;}
+
+/* UNLOCK BANNER */
+.ub{
+  display:none;align-items:center;gap:12px;padding:.9rem 1.4rem;
+  background:var(--green-light);border:1.5px solid var(--green-mid);border-radius:var(--radius-sm);
+  margin-bottom:1.5rem;font-size:.85rem;color:var(--green-text);font-weight:400;
+}
+.ub.show{display:flex;}
+.ub strong{color:var(--green-dark);}
+.ub-icon{width:22px;height:22px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* ACTIVITY CARDS */
+.act-list{display:flex;flex-direction:column;gap:6px;}
+.act-card{
+  background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .15s;box-shadow:var(--shadow);
+}
+.act-card:hover{border-color:var(--blue-mid);box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.act-card.open{border-color:var(--blue-mid);box-shadow:var(--shadow-md);border-left:3px solid var(--blue);}
+.act-top{display:flex;align-items:flex-start;gap:14px;padding:1.3rem 1.4rem;cursor:pointer;}
+.act-num{
+  width:28px;height:28px;border-radius:var(--radius-sm);
+  background:var(--blue-light);border:1.5px solid var(--blue-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-brand);font-size:.68rem;font-weight:700;color:var(--blue);
+  flex-shrink:0;margin-top:2px;transition:all .2s;
+}
+.act-card.open .act-num,.act-card:hover .act-num{background:var(--blue);color:#fff;border-color:var(--blue);}
+.act-info{flex:1;}
+.act-title-txt{font-family:var(--font-brand);font-weight:700;font-size:.9rem;color:var(--text);line-height:1.35;}
+.act-tag-txt{font-family:var(--font-body);font-size:.72rem;font-weight:300;color:var(--text-3);margin-top:3px;}
+.act-dom-chips{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;}
+.adc{
+  padding:2px 9px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.58rem;font-weight:300;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--border);color:var(--text-3);background:var(--surface-2);transition:all .2s;
+}
+.adc.s-done{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.adc.m-done{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.adc.g-done{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.act-chev{font-size:.7rem;color:var(--text-3);flex-shrink:0;margin-top:5px;transition:transform .25s;}
+.act-card.open .act-chev{transform:rotate(180deg);color:var(--blue);}
+.act-body{display:none;border-top:1px solid var(--border);padding:0 1.4rem 1.4rem;}
+.act-card.open .act-body{display:block;}
+
+/* DOMAIN TABS */
+.dom-tabs{display:flex;gap:4px;margin:1.2rem 0 1rem;}
+.dtab{
+  padding:6px 14px;border-radius:var(--radius-sm);
+  font-family:var(--font-brand);font-size:.62rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);cursor:pointer;border:1.5px solid var(--border);background:var(--surface-2);
+  transition:all .2s;display:flex;align-items:center;gap:6px;
+}
+.dtab:hover{border-color:var(--blue-mid);color:var(--blue);}
+.dtab.s-on{background:var(--red-light);border-color:var(--red-mid);color:var(--red-text);}
+.dtab.m-on{background:var(--green-light);border-color:var(--green-mid);color:var(--green-text);}
+.dtab.g-on{background:var(--yellow-light);border-color:var(--yellow-mid);color:var(--yellow-text);}
+.dtab-cnt{
+  min-width:16px;height:16px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.58rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;padding:0 4px;
+  background:rgba(0,0,0,.06);color:inherit;transition:all .2s;
+}
+.dom-panel{display:none;}
+.dom-panel.dp-on{display:block;}
+
+/* EXAMPLE GRID */
+.ex-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.ex-card{
+  background:var(--surface-2);border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:1.1rem;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+.ex-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity .2s;}
+.ex-card:hover{border-color:var(--blue-mid);background:var(--surface);box-shadow:0 2px 12px rgba(74,127,212,.1);}
+.ex-card:hover::before,.ex-card.done::before{opacity:1;}
+
+/* Domain color stripes on example cards */
+#dpan_0_0_S .ex-card::before,#dpan_1_0_S .ex-card::before,#dpan_2_0_S .ex-card::before,#dpan_3_0_S .ex-card::before,
+#dpan_0_1_S .ex-card::before,#dpan_1_1_S .ex-card::before,#dpan_2_1_S .ex-card::before,#dpan_3_1_S .ex-card::before,
+#dpan_0_2_S .ex-card::before,#dpan_1_2_S .ex-card::before,#dpan_2_2_S .ex-card::before,#dpan_3_2_S .ex-card::before,
+#dpan_0_3_S .ex-card::before,#dpan_1_3_S .ex-card::before,#dpan_2_3_S .ex-card::before,#dpan_3_3_S .ex-card::before,
+#dpan_0_4_S .ex-card::before,#dpan_1_4_S .ex-card::before,#dpan_2_4_S .ex-card::before,#dpan_3_4_S .ex-card::before{background:var(--red);}
+#dpan_0_0_M .ex-card::before,#dpan_1_0_M .ex-card::before,#dpan_2_0_M .ex-card::before,#dpan_3_0_M .ex-card::before,
+#dpan_0_1_M .ex-card::before,#dpan_1_1_M .ex-card::before,#dpan_2_1_M .ex-card::before,#dpan_3_1_M .ex-card::before,
+#dpan_0_2_M .ex-card::before,#dpan_1_2_M .ex-card::before,#dpan_2_2_M .ex-card::before,#dpan_3_2_M .ex-card::before,
+#dpan_0_3_M .ex-card::before,#dpan_1_3_M .ex-card::before,#dpan_2_3_M .ex-card::before,#dpan_3_3_M .ex-card::before,
+#dpan_0_4_M .ex-card::before,#dpan_1_4_M .ex-card::before,#dpan_2_4_M .ex-card::before,#dpan_3_4_M .ex-card::before{background:var(--green);}
+[id$="_G"] .ex-card::before{background:var(--yellow);}
+
+/* Domain done states */
+[id$="_S"] .ex-card.done{background:var(--red-light);border-color:var(--red-mid);}
+[id$="_M"] .ex-card.done{background:var(--green-light);border-color:var(--green-mid);}
+[id$="_G"] .ex-card.done{background:var(--yellow-light);border-color:var(--yellow-mid);}
+[id$="_S"] .ex-card:hover:not(.done){border-color:var(--red-mid);}
+[id$="_M"] .ex-card:hover:not(.done){border-color:var(--green-mid);}
+[id$="_G"] .ex-card:hover:not(.done){border-color:var(--yellow-mid);}
+
+.ex-n{font-family:var(--font-brand);font-size:.56rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
+.ex-task{font-family:var(--font-brand);font-weight:700;font-size:.84rem;color:var(--text);margin-bottom:6px;line-height:1.4;flex:1;}
+.ex-card.done .ex-task{color:var(--blue);}
+.ex-det{font-size:.74rem;color:var(--text-2);line-height:1.65;margin-bottom:10px;font-family:var(--font-body);font-weight:300;}
+.ex-footer{display:flex;align-items:center;gap:6px;margin-top:auto;}
+.ex-btn{
+  padding:5px 14px;border-radius:99px;
+  font-family:var(--font-brand);font-size:.6rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;border:1.5px solid var(--border-2);color:var(--text-3);background:var(--surface);
+  transition:all .2s;
+}
+.ex-btn:hover{background:var(--blue-light);border-color:var(--blue-mid);color:var(--blue);}
+.ex-card.done .ex-btn{background:var(--surface);border-color:var(--green-mid);color:var(--green-dark);}
+.pts-pill{
+  padding:3px 9px;border-radius:99px;font-family:var(--font-brand);
+  font-size:.58rem;font-weight:300;letter-spacing:.06em;
+  background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);
+}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+footer{
+  background:#111827;color:#fff;padding:2rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.flogo{font-family:var(--font-brand);font-weight:700;font-size:1.1rem;color:#fff;}
+.flogo em{font-style:normal;color:var(--blue);}
+.fmeta{display:flex;flex-direction:column;gap:4px;text-align:right;}
+.fform{font-family:var(--font-brand);font-size:.8rem;font-weight:300;color:rgba(255,255,255,.3);}
+.ftag{font-family:var(--font-brand);font-size:.6rem;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.2);}
+
+@media(max-width:760px){
+  nav{padding:.85rem 1.25rem;}
+  .nav-right{}
+  .hero-title{font-size:clamp(2.2rem,10vw,4rem);}
+  .hero-stats{grid-template-columns:1fr;}
+  .hst{border-right:none;border-bottom:1px solid var(--border);}
+  .hst:last-child{border-bottom:none;}
+  .bhead{grid-template-columns:1fr;}
+  .bscore-blk{text-align:left;}
+  .bp-track{margin-left:0;}
+  .score-row{grid-template-columns:1fr 1fr;}
+  .ex-grid{grid-template-columns:1fr;}
+  footer{text-align:center;justify-content:center;}
+  .fmeta{text-align:center;}
+}
+
+/* ── DARK MODE ── */
+body.dark{
+  --bg:#0F1322;
+  --surface:#171D30;
+  --surface-2:#1D2440;
+  --text:#E8EDF8;
+  --text-2:#A0AECF;
+  --text-3:#5A6A90;
+  --border:#2A3558;
+  --border-2:#384470;
+  --soft:#1D2440;
+  --blue-light:#1A2A50;
+  --blue-mid:#2A4480;
+  --blue-text:#90B8F8;
+  --red-light:#2A1520;
+  --red-mid:#6A2030;
+  --red-text:#F5A0A8;
+  --green-light:#0E2018;
+  --green-mid:#1A5030;
+  --green-text:#80DCA8;
+  --yellow-light:#1E1500;
+  --yellow-mid:#503800;
+  --yellow-text:#F0C868;
+  --shadow:0 2px 14px rgba(0,0,0,0.35);
+  --shadow-md:0 6px 28px rgba(0,0,0,0.5);
+}
+body.dark nav{background:rgba(15,19,34,0.95);}
+body.dark .hero::before{opacity:.25;}
+body.dark .hero-stats{background:var(--surface);border-color:var(--border);}
+body.dark .act-card{background:var(--surface);}
+body.dark .ex-card{background:var(--surface-2);}
+body.dark .ex-card:hover{background:var(--surface);}
+body.dark .score-row{background:var(--border);}
+body.dark .src{background:var(--surface);}
+body.dark .bhead{background:var(--surface);}
+body.dark .dtab{background:var(--surface-2);}
+body.dark .nchip{background:var(--surface);}
+body.dark .flogo em,.body.dark .nav-logo em{color:#7AB4F8;}
+
+/* Dark mode toggle */
+.dm-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 13px;border-radius:99px;cursor:pointer;
+  border:1.5px solid var(--border-2);background:var(--surface);
+  font-family:var(--font-brand);font-size:.62rem;font-weight:300;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-3);transition:all .2s;flex-shrink:0;
+}
+.dm-btn:hover{border-color:var(--blue-mid);color:var(--blue);}
+body.dark .dm-btn{border-color:var(--border-2);color:var(--text-3);}
+.dm-icon{font-size:12px;line-height:1;}
+
+/* ── ABOUT MODAL ── */
+.about-btn{display:flex;align-items:center;gap:5px;padding:5px 13px;border-radius:99px;cursor:pointer;border:1.5px solid var(--border-2);background:var(--surface);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);transition:all .2s;flex-shrink:0;font-family:var(--font-brand,'Comfortaa',sans-serif);}
+.about-btn:hover{border-color:var(--blue-mid);color:var(--blue);}
+.about-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,14,28,0.72);backdrop-filter:blur(6px);}
+.about-overlay.open{display:flex;align-items:flex-start;justify-content:center;padding:5rem 1.5rem 2rem;}
+.about-modal{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;width:100%;max-width:940px;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.35);}
+.about-modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.8rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+.about-modal-title{font-family:var(--font-display,'Fredoka',sans-serif);font-size:1.4rem;font-weight:500;color:var(--text);}
+.about-modal-sub{font-size:.78rem;color:var(--text-3);margin-top:3px;font-family:var(--font-body,'Outfit',sans-serif);}
+.about-close{width:30px;height:30px;border-radius:999px;border:1.5px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--text-3);transition:all .2s;}
+.about-close:hover{border-color:var(--blue-mid);color:var(--blue);}
+.about-modal-body{overflow-y:auto;padding:1.5rem 1.8rem 2rem;flex:1;}
+.about-intro{padding:1rem 1.2rem;border-radius:10px;background:var(--blue-light);border:1px solid var(--blue-mid);font-size:.85rem;color:var(--blue-text);font-family:var(--font-body,'Outfit',sans-serif);line-height:1.7;margin-bottom:1.5rem;}
+.about-table-wrap{overflow-x:auto;}
+.caps-table{width:100%;border-collapse:collapse;font-size:.8rem;font-family:var(--font-body,'Outfit',sans-serif);}
+.caps-table thead th{padding:.7rem .9rem;text-align:left;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);background:var(--surface-2);border-bottom:2px solid var(--border);white-space:nowrap;}
+.caps-table .col-num{width:36px;}
+.caps-table .col-where{width:190px;}
+.caps-table .col-band{width:120px;}
+.caps-table .col-act{width:90px;text-align:center;}
+.caps-table tbody tr{border-bottom:1px solid var(--border);transition:background .12s;}
+.caps-table tbody tr:hover{background:var(--surface-2);}
+.caps-table tbody td{padding:.65rem .9rem;color:var(--text-2);vertical-align:middle;}
+.caps-table tbody td:first-child{color:var(--text-3);font-size:.72rem;font-weight:700;}
+.caps-table tbody td:nth-child(2){color:var(--text);font-weight:500;}
+.caps-table tbody td:nth-child(3){font-size:.75rem;color:var(--text-3);}
+.caps-table tbody td:last-child{text-align:center;font-size:.72rem;color:var(--text-3);}
+.band-b1{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:var(--blue-light);color:var(--blue-text);border:1px solid var(--blue-mid);}
+.band-b2{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:var(--green-light);color:var(--green-text);border:1px solid var(--green-mid);}
+.band-b3{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:var(--red-light);color:var(--red-text);border:1px solid var(--red-mid);}
+.band-b4{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.62rem;font-weight:700;background:var(--yellow-light);color:var(--yellow-text);border:1px solid var(--yellow-mid);}
+body.dark .about-modal{background:var(--surface);}
+body.dark .caps-table thead th{background:var(--surface-2);}
+body.dark .caps-table tbody tr:hover{background:var(--surface-2);}
+
+body.dark .btab{color:rgba(255,255,255,0.58);}
+body.dark .btab:hover{color:rgba(255,255,255,0.88);}
+body.dark .btab.active{color:#fff;}
+body.dark .tab-pts{color:rgba(255,255,255,0.3);}
+body.dark .btab.active .tab-pts{color:rgba(130,182,248,0.75);}
+body.dark .bnav-wrap{background:#1C2038;}
+body.dark footer{background:#0D1220;}
+
+
+
+/* Nav layout */
+nav{justify-content:flex-start;gap:8px;flex-wrap:nowrap;overflow:hidden;}
+.nav-scores{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-left:auto;}
+.nav-controls{display:flex;gap:6px;align-items:center;flex-shrink:0;}
+@media(max-width:900px){.nav-scores{display:none;}}
+
+.copy-row{margin:4px 0 8px;}
+.copy-btn{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 11px;border-radius:99px;cursor:pointer;
+  border:1px solid var(--border-2);background:transparent;
+  font-size:.62rem;font-weight:500;color:var(--text-3);
+  transition:all .2s;font-family:var(--font-brand,'Comfortaa',sans-serif);
+  letter-spacing:.06em;
+}
+.copy-btn:hover{border-color:var(--blue-mid);color:var(--blue);background:var(--blue-light);}
+.copy-btn.copied{border-color:var(--green-mid,#a8e4c8);color:var(--green-text,#105432);background:var(--green-light,#eafaf3);}
+
+.hero-for{font-size:clamp(1.2rem,2.5vw,2.2rem);color:var(--text-3);font-weight:300;font-family:var(--font-body);;display:inline;}
+.hero-sub-title{font-size:clamp(1.8rem,4vw,4.2rem)!important;}
+</style>
+</head>
+<body>
+
+<div id="progressBar"></div>
+
+<nav>
+  <div class="nav-logo"><em>IOO</em>Circles</div>
+  <div class="nav-tag">AI Skills · HR Edition</div>
+  <div class="nav-scores">
+    <div class="nchip blue">Score <strong id="scoreVal">0</strong>&thinsp;/ 1800</div>
+    <div class="nchip">Done <strong id="doneVal">0</strong>&thinsp;/ 180</div>
+    <div class="nchip">Bands <strong id="bandsVal">0</strong>&thinsp;/ 4</div>
+    <div class="pw">
+      <div class="pl"><span>Progress</span><span id="pctLbl">0%</span></div>
+      <div class="pt"><div class="pf" id="topFill"></div></div>
+    </div>
+  </div>
+  <div class="nav-controls">
+    <button class="about-btn" onclick="openAbout()">&#9776; Curriculum</button>
+    <button class="dm-btn" id="dmToggle" onclick="toggleDark()"><span class="dm-icon" id="dmIcon">&#9790;</span><span id="dmLabel">Dark</span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="hero-ew"><div class="ew-dot"></div>Self-Paced &thinsp;·&thinsp; 4 Bands &thinsp;·&thinsp; 20 Activities &thinsp;·&thinsp; 46 Capabilities</div>
+  <h1 class="hero-title">
+    <span class="tw-blue">Claude AI</span> <span class="hero-for">for</span><br>
+    <span class="tw-green hero-sub-title">People &amp; HR</span>
+  </h1>
+  <p class="hero-sub">5 days. 2 hours each. 20 activities. 46 Claude capabilities. One clear path from Beginner to Practitioner to Builder to Strategist.</p>
+  <div class="domain-pills">
+    <div class="dp dp-blue"><div class="dp-dot"></div>4 Bands</div>
+    <div class="dp dp-red"><div class="dp-dot"></div>Talent Acquisition</div>
+    <div class="dp dp-green"><div class="dp-dot"></div>HR Operations</div>
+    <div class="dp dp-yellow"><div class="dp-dot"></div>HR Business Partnering</div>
+  </div>
+  <div class="hero-stats">
+    <div class="hst"><div class="hst-num" style="font-size:1.8rem;line-height:1.2;">46</div><div class="hst-lbl">Claude Capabilities</div></div>
+    <div class="hst"><div class="hst-num">20</div><div class="hst-lbl">Activities</div></div>
+    <div class="hst"><div class="hst-num">180</div><div class="hst-lbl">Examples</div></div>
+  </div>
+  <div class="scroll-hint" id="scrollHint">scroll<div class="sh-line"></div></div>
+</section>
+
+<div class="bnav-wrap"><div class="bnav" id="bandNav"></div></div>
+<div class="main"><div id="bandPanels"></div></div>
+
+<footer>
+  <div class="flogo"><em>IOO</em>Circles</div>
+  <div class="fmeta">
+    <div class="fform">I% Rule = O₂C</div>
+    <div class="ftag">Tech · Ideas · Actions</div>
+  </div>
+</footer>
+
+<script>
+const BANDS=[
+  {id:'b0',short:'Beginner',day:'Days 1–2',desc:'Fundamental Claude use: summarizing HR documents, fixing communications, drafting job descriptions and policies, uploading contracts, and setting up Projects for HR workflows.'},
+  {id:'b1',short:'Practitioner',day:'Day 3',desc:'Structured prompting for HR analysis, building reusable Skills, researching benchmarks and best practices, analyzing people data from spreadsheets, and creating Artifacts and .md documents for teams.'},
+  {id:'b2',short:'Builder',day:'Day 4',desc:'Extended thinking for complex people decisions, 3-prompt chains for HR workflows, AI personas for HR coaching and policy, multi-modal analysis of org charts and dashboards, and Cowork automation.'},
+  {id:'b3',short:'Strategist',day:'Day 5',desc:'API use cases for HR automation, multi-step pipeline design, output evaluation rubrics, AI governance for people data, and designing AI onboarding for your HR team.'},
+];
+
+// Domains: T = Talent Acquisition, O = HR Operations, H = HR Business Partnering
+const A={
+b0:[
+ {t:'Ask Claude to explain HR concepts and summarize documents',g:'Q&A · Multi-turn · Summarization',
+  T:[['Summarize a 30-page job market report into 5 hiring insights','Upload the report. Ask: "Summarize into 5 actionable insights for a TA leader. For each: what the data shows, what it means for our sourcing strategy, and one thing to do differently this quarter."'],
+     ['Ask Claude to explain EVP and how to build one','Ask: "Explain Employee Value Proposition for an HR generalist building one from scratch. Give me: a plain-English definition, the 5 components that matter most, and 3 questions to ask employees that will surface our actual EVP — not a polished PR version."'],
+     ['Summarize candidate survey feedback into themes for the hiring team','Paste the survey responses. Ask: "What are the top 3 positive themes in our candidate experience? What are the 3 most common complaints? For each complaint: what process change would fix it?"']],
+  O:[['Summarize an HR audit report into leadership talking points','Upload the audit PDF. Ask: "Summarize the top 3 compliance gaps, the 2 highest-risk findings, and the recommended actions I need to take before the next review cycle. Write as a leadership briefing, not a legal document."'],
+     ['Ask Claude to explain the difference between a policy and a procedure','Ask: "Explain the difference between an HR policy and an HR procedure for a team building their first HR handbook. Give me: a clear definition of each, when to use each format, and one example of a common mistake companies make when writing them."'],
+     ['Summarize an employee engagement survey into an action brief','Paste the survey results. Ask: "Summarize: the overall engagement score and trend, the top 3 drivers of engagement, the top 3 detractors, and the 2 most urgent actions leadership should take in the next 30 days."']],
+  H:[['Summarize a business unit performance review for an HRBP','Paste the performance data. Ask: "Summarize this business unit\'s people performance for an HRBP preparing for a quarterly review. Highlight: headcount vs. plan, attrition rate and cause, performance distribution, and the top people risk I should raise with the business leader."'],
+     ['Ask Claude to explain what makes a strong HRBP business case','Ask: "Explain how to build a business case for an HR initiative for an HRBP who needs to influence a skeptical CFO. What structure works best? What data matters most? What are the 3 most common ways HRBPs lose credibility in this conversation?"'],
+     ['Summarize exit interview data into themes for a business leader','Paste the exit interview notes. Ask: "Identify the top 3 reasons people are leaving this team. For each: what\'s the root cause behind the stated reason? What would need to change to reduce this attrition? What\'s the one conversation I need to have with the business leader?"']]},
+ {t:'Fix, rewrite and control tone of HR communications',g:'Editing · Tone · Professional Writing',
+  T:[['Rewrite a job description that reads like a legal contract','Paste the JD. Ask: "Rewrite to attract strong candidates, not just describe the role. Lead with what\'s exciting about this opportunity. Replace requirements lists with outcome-based language. Cut it by 30%. The right candidate should feel this was written for them."'],
+     ['Fix an offer letter that sounds cold and transactional','Paste it. Ask: "Rewrite to be warm, clear, and professional without being cringey. The candidate should feel welcomed and confident about their decision. Keep all legal terms but make the tone feel human."'],
+     ['Rewrite a rejection email that candidates will actually respect','Paste the current template. Ask: "Rewrite this rejection email so it feels respectful and personal. Include: appreciation for their time, a specific acknowledgment, a clear decision statement (no false hope), and a genuine door-open for the future. Under 120 words."']],
+  O:[['Fix an HR policy that no one reads or follows','Paste the policy. Ask: "Rewrite in plain English. Keep every rule intact but strip the legalese. Format as: the rule in one sentence, why it exists, and what happens if it isn\'t followed. Under 300 words per policy section."'],
+     ['Rewrite a disciplinary letter that sounds punitive rather than constructive','Paste it. Ask: "Rewrite to be firm and clear without being aggressive. The employee should understand exactly what happened, what needs to change, and what support is available to them. Preserve all factual content."'],
+     ['Fix an employee handbook introduction that puts people to sleep','Paste it. Ask: "Rewrite the intro to feel like it was written by a company that actually cares about its people. Keep it under 200 words. It should make a new employee want to read the rest of the handbook."']],
+  H:[['Rewrite a performance improvement plan that feels punitive','Paste it. Ask: "Rewrite this PIP to feel like a genuine support document, not a paper trail for termination. It should include: clear performance standards, specific support commitments from the manager, realistic milestones, and a tone that gives the employee a reason to believe this can work."'],
+     ['Fix a manager feedback note that\'s vague and unusable','Paste it. Ask: "Rewrite this feedback to be specific, behavioural, and actionable. Replace every adjective with a concrete example. The manager should know exactly what to do differently in their next team meeting."'],
+     ['Rewrite an escalation email to HR leadership that buries the issue','Paste it. Ask: "Rewrite to lead with the key risk, not the backstory. State: what happened, who is affected, what the risk is if unaddressed, and what decision or action I need from leadership. Under 200 words."']]},
+ {t:'Draft HR documents and communications in multiple formats',g:'Drafting · Variations · Stakeholder Comms',
+  T:[['Draft a job description for a senior role in 3 formats','Ask: "Write a JD for a [role]. Write 3 versions: (A) traditional structured JD for the careers page, (B) punchy LinkedIn post format that leads with why this role matters, (C) internal briefing for hiring managers — what to look for, what to test, and what to avoid."'],
+     ['Draft 3 versions of a candidate outreach message for a passive candidate','Ask: "Write a LinkedIn outreach message for a [role] candidate who is not actively looking. Write 3 versions: (A) direct and specific — what we know about them and why we\'re reaching out, (B) curiosity hook — no ask, just an interesting question, (C) warm referral-style — someone they know suggested we connect."'],
+     ['Draft interview feedback in 3 formats for different audiences','Ask: "Write post-interview feedback for a candidate who was strong on technical skills but weak on collaboration. Write 3 versions: (A) formal debrief summary for the hiring file, (B) verbal debrief talking points for the hiring manager, (C) candidate-facing feedback email if they ask."']],
+  O:[['Draft a new HR policy in 3 formats','Ask: "Write a remote work policy for a 500-person company. Write 3 versions: (A) full policy document for the handbook, (B) 1-page quick reference guide for employees, (C) manager FAQ — the 5 questions managers will ask and the answers."'],
+     ['Draft a company-wide HR announcement in 3 tones','Ask: "Write an announcement about our new flexible hours policy. Write 3 versions: (A) formal internal memo, (B) casual Slack/Teams message from the HR team, (C) CEO all-hands talking points — what to say, how long to spend on it, and how to handle questions."'],
+     ['Draft an onboarding welcome email in 3 lengths','Ask: "Write a Day 1 welcome email for a new hire starting remotely. Write 3 versions: (A) full onboarding email with everything they need, (B) warm short welcome under 100 words — the detail comes in a separate pack, (C) manager version — what the manager should say personally on Day 1."']],
+  H:[['Draft a business case for an HR initiative in 3 formats','Ask: "Write a business case for investing in a manager development program. Write 3 versions: (A) full business case for the CFO — cost, ROI, risk of inaction, (B) 1-page exec summary for the CEO, (C) talking points for an HRBP who needs to pitch this informally to a business leader."'],
+     ['Draft a restructuring communication in 3 versions for different audiences','Ask: "A business unit is being reorganised. Write communications for: (A) the all-employee announcement from the BU head, (B) the 1:1 script for managers telling affected employees, (C) the FAQ document for employees — the 10 questions they will ask."'],
+     ['Draft 3 versions of a manager performance conversation guide','Ask: "Write a guide for managers having an underperformance conversation. Write: (A) a full structured conversation guide with key phrases and what to avoid, (B) a 1-page preparation checklist, (C) a post-conversation follow-up email template to document what was agreed."']]},
+ {t:'Upload HR documents and interrogate them',g:'Document Q&A · Contract Analysis · File Upload',
+  T:[['Upload a candidate CV and generate structured interview questions','Upload the CV. Ask: "Read this CV as a senior recruiter. Identify: the 3 most impressive things, the 2 biggest gaps or risks for [role], and generate 5 structured interview questions based specifically on what\'s in this CV — not generic questions."'],
+     ['Upload a competitor\'s job postings and extract their talent strategy','Upload 5-10 JDs from a competitor. Ask: "What does this hiring activity tell me about their strategy? What skills are they prioritizing? What roles suggest new business areas? What can I infer about their org structure from these JDs?"'],
+     ['Upload an employment contract and flag clauses that need updating','Upload the contract. Ask: "Read this as an employment lawyer. Identify: clauses that are potentially unenforceable, protections we\'re missing that are standard practice, and anything that may conflict with current employment law in [jurisdiction]."']],
+  O:[['Upload last year\'s HR metrics report and identify the key people risks','Upload the PDF. Ask: "Identify the top 3 people risks visible in this data. For each: what the metric shows, what the likely root cause is, and what HR should do in the next 90 days. Flag any data that is missing that would improve this analysis."'],
+     ['Upload an existing onboarding process document and find the gaps','Upload it. Ask: "Review this onboarding process as someone who has just joined this company. What\'s confusing? What\'s missing? What would leave a new hire feeling unsupported in their first 30 days? Give me a prioritized list of 5 improvements."'],
+     ['Upload a salary benchmarking report and produce an action brief','Upload the report. Ask: "Which roles are most out of market based on this data? What is the total cost of bringing all below-median roles to the 50th percentile? Which roles carry the highest attrition risk if we don\'t act? Give me a 1-page executive brief."']],
+  H:[['Upload a team\'s 360 feedback report and identify coaching themes','Upload the report. Ask: "Identify the 3 strongest development themes for this leader. For each: what the feedback says, what behaviour this likely stems from, and one specific coaching action I can take as their HRBP in the next meeting."'],
+     ['Upload a business unit\'s people data pack and identify the top risk','Upload the data. Ask: "Identify the single highest people risk for this business unit. What does the data show? What is the likely business impact if unaddressed? What should I recommend to the business leader at the next QBR?"'],
+     ['Upload two competing restructuring proposals and compare the people impact','Upload both. Ask: "Compare these two restructuring options from a people and culture perspective. Which creates more redundancies? Which better preserves critical skills? Which has the higher change management risk? What am I not seeing in either proposal?"']]},
+ {t:'Set up a Project and repurpose HR content across formats',g:'Projects · Memory · Content Repurposing',
+  T:[['TA Project + repurpose a role brief into 3 candidate touchpoints','Create a TA Project with your role brief, ideal candidate profile, and interview scorecard. Ask Claude to generate: a LinkedIn outreach message, a candidate information pack for after the first call, and a hiring manager briefing on what to say in the sell conversation.'],
+     ['Hiring Project + turn interview scorecards into a hiring recommendation','Create a Hiring Project. Upload all scorecards from a hiring process. Ask Claude to write: a recommendation memo with rationale, a briefing for the rejected candidates\' feedback calls, and a lessons-learned note on what to do differently next time.'],
+     ['Pipeline Project + repurpose talent pool data into outreach sequences','Create a Pipeline Project with your talent pool profiles. Ask Claude to generate: personalized outreach messages for each segment, a nurture email sequence for candidates not ready now, and a quarterly talent pool update email.']],
+  O:[['HR Ops Project + repurpose a policy into 3 employee formats','Create an HR Ops Project with your company handbook and policy documents. Upload a policy. Ask Claude to generate: a plain-English summary for employees, a manager FAQ, and a quick-reference one-pager for the intranet.'],
+     ['Onboarding Project + turn a process document into 3 formats','Create an Onboarding Project. Upload the onboarding process document. Ask Claude to produce: a new hire welcome pack, a manager onboarding checklist, and a 30-60-90 day success framework for the new hire.'],
+     ['HR Comms Project + turn an annual HR update into 3 audience formats','Create an HR Comms Project. Upload the annual HR update. Ask Claude to generate: an all-employee email from the CHRO, a manager briefing on the key changes that affect their teams, and a board-ready summary of HR performance vs. plan.']],
+  H:[['HRBP Project + repurpose a business review into HR actions','Create a project with your business unit\'s OKRs, headcount plan, and last quarter\'s people data. Upload the business review deck. Ask Claude to produce: the people section of the QBR, a headcount risk analysis, and a manager coaching priority list for next quarter.'],
+     ['Change Project + turn a restructuring brief into 3 communications','Create a Change Project. Upload the restructuring brief. Ask Claude to generate: the all-employee announcement, the manager briefing pack, and an FAQ document covering the 10 questions employees will ask in the first 48 hours.'],
+     ['Talent Review Project + turn calibration notes into development plans','Create a Talent Review Project. Upload calibration session notes. Ask Claude to produce: a summary of high-potential employees identified, individual development plan templates for the top 5, and a succession pipeline briefing for the CHRO.']]}
+],
+b1:[
+ {t:'Write your first structured prompt (C+T+F+C) for HR tasks',g:'Prompt Engineering · Structured Inputs',
+  T:[['Build a structured prompt for a role profile and candidate scorecard','"Context: I am a recruiter hiring for [role] at a [company type]. Task: create a candidate scorecard for this role. Format: table — Competency | Must Have | Nice to Have | Interview Question | Red Flag. Constraints: base competencies on the actual responsibilities of the role, not a generic skills list."'],
+     ['Build a structured prompt for sourcing strategy on a hard-to-fill role','"Context: I am struggling to hire a [role] in [market]. Task: develop a sourcing strategy for this role. Format: structured plan — channels to activate, search strings to use, passive vs. active candidate mix, timeline, and 3 employer brand messages that will resonate with this persona. Constraints: focus on what will actually reach this candidate, not what\'s easiest to do."'],
+     ['Build a structured prompt for a talent market briefing for a hiring manager','"Context: I am briefing a hiring manager before we launch a search for [role]. Task: prepare a talent market briefing. Format: brief — current supply of this talent in our market, typical compensation range, average time to hire, what candidates care about in this role, and 3 things our offer needs to include to be competitive. Constraints: be specific about our market, not global averages."']],
+  O:[['Build a structured prompt for an HR policy gap analysis','"Context: I manage HR operations for a [size] company in [industry]. Task: review our current HR policy set and identify gaps. Format: table — Policy Area | Current Status | Gap | Risk if Not Addressed | Priority (H/M/L). Constraints: focus on policies that carry legal or compliance risk if absent, not just nice-to-haves."'],
+     ['Build a structured prompt for a new hire onboarding assessment','"Context: I run HR ops for a company with [number] new hires per month. Task: assess the quality of our current onboarding programme. Format: structured assessment — Day 1 experience, first 30 days, manager involvement, cultural immersion, time-to-productivity, and overall NPS score. Constraints: frame each area as: what good looks like, what we do now, and the gap."'],
+     ['Build a structured prompt for monthly HR metrics commentary','"Context: I prepare the monthly HR metrics report for leadership. Task: write commentary on our people metrics for [month]. Format: structured commentary — headline metric, trend vs. prior period, root cause of any movement, and recommended action for leadership. Constraints: each metric commentary should be under 60 words and tell a story, not just describe a number."']],
+  H:[['Build a structured prompt for a QBR people section','"Context: I am an HRBP preparing the people section of a business unit QBR. Task: write the people section for [BU]. Format: structured section — headcount vs. plan, attrition analysis, performance distribution, top people risk, and HRBP recommendation for next quarter. Constraints: frame risks in business terms not HR jargon — the audience is commercial leaders not HR people."'],
+     ['Build a structured prompt for a manager effectiveness assessment','"Context: I am an HRBP supporting [number] managers in [BU]. Task: assess the effectiveness of our managers against our leadership framework. Format: table — Manager | Strength | Development Area | Team Engagement Score | HRBP Action. Constraints: base the assessment on observable behaviours and data, not impressions."'],
+     ['Build a structured prompt for an organizational health diagnostic','"Context: I am conducting an org health review for [BU]. Task: produce an organizational health diagnostic from the data I provide. Format: structured diagnostic — culture and engagement, talent depth, manager quality, change readiness, DEI metrics, and overall health verdict (Healthy / Needs Attention / At Risk). Constraints: be direct about risks. Do not soften findings."']]},
+ {t:'Build a prompt library and save Claude Skills for HR',g:'Prompt Library · Claude Skills',
+  T:[['Save 3 Skills: JD writer, outreach message generator, interview question builder','JD writer: role title + seniority + key outcomes in → complete JD out. Outreach generator: role + candidate LinkedIn summary in → personalised message out. Interview builder: role + competency in → 5 structured questions with ideal answer indicators out.'],
+     ['Save a Skill: CV → structured candidate brief for the hiring manager','Input: CV or LinkedIn profile text. Output: a structured 1-page candidate brief — background summary, match to role, top 3 strengths, top 2 risks, and 3 questions to ask in the first interview. One click replaces 20 minutes of prep.'],
+     ['Save a Skill: hiring decision data → recommendation memo','Input: all interview scorecards and feedback notes. Output: a hiring recommendation memo — summary of each candidate, the recommended hire with rationale, and the case against each alternative. One click turns a pile of notes into a hiring decision.']],
+  O:[['Save 3 Skills: policy plain-English converter, onboarding checklist builder, HR announcement drafter','Policy converter: policy text in → plain-English version out. Onboarding builder: role + start date + team in → customised onboarding checklist out. Announcement drafter: policy change in → employee announcement + manager FAQ out.'],
+     ['Save a Skill: HR metrics data → executive commentary','Input: monthly HR metrics spreadsheet or table. Output: executive-ready commentary for each metric — trend, root cause, and recommended action. Replaces 2 hours of report writing with one prompt.'],
+     ['Save a Skill: employee complaint summary → investigation preparation brief','Input: summary of an employee complaint or ER case. Output: a structured investigation preparation brief — key allegations, parties involved, documents to request, questions to ask in each interview, and relevant policy references. Structures an ER case in minutes.']],
+  H:[['Save 3 Skills: QBR people section builder, manager coaching note writer, talent review summarizer','QBR builder: people data in → QBR people section out. Coaching note: observation of manager behaviour in → coaching conversation framework out. Talent review: calibration notes in → individual development summary out.'],
+     ['Save a Skill: exit interview notes → attrition insight report','Input: exit interview transcripts or notes. Output: a structured attrition insight report — top themes by reason, business unit breakdown, retention risk flags, and recommended actions for the HRBP. Turns qualitative data into actionable intelligence.'],
+     ['Save a Skill: org data input → workforce planning brief','Input: current headcount, open roles, skills gaps, and business growth plan. Output: a workforce planning brief — headcount recommendation by function, skills to hire vs. develop, and a 12-month hiring sequencing plan. One Skill replaces a half-day planning workshop.']]},
+ {t:'Research HR benchmarks, best practices and talent trends',g:'Web Search · Deep Research · Market Intelligence',
+  T:[['Research current talent market conditions for a hard-to-fill role','Ask (web search on): "What is the current supply and demand for [role] in [market]? What is the average time to hire? What are candidates in this space demanding from employers beyond base salary? What sourcing channels are other companies using successfully?"'],
+     ['Research best-in-class onboarding practices for our industry','Use Deep Research: "What does best-in-class employee onboarding look like for a [industry] company with [headcount]? What is the evidence that strong onboarding improves retention and time-to-productivity? What are 3 practices the top companies do that average ones don\'t?"'],
+     ['Research compensation benchmarks for a role we are about to hire','Ask: "What is the market compensation range for a [role] in [city/market] in [year]? What does total compensation typically include at this level — base, bonus, equity, benefits? What are the top 3 companies competing for this talent and how do they position their compensation?"']],
+  O:[['Research HR compliance requirements for a new employment law or regulation','Use Deep Research: "What are the key compliance requirements for [new law/regulation] affecting [company type] in [jurisdiction]? What do we need to update in our policies? What is the deadline? What are the consequences of non-compliance?"'],
+     ['Research best practice HR metrics and what benchmarks to aim for','Ask: "What HR metrics should a [industry] company with [headcount] be tracking? What are the benchmark targets for attrition rate, time to hire, engagement score, and training hours per employee? What do top quartile HR functions measure that average ones don\'t?"'],
+     ['Research HRIS and HR tech options for a specific capability we need','Use Deep Research: "What are the leading platforms for [capability — e.g. performance management, ATS, LMS] for a company of our size? Compare the top 3 on: ease of implementation, integration with [our current HRIS], user adoption rates, and total cost of ownership."']],
+  H:[['Research manager effectiveness frameworks and what actually works','Ask: "What does the evidence say about what makes managers effective? Which manager effectiveness frameworks are most credible? What are the 3 behaviours most strongly correlated with team engagement and performance? Give me sources I can cite with a senior leader."'],
+     ['Research how companies have successfully reduced regrettable attrition','Use Deep Research: "What interventions have the strongest evidence for reducing regrettable attrition in [industry]? What does the data say about when people decide to leave — and when HR interventions are too late? What are 3 practices I could implement in the next quarter?"'],
+     ['Research what high-performing HRBPs do differently from average ones','Ask: "What does research say about what separates high-performing HRBPs from average ones? What skills, behaviours, and mindsets distinguish the best HRBPs? What do business leaders say they want from HR partners that they typically don\'t get?"']]},
+ {t:'Analyze people data and create HR Artifacts',g:'Data Analysis · Artifacts · .md Documents',
+  T:[['Upload hiring funnel data and find conversion rate problems','Upload the CSV. Ask: "Analyze our hiring funnel. At which stage are we losing the most candidates? Is the drop-off worse for certain roles, departments, or candidate demographics? What is the cost per hire trend? Output as a table Artifact with a recommended action for each problem stage."'],
+     ['Upload offer acceptance data and identify what\'s killing our offers','Upload the data. Ask: "What is our offer acceptance rate? For declined offers: what are the stated reasons? Is there a pattern by role, level, location, or comp band? What would we need to change to improve acceptance by 15%? Create a .md analysis brief."'],
+     ['Upload interview-to-hire data across hiring managers and benchmark performance','Upload the data. Ask: "Which hiring managers have the best and worst interview-to-hire ratios? Which take the longest to make decisions? Which have the highest candidate dropout after interviewing? Output as a ranked Artifact I can use in a TA leadership review."']],
+  O:[['Upload attrition data and identify the highest-risk employee segments','Upload the CSV. Ask: "Segment attrition by: department, tenure band, manager, role level, and time of year. Which segment has the highest attrition rate? Which has the highest regrettable attrition? What does the trend look like vs. prior year? Output as a table Artifact with risk flags."'],
+     ['Upload engagement survey data and produce a theme analysis Artifact','Upload the data. Ask: "Calculate engagement score by business unit, tenure band, and manager. Identify the questions with the largest positive and negative movement vs. last survey. What are the top 3 themes in the open comments? Create a .md report I can present at the people committee."'],
+     ['Upload HR operations SLA data and find bottlenecks','Upload the data. Ask: "Which HR processes are consistently missing SLA targets? Which take the longest on average? Where are the bottlenecks — is it approvals, system delays, or HR capacity? Output as a table Artifact with a recommended process improvement for each overdue area."']],
+  H:[['Upload 360 feedback data across a leadership cohort and find development themes','Upload the data. Ask: "What are the most common development themes across this leadership group? Are there patterns by gender, level, function, or tenure? Which leaders have the biggest gap between self-assessment and others\' ratings? Create a .md coaching priority report."'],
+     ['Upload headcount vs. plan data and model scenarios','Upload the data. Ask: "Which business units are most overstaffed or understaffed vs. plan? What is the total headcount cost variance? If we need to reduce headcount by 10%, which areas have the most flexibility? Create a scenario analysis Artifact with financial impact."'],
+     ['Upload performance rating distribution data and identify calibration bias','Upload the data. Ask: "Is our performance distribution normal or skewed? Are there managers who consistently rate high or low? Are there any demographic patterns in rating distribution that suggest bias in the calibration process? Output a .md findings report with recommendations."']]},
+ {t:'Create and publish HR Artifacts and .md documents',g:'Artifacts · Published Artifacts · .md Docs',
+  T:[['Build an interactive interview scoring tool as a published Artifact','Ask Claude to create an interactive interview scorecard. Inputs: competency, interviewer rating (1-5), evidence notes. Output: overall candidate score, recommendation (Strong Hire/Hire/No Hire), and a structured debrief summary. Publish as a URL hiring managers use instead of paper scorecards.'],
+     ['Create a .md hiring manager guide for the recruitment process','Ask Claude to generate a .md guide covering: how to write a good role brief, how to run an effective interview, how to give structured feedback, how to make a hiring decision, and how to deliver an offer compellingly. Save in the TA Project as the go-to hiring manager resource.'],
+     ['Create a job description template library as a published Artifact','Ask Claude to build an interactive JD builder. Inputs: role type, seniority level, key outcomes. Output: a formatted JD with headline, responsibilities, requirements, and why-join section. Publish the URL for hiring managers to self-serve JD drafts without briefing TA every time.']],
+  O:[['Build an interactive HR policy navigator as a published Artifact','Ask Claude to create an interactive policy finder. Employee inputs their situation (e.g. "I want to take parental leave" or "I want to raise a grievance"). Output: the relevant policy summary, the process to follow, and who to contact. Publish as a URL that reduces HR inbox volume.'],
+     ['Create a .md HR operations handbook for the team','Ask Claude to generate a .md handbook covering: HR process standards, SLA targets, escalation paths, how to handle common employee requests, and template library index. Save in the HR Ops Project as the team\'s operating guide.'],
+     ['Create an employee lifecycle checklist as a published Artifact','Ask Claude to build an interactive checklist for every stage of the employee lifecycle: hiring, onboarding, probation, performance review, promotion, parental leave, and offboarding. Publish as a URL for managers to track their people process compliance.']],
+  H:[['Build an interactive HRBP meeting preparation tool as a published Artifact','Ask Claude to create an interactive prep tool. Inputs: business leader name, recent people metrics, upcoming business decisions. Output: a structured agenda, 5 questions to ask, risks to raise, and talking points on the key people issues. Publish as a URL HRBPs use before every leadership meeting.'],
+     ['Create a .md manager effectiveness framework for HRBP coaching','Ask Claude to generate a .md framework covering: what good looks like at each manager level, how to assess manager effectiveness from observable data, a coaching question library for HRBP conversations, and a development planning template. Save in the HRBP Project.'],
+     ['Create a workforce planning template as a published Artifact','Ask Claude to build an interactive workforce planning tool. Inputs: current headcount, business growth targets, skills gaps, attrition assumptions. Output: recommended headcount by function, hire vs. develop vs. buy decision framework, and a 12-month hiring plan. Publish as a URL for HRBP-business leader planning sessions.']]}
+],
+b2:[
+ {t:'Use extended thinking for complex people decisions',g:'Extended Thinking · Strategic Reasoning',
+  T:[['Decide whether to hire externally or develop internally for a critical role','Enable extended thinking. Provide: the role, current internal talent options, development timelines, external market conditions, and cost of each approach. Ask: "Think through this build vs. buy decision carefully. What are we really trading off? What\'s the hidden cost of each option? What\'s the recommendation and what assumptions is it most sensitive to?"'],
+     ['Evaluate whether our employer brand is losing us candidates before we even speak to them','Provide: Glassdoor ratings, candidate survey data, offer decline reasons, and competitor employer brand signals. Ask: "Think through what our employer brand data is actually telling us. Is there a structural problem or isolated issues? What\'s the highest-leverage change we could make in the next 6 months to improve candidate quality and acceptance rate?"'],
+     ['Decide how to structure a graduate hiring programme from scratch','Provide: business growth plans, current talent pipeline gaps, budget, and internal capacity. Ask: "Think through the design of a graduate programme carefully. What does the business actually need from this cohort in 3 years? What\'s the risk of over-engineering it vs. under-investing? What\'s the minimum viable design that would deliver real business value?"']],
+  O:[['Diagnose why our attrition rate has increased 40% in 12 months','Enable extended thinking. Provide: attrition data by segment, engagement scores, exit interview themes, and any major org changes in the period. Ask: "Think through every possible driver of this attrition increase. Which are structural and which are one-off? What\'s the most likely root cause? What would you investigate first? What do we need to stop doing immediately?"'],
+     ['Decide whether to build, buy, or outsource a new HR capability','Provide: the capability needed, current team skills, budget, and timeline. Ask: "Think through this make vs. buy vs. partner decision carefully. What are the real risks of building slowly internally? What does outsourcing cost us in institutional knowledge? What\'s the recommendation and what has to be true for it to work?"'],
+     ['Evaluate whether our performance management process is creating more risk than value','Provide: performance rating distribution, correlation with attrition, manager and employee survey data on the process. Ask: "Think through what our performance management data is really telling us. Is the process working? What\'s the cost of the current approach in manager time and employee engagement? What would a better process look like?"']],
+  H:[['Build a 3-scenario workforce plan for a business unit facing major growth or restructuring','Enable extended thinking. Provide: current headcount, business growth targets, budget constraints, and market supply data. Ask: "Think through how to build 3 robust workforce scenarios. What are the key assumptions I should stress-test? What triggers a switch between scenarios? What\'s the talent risk in each?"'],
+     ['Decide whether to recommend a manager for promotion when the data is mixed','Provide: performance data, 360 feedback, team engagement scores, and business leader input. Ask: "Think through this promotion decision carefully. What does the evidence actually show? Where are the genuine development gaps vs. context factors? What\'s the recommendation and how would I defend it in a calibration room?"'],
+     ['Diagnose why a high-performing team is suddenly disengaged','Provide: engagement score trend, attrition data, recent org changes, and any feedback available. Ask: "Think through every possible driver of this engagement drop. What\'s the pattern in the data? What are you hearing between the lines? What\'s the single most important conversation I need to have, and with whom?"']]},
+ {t:'Build a 3-prompt chain for HR workflows',g:'Prompt Chaining · Workflow Design',
+  T:[['Chain: talent market scan → candidate persona → sourcing playbook','P1: "Research the talent market for [role] in [market]. Describe: who these candidates are, where they work now, what they care about, and what would make them consider a move." P2: "From this market picture, build a candidate persona: demographics, motivations, objections, and the message that will resonate." P3: "Write a sourcing playbook for this role: the 3 best channels, search string examples, outreach message templates, and a 6-week pipeline-building plan."'],
+     ['Chain: CV screening → interview prep → post-interview brief','P1: "Screen these 12 CVs against our scorecard for [role]. Give me a shortlist of the top 4 with a one-line rationale for each." P2: "For each shortlisted candidate, write 3 tailored interview questions based on their specific background — not generic questions." P3: "Write a post-interview brief template the hiring team will complete for each candidate. Output: structured scoring guide and a debrief agenda."'],
+     ['Chain: offer decline reasons → root cause → retention strategy','P1: "From these offer decline notes, identify the top 3 reasons candidates are turning us down." P2: "For each reason, identify the root cause — is this a brand issue, a comp issue, a process issue, or a role design issue?" P3: "Write a retention strategy for each root cause. Include: what to change, how quickly, who owns it, and how to measure improvement."']],
+  O:[['Chain: engagement survey data → insight brief → action plan','P1: "From this engagement survey data, identify the top 3 themes driving low engagement across the organisation." P2: "For each theme, diagnose the root cause: is this a leadership issue, a process issue, a culture issue, or a structural issue?" P3: "Write a 90-day action plan for each theme. For each: specific actions, who owns them, success metrics, and how we communicate progress to employees."'],
+     ['Chain: ER case notes → investigation plan → outcome letter','P1: "From these case notes, summarize the key allegations and identify what evidence we need to gather." P2: "Write an investigation plan: who to interview, what questions to ask, what documents to request, and what the key issues of fact are." P3: "Draft an outcome letter for two scenarios: (A) allegation upheld, (B) allegation not upheld. Include: findings, decision rationale, and next steps for both parties."'],
+     ['Chain: HR data → narrative → board presentation','P1: "From this HR data, identify the 5 most important people stories to tell the board this quarter." P2: "For each story: write a one-paragraph narrative that explains what happened, why it matters, and what we\'re doing about it." P3: "Structure this into a 10-slide board presentation. For each slide: title, key message, supporting data point, and the decision or action requested from the board."']],
+  H:[['Chain: performance data → manager conversations → development plans','P1: "From this team\'s performance data, identify the top 3 conversations a manager needs to have this quarter — with whom and about what." P2: "For each conversation, write a structured conversation guide: the opening, key messages, questions to ask, what to listen for, and how to close." P3: "For each conversation, write a 30-60-90 day development plan with specific actions, support commitments, and success criteria."'],
+     ['Chain: org design question → options analysis → recommendation','P1: "Here is the business context for an org design decision: [describe]. Identify the 3 most viable structural options." P2: "For each option: analyze the people impact, the capability risks, the cost, and the change complexity." P3: "Write a recommendation memo for the business leader. Include: the recommended option, rationale, what has to go right, and a 6-month implementation roadmap."'],
+     ['Chain: exit data → attrition story → retention intervention','P1: "From these exit interview notes, identify the single most actionable attrition driver we can address." P2: "Analyze this driver in depth: what is the employee experience that leads to this exit reason? Where in the employee journey does the problem start?" P3: "Design a retention intervention: what to change, who owns it, how to pilot it, and what success looks like in 6 months."']]},
+ {t:'Write a system prompt and build an HR AI persona',g:'System Prompts · AI Personas',
+  T:[['Build "Talent Scout" — AI persona for recruiting strategy and candidate assessment','"You are Talent Scout, an expert recruiter for [company]. You know our values are [list], our typical candidate profiles, and our hiring standards. When I describe a role or share a CV, give me: sourcing recommendations, an assessment of candidate fit, tailored interview questions, and any red flags I might be missing. Push back if I\'m being too narrow in my criteria."'],
+     ['Build "Offer Architect" — AI persona for offer strategy and compensation decisions','"You are Offer Architect. You know our compensation philosophy, our bands for each level, and the current market rates for our key roles. When I describe a candidate and their current comp, help me: build the right offer, anticipate their objections, craft the verbal delivery, and decide how much flexibility we should show if they push back."'],
+     ['Build "Interview Coach" — trains hiring managers to interview better','"You are Interview Coach. When a hiring manager shares a role they\'re hiring for, ask them 3 clarifying questions about what success looks like in year 1. Then give them: a structured interview framework, 5 behavioural questions specific to this role, what good and poor answers look like, and the 3 biases they\'re most likely to fall into for this type of role."']],
+  O:[['Build "Policy Navigator" — explains HR policies in plain English and guides employees','"You are Policy Navigator. You know our HR policies [describe key policies]. When an employee describes their situation, tell them: which policy applies, what it means for them in plain English, what the process is step by step, and who to contact. Always ask if they need help with anything else. Never give legal advice — escalate to HR when the situation is complex."'],
+     ['Build "ER Advisor" — guides HRBPs and managers through employee relations cases','"You are ER Advisor. You know our disciplinary and grievance procedures, our management expectations, and our risk tolerance as an organisation. When I describe an ER situation, ask 3 clarifying questions, then give me: a process recommendation, the key risks if we get this wrong, template language for any letters or documentation, and a checklist of things to do before the next step."'],
+     ['Build "Metrics Interpreter" — turns HR data into plain-English stories for leaders','"You are Metrics Interpreter. When I share HR data or metrics, translate them into business language for a non-HR audience. For each metric: tell me what it means, whether it\'s good or bad in context, what\'s driving the movement, and the one thing a business leader should do about it. Always end with a \'so what\' — if the leader does nothing, what happens?"']],
+  H:[['Build "HRBP Sparring Partner" — prepares HRBPs for difficult business conversations','"You are HRBP Sparring Partner. You know our business context [describe]. When I tell you about an upcoming conversation with a business leader, ask me: what outcome do I want, what does the leader care about most, and what resistance am I anticipating? Then give me: a recommended framing, the strongest version of my argument, the 3 objections I\'ll face and how to respond, and what I should NOT say."'],
+     ['Build "Talent Review Facilitator" — prepares and runs better talent calibration sessions','"You are Talent Review Facilitator. You know our talent framework, our definitions of high potential, and the leadership capabilities we\'re developing for. When I share a talent review dataset or individual profile, help me: identify the calibration biases to watch for, prepare the right questions for the session, challenge any placements that don\'t seem right, and draft the follow-up development actions."'],
+     ['Build "Change Navigator" — helps HRBPs design and communicate change','"You are Change Navigator. You know our organisation\'s change history and culture [describe]. When I describe an upcoming change, ask me: how big is this change, who is most affected, and what is the biggest fear employees will have? Then give me: a change readiness assessment, a stakeholder map, a communication sequencing plan, and the manager briefing talking points for the first 72 hours."']]},
+ {t:'Multi-modal analysis — org charts, people dashboards and HR documents',g:'Vision · Multi-modal · Visual Analysis',
+  T:[['Upload a LinkedIn profile screenshot and get a structured sourcing assessment','Upload the screenshot. Ask: "Read this LinkedIn profile as a recruiter for [role]. What\'s impressive, what\'s a risk, and what\'s missing? What 3 questions should I open with if I reach out? What\'s the one thing about this person\'s background that could be a dealbreaker?"'],
+     ['Screenshot a talent pipeline dashboard and extract sourcing intelligence','Upload the screenshot. Ask: "From this pipeline dashboard, where are the biggest drop-offs? Which channels are producing the most qualified candidates? Which stages are taking longest? What should the sourcing team focus on this week?"'],
+     ['Upload a photo of a candidate assessment centre and assess facilitation quality','Upload the photo or document. Ask: "From what you can see in this assessment design, what are the likely validity risks? Is this assessment likely to surface the competencies it claims to test? What would you change to improve the quality of the output?"']],
+  O:[['Upload an org chart and identify structural inefficiencies','Upload the image. Ask: "Looking at this org chart, where are the potential spans-of-control issues? Which roles appear to have unclear accountability? Where is there likely to be coordination overhead? What would you prioritize in a structural review?"'],
+     ['Screenshot an HR dashboard and identify the three most urgent actions','Upload the screenshot. Ask: "From this HR dashboard, what are the three most urgent people issues that need leadership attention this week? What data is missing that would sharpen this analysis? What\'s the story I should tell in the next people committee meeting?"'],
+     ['Upload a compensation benchmarking chart and identify the highest-risk roles','Upload the image or table. Ask: "Which roles are furthest below market on this chart? Which are in the most competitive talent segments? If I had budget to address 3 roles this review cycle, which would you prioritize and why?"']],
+  H:[['Upload a 360 feedback radar chart and prepare a coaching conversation','Upload the image. Ask: "From this radar chart, what is the most important coaching conversation this leader needs? What\'s the gap between their self-perception and others\' perception? What 3 questions would you ask in the coaching session to help them see this clearly?"'],
+     ['Upload a team engagement heatmap and identify where the HRBP should focus','Upload the image. Ask: "From this engagement heatmap, which teams or managers need the most immediate HRBP support? What does the pattern suggest about the root cause — is this a management issue, a work design issue, or something structural? What conversation do I have first?"'],
+     ['Upload a talent review 9-box grid and challenge the placements','Upload the image. Ask: "Looking at this 9-box placement, which placements seem most questionable? Are there any that appear to reflect bias rather than evidence? What data would you want to see to validate or challenge the placements in the top-right and bottom-left quadrants?"']]},
+ {t:'Build Cowork automations and HR SOPs',g:'Cowork · Automation · SOPs',
+  T:[['Build a weekly pipeline report automation using Cowork','In Cowork: each Monday, Claude reads the ATS export → calculates pipeline health by role (candidates at each stage, conversion rates, time in stage) → flags any role with a stalled pipeline → generates a prioritized recruiter action list → sends to the TA lead by 8am.'],
+     ['Build a candidate outreach sequence automation','In Cowork: new role brief uploaded → Claude generates a sourcing plan → writes 3 outreach message variants → creates a 6-week follow-up sequence → saves all assets to /TA/[role-name] → notifies the recruiter with a checklist to review and activate each message.'],
+     ['Build a hiring manager briefing pack generator','In Cowork: hiring manager submits a role brief form → Claude reads the brief → generates a complete hiring pack (scorecard, interview questions, competency guide, offer approval form) → saves to /Hiring/[role] → sends to the hiring manager with instructions.']],
+  O:[['Build a new joiner onboarding automation using Cowork','In Cowork: new hire added to HR system → Claude reads their role, start date, and manager → generates a personalised onboarding plan → creates a Day 1 welcome email → builds a 30-60-90 day milestone tracker → sends the manager a pre-start checklist 5 days before the start date.'],
+     ['Build a monthly HR metrics report automation','In Cowork: on the last Friday of each month, Claude reads HR data exports (headcount, attrition, engagement, time to hire) → calculates KPIs vs. targets → writes commentary for each metric → generates a formatted executive report → sends to the CHRO by 9am Monday morning.'],
+     ['Build an HR policy update notification automation','In Cowork: when a policy document is updated in /Policies → Claude reads the changes → identifies which employee groups are affected → drafts a communication for each affected group → creates a manager FAQ → sends a notification to HR for review and approval before distribution.']],
+  H:[['Build a QBR preparation automation for HRBPs','In Cowork: 2 weeks before the QBR date → Claude reads the business unit\'s people data exports → calculates key metrics vs. plan and prior period → identifies the top 3 people risks → drafts the people section of the QBR → sends to the HRBP with a list of data points to verify before the meeting.'],
+     ['Build a manager check-in note automation from 1:1 notes','In Cowork: HRBP uploads 1:1 notes from manager meetings → Claude processes and extracts: key themes, commitments made, risks flagged, and development actions discussed → generates a structured HRBP case note → saves to /HRBP/[manager-name] → flags any escalation required.'],
+     ['Build a talent review action tracker automation','In Cowork: after talent review sessions, Claude reads the calibration outputs → extracts individual development actions by employee → assigns each action to the relevant HRBP or manager → generates a 30-60-90 day follow-through plan → sends each owner their personalised action list within 24 hours of the talent review completing.']]}
+],
+b3:[
+ {t:'Explore the API and design an HR automation use case',g:'API Literacy · Workflow Architecture',
+  T:[['Design a CV screening and shortlisting API','"Design an API workflow: CVs are uploaded to a shared folder → Claude reads each CV against the role scorecard → scores each candidate on defined competencies → generates a structured shortlist recommendation → flags any candidates with specific risk factors → outputs a ranked list for the recruiter to review. What are the scoring methodology risks and how do we prevent bias?"'],
+     ['Design a talent market intelligence API that runs weekly','"Design an API: weekly, Claude scrapes job postings from target companies and LinkedIn → identifies hiring trends and new roles being created → generates a talent market intelligence briefing for TA leadership → flags any competitor hiring activity that suggests strategic moves. What data sources does this need? What human review is required before the briefing goes to leadership?"'],
+     ['Design a candidate communication personalisation API','"Design an API: recruiter inputs role, candidate profile, and stage of process → Claude generates a personalised outreach, follow-up, or rejection message based on the candidate\'s specific background → logs the message in the ATS → tracks open and response rates to improve future personalisation. What safeguards prevent the messages from feeling automated?"']],
+  O:[['Design an employee relations case management API','"Design an API: ER case is opened in the HRIS → Claude reads the case details → generates an investigation framework (questions, documents, timeline) → tracks case progress against policy deadlines → generates outcome letter templates based on findings → produces a de-identified case analytics report monthly. What are the data privacy requirements? What must stay with human judgment?"'],
+     ['Design an HR policy compliance monitoring API','"Design an API: Claude monitors employment law updates weekly → compares against our current policy library → flags any policy that may need updating due to legal changes → generates a recommended policy amendment for HR review → tracks the review and update status across all policies. What triggers a mandatory legal review vs. a suggested update?"'],
+     ['Design an HR metrics and insights API that replaces manual reporting','"Design an API: HRIS and payroll data exports weekly → Claude calculates all standard HR KPIs → detects anomalies and trend changes → generates narrative commentary → builds a formatted executive dashboard → sends to the CHRO and HR leadership automatically. What data quality checks are needed? How do we handle missing or inconsistent data?"']],
+  H:[['Design an HRBP intelligence API that prepares HRBPs for every leadership meeting','"Design an API: 48 hours before any leadership meeting in the HRBP\'s calendar → Claude reads the meeting agenda → pulls relevant people data for the business unit → identifies the key HR issues the leader is likely to raise → generates a briefing pack with talking points, risk flags, and recommended actions. What data integrations does this need?"'],
+     ['Design an attrition prediction API','"Design an API: monthly, Claude processes employee data (tenure, performance ratings, engagement scores, manager changes, compensation vs. market) → calculates a flight risk score for each employee → segments by risk tier (High/Medium/Low) → generates HRBP action recommendations for High risk employees → sends a priority action list to each HRBP. What are the ethical guardrails? How do we prevent this from being used punitively?"'],
+     ['Design a succession and talent pipeline tracking API','"Design an API: talent review outputs are entered → Claude maps the successor pipeline for each critical role → tracks development actions and completion rates → alerts when a critical role has no ready successor → generates a quarterly succession health report for the board. What data does it need from talent reviews? How does it stay current between annual reviews?"']]},
+ {t:'Design a multi-step automated HR pipeline',g:'Multi-Agent · Batch Processing · Pipeline Design',
+  T:[['Build a full hire-to-start pipeline','Map it: hiring manager submits role brief → Claude generates JD and scorecard → role goes live → CVs received → Claude screens and shortlists → interviews scheduled → feedback collected → hiring decision → offer generated → offer accepted → pre-employment checks triggered → Day 1 onboarding pack sent. Map the data flows, human decision points, and where AI assists vs. decides.'],
+     ['Build an employer brand monitoring and response pipeline','Map it: weekly, Claude monitors Glassdoor, LinkedIn, and Indeed reviews → categorizes by theme (management, comp, culture, growth) → identifies any sudden sentiment changes → drafts a response to new negative reviews for HR approval → generates a monthly employer brand health report → triggers an alert to the CHRO if sentiment drops below a defined threshold.'],
+     ['Build an annual TA planning pipeline','Map it: business submits headcount plan → Claude maps roles to talent market supply and cost data → identifies hard-to-fill roles and flags early → generates a sourcing strategy per role → tracks plan vs. actual monthly → alerts when hiring is falling behind → produces a mid-year reforecast recommendation. Design the data inputs and the decision logic.']],
+  O:[['Build a full employee lifecycle compliance pipeline','Map it: new hire joins → compliance checklist triggered → documents collected and verified → probation review scheduled and tracked → performance review cycle managed → mandatory training tracked → contract changes logged → offboarding triggered at resignation → all compliance checkpoints met before final payroll. Identify where automation can replace manual tracking.'],
+     ['Build a monthly HR reporting and insight pipeline','Map it: on the 1st of each month, data exports from HRIS, payroll, ATS, and engagement platform → Claude processes and reconciles → KPIs calculated → anomalies detected → commentary written → report formatted → sent to CHRO by Day 3 → board pack version generated by Day 5 → archived to shared drive. What reconciliation logic prevents data quality errors?'],
+     ['Build a policy review and update pipeline','Map it: employment law monitoring triggers a policy flag → HR reviewer assigned → Claude prepares a gap analysis between current policy and new requirement → draft update generated for HR review → legal sign-off process → change tracked → affected employee communications drafted → policy published → manager FAQ updated → all staff notified. Design the approval workflow.']],
+  H:[['Build an annual talent review and succession pipeline','Map it: HRBP collects pre-read data from managers → Claude processes and generates a draft talent placement for review → calibration sessions run → outputs captured → development actions assigned by Claude → each action tracked with owner and deadline → 90-day check-in automated → annual progress report generated. Map the human calibration sessions into the automated pipeline.'],
+     ['Build a new manager effectiveness programme pipeline','Map it: manager appointed → 360 survey triggered at 6 months → Claude analyzes results → development priorities identified → coaching schedule with HRBP created → manager attends targeted development → 12-month 360 repeated → progress tracked vs. baseline → HRBP generates a readiness report for talent review. Design the data flows and feedback loops.'],
+     ['Build an engagement survey action-tracking pipeline','Map it: engagement survey closes → Claude analyzes results by team → team-level reports generated → manager receives their results with a coaching guide → manager submits action plan → HRBP reviews and approves → actions tracked monthly → 6-month pulse survey validates progress → CHRO receives a completion and impact report. What triggers HRBP intervention?']]},
+ {t:'Build evaluation rubrics for HR decisions and outputs',g:'Decision Quality · Evaluation · Governance',
+  T:[['Build a hiring decision quality rubric for post-hire reviews','Ask: "Build a rubric to evaluate the quality of hiring decisions 6 months after someone starts. Criteria: (1) evidence quality in original scorecard, (2) structured vs. unstructured interview process, (3) reference check rigour, (4) job preview accuracy, (5) onboarding quality, (6) match to role on key competencies. Score each 1–5. What minimum score indicates a process failure vs. a hiring mistake?"'],
+     ['Build a job description quality rubric for TA self-checking','Ask: "Build a rubric TA teams use before posting a JD. Criteria: outcome-based responsibilities (not task lists), inclusive language, realistic requirements (no credential inflation), compelling why-join section, accurate compensation information, and reading level appropriate for the audience. Score each 1–5. What minimum total score should a JD achieve before going live?"'],
+     ['Build a sourcing strategy evaluation rubric','Ask: "Build a rubric for evaluating sourcing strategies before they go to the hiring manager. Criteria: target candidate persona clarity, channel mix appropriateness, message relevance to persona, timeline realism, and diversity pipeline consideration. Score 1–5 per criterion. What score determines whether the strategy needs revision before launch?"']],
+  O:[['Build an HR policy quality rubric','Ask: "Build a rubric for evaluating HR policies before publishing. Criteria: legal compliance check, plain English readability, completeness (covers all relevant scenarios), fairness and consistency, manager applicability, and employee accessibility. Score each 1–5. What minimum score is required before a policy is published to the handbook?"'],
+     ['Build an ER case management quality rubric','Ask: "Build a rubric for evaluating the quality of ER case handling. Criteria: timeliness (within policy deadlines), investigation thoroughness, natural justice (heard both sides), documentation quality, outcome proportionality, and follow-up effectiveness. Score each 1–5. What score triggers a case review or management escalation?"'],
+     ['Build an HR data quality rubric for monthly reporting','Ask: "Build a rubric HR operations uses to self-check data quality before publishing the monthly report. Criteria: source reconciliation, completeness (no missing fields), trend sanity check, year-on-year comparison validity, and commentary accuracy vs. data shown. Score each 1–5. What minimum score is required before the report goes to the CHRO?"']],
+  H:[['Build a manager conversation quality rubric for HRBP coaching','Ask: "Build a rubric HRBPs use to evaluate the quality of manager conversations they coach. Criteria: preparation (manager knew the purpose and their goals), opening (set tone and psychological safety), listening (manager talked less than 40% of the time), feedback quality (specific and behavioural), and close (clear actions agreed). Score each 1–5. What score determines whether the manager needs further coaching support?"'],
+     ['Build an HRBP business case quality rubric','Ask: "Build a rubric for evaluating the quality of HRBP business cases before they go to the CFO or CEO. Criteria: problem framing clarity, data quality and credibility, ROI or cost-of-inaction analysis, implementation feasibility, risk assessment, and recommendation clarity. Score each 1–5. What minimum score is required before an HRBP submits a business case to leadership?"'],
+     ['Build a talent review calibration quality rubric','Ask: "Build a rubric for evaluating the quality of talent review outputs. Criteria: evidence quality for placements (behavioural observations vs. impressions), consistency of standards across assessors, representation bias check, development action specificity, and succession pipeline realism. Score each 1–5. What score triggers a re-calibration of specific placements?"']]},
+ {t:'Build an AI usage policy for HR covering people data and employment decisions',g:'AI Governance · Data Policy · Responsible Use',
+  T:[['Write an AI policy for the TA team covering candidate data','Draft a 1-page policy: what candidate data can enter Claude (publicly available profiles yes, assessment scores and interview notes no without candidate consent), how AI-generated shortlists must be reviewed before sharing with hiring managers, how to handle AI outputs that appear biased by demographic signals, who has final authority on hiring decisions, and how the policy is reviewed as AI evolves.'],
+     ['Design "AI for Talent Acquisition" onboarding — TA managers and recruiters','Ask: "Design a 2-hour onboarding for 10 recruiters and TA managers. Goals: use Claude to write better JDs and outreach in half the time, screen CVs more consistently, and prepare stronger hiring manager briefings. What 3 hands-on activities work best? What Skills do they set up? What do they commit to using in their next active role?"'],
+     ['Write a policy on AI use in candidate assessment and bias prevention','Draft covering: which parts of the assessment process AI may assist (structured question generation yes, making shortlist decisions alone no), mandatory human review of any AI-assisted candidate evaluation, how to document AI involvement in hiring decisions for audit purposes, what happens if an AI output is later found to reflect bias, and the escalation path for concerns.']],
+  O:[['Write an AI policy for HR operations covering employee data','Draft a policy: what employee data can be used in Claude (aggregated HR metrics yes, individual performance data and disciplinary records no), how AI-generated policy drafts are reviewed before publishing, who has authority to approve AI-generated changes to HR documents, data retention rules for Claude conversations involving HR data, and the review cadence for this policy.'],
+     ['Design "AI for HR Operations" onboarding — HR ops coordinators and analysts','Ask: "Design a 2-hour onboarding for 8 HR operations professionals. Goals: automate the 3 most time-consuming reporting tasks, use Claude to draft policy communications faster, and set up Skills for the most common employee requests. What activities work at this level? What immediate time saving can they achieve in week 1?"'],
+     ['Write a cross-functional HR AI governance policy for a 1,000-person company','Draft a 1-page policy covering all HR functions: data classification (what can and cannot enter Claude by HR function), review requirements before AI output is used in employment decisions, escalation path for AI errors affecting employees, how the policy keeps pace with AI capability changes, and mandatory training requirements for HR professionals using AI tools.']],
+  H:[['Write an AI policy for HRBPs covering organisational and confidential data','Draft a policy: what org and people data can be used in Claude (publicly known org structures and aggregated data yes, individual performance ratings and personal employee data no without GDPR compliance review), how AI-generated analysis is documented before presenting to business leaders, the human review required before any AI output influences a people decision, and how HRBPs protect employee confidentiality.'],
+     ['Design "AI for HR Leadership and HRBPs" onboarding — senior HR professionals','Ask: "Design a 90-minute session for 6 senior HRBPs and the CHRO. They are time-poor and need strategic value immediately. Goals: use extended thinking for one complex people decision, understand API possibilities for the HR function without being technical, and leave with a governance framework for the team\'s AI use. What 3 activities work at this level? What governance decision do they make in the room?"'],
+     ['Design "AI for the Whole HR Function" onboarding — all HR staff across all levels','Ask: "Design a 2-hour session for 25 HR professionals across TA, L&D, HR Ops, and HRBP functions. Goals: every person sets up 3 Skills for their most common tasks, the whole team agrees a shared prompt library structure, and the team leaves with a clear policy on what data can and can\'t be used. What activities work across such a diverse group? What shared agreement do they leave with?"']]},
+ {t:'Design a 2-hour AI onboarding for your HR team',g:'AI Literacy · Program Design · Full-Stack Mastery',
+  T:[['Design "AI for Talent Acquisition" onboarding — TA managers and recruiters','Ask: "Design a 2-hour onboarding for 10 recruiters and TA managers. Goals: use Claude to write better JDs and outreach in half the time, screen CVs more consistently, and prepare stronger hiring manager briefings. What 3 hands-on activities work best? What Skills do they set up? What do they commit to using in their next active role?"'],
+     ['Design "AI for Strategic TA" onboarding — TA leaders and heads of talent','Ask: "Design a 90-minute session for 4 senior TA leaders. Goals: use extended thinking for workforce planning decisions, build an AI persona for sourcing strategy, and design one Cowork automation for their highest-volume manual task. What 3 activities work at this level? What governance decision do they leave with?"'],
+     ['Design "AI for Campus and Volume Hiring" onboarding — graduate and volume recruiters','Ask: "Design a 2-hour session for 8 volume recruiters who process 500+ applications per month. Goals: automate CV screening, use Claude for consistent candidate communications, and set up Skills for their 5 most repetitive tasks. What hands-on activities create immediate impact? What do they commit to using in their first week back?"']],
+  O:[['Design "AI for HR Operations" onboarding — HR ops coordinators and analysts','Ask: "Design a 2-hour onboarding for 8 HR operations professionals. Goals: automate the 3 most time-consuming reporting tasks, use Claude to draft policy communications faster, and set up Skills for the most common employee requests. What activities work at this level? What immediate time saving can they achieve in week 1?"'],
+     ['Design "AI for ER and Case Management" onboarding — ER specialists','Ask: "Design a 2-hour session for 5 ER specialists. Goals: use Claude to structure investigation frameworks, draft outcome letters faster, and build a Skills library for the most common ER case types. What 3 activities create real case management value? What does their ER prompt library cover?"'],
+     ['Design "AI for HR Analytics" onboarding — people data and analytics team','Ask: "Design a 2-hour session for 4 people analytics professionals. Goals: use Claude to analyze and narrate HR data sets, build interactive Artifacts for the people committee, and explore API use cases for automating monthly reporting. What activities push this audience technically? What API use case do they design before leaving?"']],
+  H:[['Design "AI for HRBPs" onboarding — HR business partners','Ask: "Design a 2-hour onboarding for 12 HRBPs. Goals: use Claude to prepare for leadership meetings, draft business cases faster, and build an AI persona for HRBP sparring and coaching prep. What 3 activities create immediate business partner value? What Skills do they set up? How do they integrate Claude into their weekly rhythm without disrupting current stakeholder relationships?"'],
+     ['Design "AI for HR Leadership" onboarding — CHROs, VP-HR and HR directors','Ask: "Design a 90-minute session for the HR leadership team including the CHRO. They are time-poor and strategic. Goals: use extended thinking for one complex people decision, understand what API automation is possible for the HR function without being technical, and leave with a signed-off governance framework for the team\'s AI use. What 3 activities work at this level?"'],
+     ['Design "AI for the Whole HR Function" onboarding — all HR staff across all sub-functions','Ask: "Design a 2-hour session for 30 HR professionals across TA, HR Ops, HRBP, and L&D. Goals: every person sets up 3 Skills for their most common tasks, the whole team agrees a shared prompt library, and the team leaves with a clear policy on data use. What activities work across such a diverse group? What single shared commitment do they leave with?"']]}
+]};
+
+let STATE={done:{}};
+let activeBand=0;
+
+function key(bi,ai,dom,ei){return`${bi}_${ai}_${dom}_${ei}`;}
+function isDone(bi,ai,dom,ei){return!!STATE.done[key(bi,ai,dom,ei)];}
+function domDoneInBand(bi,dom){let n=0;A[BANDS[bi].id].forEach((_,ai)=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dom,ei))n++;}});return n;}
+function bandComplete(bi){return domDoneInBand(bi,'S')>=1&&domDoneInBand(bi,'M')>=1&&domDoneInBand(bi,'G')>=1;}
+function bandScore(bi){let s=0;A[BANDS[bi].id].forEach((_,ai)=>{['S','M','G'].forEach(dom=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dom,ei))s+=10;}});});return s;}
+function totalScore(){return BANDS.reduce((s,_,bi)=>s+bandScore(bi),0);}
+function totalDone(){let n=0;BANDS.forEach((_,bi)=>{A[BANDS[bi].id].forEach((_,ai)=>{['S','M','G'].forEach(dom=>{for(let ei=0;ei<3;ei++){if(isDone(bi,ai,dom,ei))n++;}});});});return n;}
+
+async function toggleDone(bi,ai,dom,ei){
+  STATE.done[key(bi,ai,dom,ei)]=!STATE.done[key(bi,ai,dom,ei)];
+  try{await window.storage.set('hr_course_v1',JSON.stringify(STATE));}catch(e){}
+  rerender();
+}
+
+function rerender(){
+  const sc=totalScore(),dn=totalDone(),pct=Math.round(dn/180*100),bc=BANDS.filter((_,bi)=>bandComplete(bi)).length;
+  document.getElementById('scoreVal').textContent=sc;
+  document.getElementById('doneVal').textContent=dn;
+  document.getElementById('bandsVal').textContent=bc;
+  document.getElementById('pctLbl').textContent=pct+'%';
+  document.getElementById('topFill').style.width=pct+'%';
+  document.getElementById('progressBar').style.width=pct+'%';
+  BANDS.forEach((_,bi)=>{updateBandNav(bi);updateBandContent(bi);});
+}
+
+function updateBandNav(bi){
+  const tab=document.getElementById('bnav_'+bi);if(!tab)return;
+  const c=bandComplete(bi),s=bandScore(bi);
+  tab.className='btab'+(activeBand===bi?' active':'')+(c?' complete':'');
+  tab.innerHTML=(c?'<div class="tab-dot"></div>':'')+BANDS[bi].short+`<span class="tab-pts">${s}pt</span>`;
+}
+
+function updateBandContent(bi){
+  if(activeBand!==bi)return;
+  const sd=domDoneInBand(bi,'S'),md=domDoneInBand(bi,'M'),gd=domDoneInBand(bi,'G');
+  const pct=Math.round((Math.min(sd,1)+Math.min(md,1)+Math.min(gd,1))/3*100);
+  const bsEl=document.getElementById('bandScore_'+bi);
+  if(bsEl)bsEl.textContent=bandScore(bi);
+  const scel=document.getElementById('bandSc_'+bi);
+  if(scel)scel.textContent=bandScore(bi);
+  const pf=document.getElementById('bandFill_'+bi);
+  if(pf)pf.style.width=pct+'%';
+  const ub=document.getElementById('ubanner_'+bi);
+  if(ub){
+    if(bandComplete(bi)){
+      ub.classList.add('show');
+      const nx=BANDS[bi+1];
+      ub.innerHTML=`<div class="ub-icon"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div><span>Band complete! ${nx?'<strong>'+nx.short+'</strong> is next.':"You've completed all 4 bands."}</span>`;
+    } else {
+      ub.classList.remove('show');
+    }
+  }
+  const chipInfo=[['S','s-done','Talent Acquisition'],['M','m-done','HR Operations'],['G','g-done','HR Business Partnering']];
+  chipInfo.forEach(([cid,cls,lbl])=>{
+    const ch=document.getElementById('bchip_'+bi+'_'+cid);
+    if(ch){const n=domDoneInBand(bi,cid);ch.className='dchip'+(n>=1?' '+cls:'');ch.textContent=(n>=1?'✓ ':'')+lbl+(n>0?' ('+n+')'  :'');}
+  });
+  A[BANDS[bi].id].forEach((_,ai)=>{
+    [['S','s-done'],['M','m-done'],['G','g-done']].forEach(([cid,cls])=>{
+      const c=document.getElementById('adc_'+bi+'_'+ai+'_'+cid);
+      const any=[0,1,2].some(ei=>isDone(bi,ai,cid,ei));
+      if(c)c.className='adc'+(any?' '+cls:'');
+      const cnt=document.getElementById('dcnt_'+bi+'_'+ai+'_'+cid);
+      if(cnt){let n=0;for(let ei=0;ei<3;ei++)if(isDone(bi,ai,cid,ei))n++;cnt.textContent=n;}
+      for(let ei=0;ei<3;ei++){
+        const ec=document.getElementById('exc_'+bi+'_'+ai+'_'+cid+'_'+ei);
+        const eb=document.getElementById('exb_'+bi+'_'+ai+'_'+cid+'_'+ei);
+        if(ec)ec.className='ex-card'+(isDone(bi,ai,cid,ei)?' done':'');
+        if(eb)eb.textContent=isDone(bi,ai,cid,ei)?'✓ Done':'Mark done';
+      }
+    });
+  });
+}
+
+function switchBand(bi){
+  activeBand=bi;
+  document.querySelectorAll('.bpanel').forEach((p,i)=>p.style.display=i===bi?'block':'none');
+  rerender();
+  const ne=document.querySelector('.bnav-wrap');
+  if(ne)window.scrollTo({top:ne.offsetTop-68,behavior:'smooth'});
+}
+function togAct(bi,ai){
+  const c=document.getElementById('actcard_'+bi+'_'+ai);
+  if(c)c.classList.toggle('open');
+}
+
+const bandBorderClasses=['bb1','bb2','bb3','bb4'];
+
+function buildUI(){
+  const nav=document.getElementById('bandNav'),panels=document.getElementById('bandPanels');
+  // T=Talent Acquisition→CSS S(red), O=HR Ops→CSS M(green), H=HRBP→CSS G(yellow)
+  const domMap={'T':'S','O':'M','H':'G'};
+  const domLabels={'T':'Talent Acquisition','O':'HR Operations','H':'HR Business Partnering'};
+  const domDomains=['T','O','H'];
+  BANDS.forEach((band,bi)=>{
+    const tab=document.createElement('div');
+    tab.id='bnav_'+bi;tab.onclick=()=>switchBand(bi);
+    nav.appendChild(tab);
+    const panel=document.createElement('div');
+    panel.className='bpanel';
+    panel.style.display=bi===0?'block':'none';
+    const maxS=A[band.id].length*3*3*10,totalEx=A[band.id].length*3*3;
+    const bh=`<div class="bhead bb${bi+1} reveal">
+      <div>
+        <div class="bey">${band.day} · Band ${bi+1}</div>
+        <div class="btitle">${band.short}</div>
+        <div class="bdesc">${band.desc}</div>
+        <div class="bdom-row">
+          <div class="dchip" id="bchip_${bi}_S">Talent Acquisition</div>
+          <div class="dchip" id="bchip_${bi}_M">HR Operations</div>
+          <div class="dchip" id="bchip_${bi}_G">HR Business Partnering</div>
+          <span class="bdom-note">Complete 1 from each to finish this band</span>
+        </div>
+      </div>
+      <div class="bscore-blk">
+        <div class="bscore-num" id="bandScore_${bi}">0</div>
+        <div class="bscore-sub">of ${maxS} pts</div>
+        <div class="bp-track"><div class="bp-fill" id="bandFill_${bi}"></div></div>
+      </div>
+    </div>`;
+    const ub=`<div class="ub" id="ubanner_${bi}"></div>`;
+    const sr=`<div class="score-row reveal">
+      <div class="src"><div class="src-num blue" id="bandSc_${bi}">0</div><div class="src-lbl">Band score</div></div>
+      <div class="src"><div class="src-num">${maxS}</div><div class="src-lbl">Max score</div></div>
+      <div class="src"><div class="src-num grn">${A[band.id].length}</div><div class="src-lbl">Activities</div></div>
+      <div class="src"><div class="src-num">${totalEx}</div><div class="src-lbl">Examples</div></div>
+    </div>`;
+    const actsH=A[band.id].map((act,ai)=>{
+      // Domain tabs
+      const dtabsH=domDomains.map((dm,di)=>{
+        const cid=domMap[dm];
+        return`<div class="dtab${di===0?' s-on':''}" id="dtab_${bi}_${ai}_${cid}" onclick="swDom(${bi},${ai},'${cid}')">${domLabels[dm]}<span class="dtab-cnt" id="dcnt_${bi}_${ai}_${cid}">0</span></div>`;
+      }).join('');
+      // Domain panels
+      const dpanelsH=domDomains.map((dm,di)=>{
+        const cid=domMap[dm];
+        const exH=act[dm].map((ex,ei)=>{
+          const promptAttr=ex[1].replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+          return`<div class="ex-card" id="exc_${bi}_${ai}_${cid}_${ei}" data-prompt="${promptAttr}" onclick="toggleDone(${bi},${ai},'${cid}',${ei})"><div class="ex-n">Example ${ei+1}</div><div class="ex-task">${ex[0]}</div><div class="ex-det">${ex[1]}</div><div class="copy-row"><button class="copy-btn" onclick="event.stopPropagation();copyPromptFromCard(this)">&#128203; Copy prompt</button></div><div class="ex-footer"><button class="ex-btn" id="exb_${bi}_${ai}_${cid}_${ei}">Mark done</button><span class="pts-pill">+10 pts</span></div></div>`;
+        }).join('');
+        return`<div class="dom-panel${di===0?' dp-on':''}" id="dpan_${bi}_${ai}_${cid}"><div class="ex-grid">${exH}</div></div>`;
+      }).join('');
+      // Activity chips
+      const adcH=[['S','s-done','T · Talent Acq.'],['M','m-done','O · HR Ops'],['G','g-done','H · HRBP']].map(([cid,cls,lbl])=>`<span class="adc" id="adc_${bi}_${ai}_${cid}">${lbl}</span>`).join('');
+      return`<div class="act-card reveal" id="actcard_${bi}_${ai}"><div class="act-top" onclick="togAct(${bi},${ai})"><div class="act-num">${ai+1}</div><div class="act-info"><div class="act-title-txt">${act.t}</div><div class="act-tag-txt">${act.g}</div><div class="act-dom-chips">${adcH}</div></div><div class="act-chev">▼</div></div><div class="act-body"><div class="dom-tabs">${dtabsH}</div>${dpanelsH}</div></div>`;
+    }).join('');
+    panel.innerHTML=bh+ub+sr+`<div class="act-list">${actsH}</div>`;
+    panels.appendChild(panel);
+  });
+}
+
+window.addEventListener('scroll',()=>{
+  const dh=document.documentElement.scrollHeight-window.innerHeight;
+  const pct=(window.scrollY/dh*100)+'%';
+  document.getElementById('progressBar').style.width=pct;
+  const sh=document.getElementById('scrollHint');if(sh)sh.style.opacity=window.scrollY>80?'0':'1';
+});
+const io=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting){el.target.classList.add('visible');io.unobserve(el.target);}});},{threshold:0.08});
+(async()=>{
+  try{const r=await window.storage.get('hr_course_v1');if(r&&r.value){const p=JSON.parse(r.value);if(p&&p.done)STATE=p;}}catch(e){}
+  buildUI();
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  rerender();
+})();
+
+function toggleDark(){
+  const isDark=document.body.classList.toggle('dark');
+  document.getElementById('dmIcon').textContent=isDark?'☀':'☾';
+  document.getElementById('dmLabel').textContent=isDark?'Light':'Dark';
+  try{localStorage.setItem('dm_hr',isDark?'1':'0');}catch(e){}
+}
+
+
+
+function copyPromptFromCard(btn) {
+  const card = btn.closest('[data-prompt]');
+  if (!card) return;
+  const text = card.getAttribute('data-prompt')
+    .replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>');
+  navigator.clipboard.writeText(text).then(function(){
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.innerHTML = '&#128203; Copy prompt'; btn.classList.remove('copied'); }, 2000);
+  }).catch(function(){
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      btn.textContent = '✓ Copied'; btn.classList.add('copied');
+      setTimeout(function(){ btn.innerHTML = '&#128203; Copy prompt'; btn.classList.remove('copied'); }, 2000);
+    } catch(e) { alert('Copy failed — please select and copy manually.'); }
+  });
+}
+function openAbout(){document.getElementById('aboutOverlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeAbout(){document.getElementById('aboutOverlay').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAbout();});
+window.toggleDone=toggleDone;
+function swDom(bi,ai,cid){
+  const active={'S':'s-on','M':'m-on','G':'g-on'};
+  ['S','M','G'].forEach(c=>{
+    const t=document.getElementById('dtab_'+bi+'_'+ai+'_'+c);
+    const p=document.getElementById('dpan_'+bi+'_'+ai+'_'+c);
+    if(t)t.classList.remove('s-on','m-on','g-on');
+    if(p)p.className='dom-panel';
+  });
+  const at=document.getElementById('dtab_'+bi+'_'+ai+'_'+cid);
+  const ap=document.getElementById('dpan_'+bi+'_'+ai+'_'+cid);
+  if(at)at.classList.add(active[cid]);
+  if(ap)ap.className='dom-panel dp-on';
+}
+
+window.togAct=togAct;
+window.swDom=swDom;
+window.switchBand=switchBand;
+</script>
+
+<div class="about-overlay" id="aboutOverlay" onclick="if(event.target===this)closeAbout()">
+  <div class="about-modal">
+    <div class="about-modal-head">
+      <div>
+        <div class="about-modal-title">Curriculum — Claude Capabilities Across Skill Bands</div>
+        <div class="about-modal-sub">46 Claude capabilities across 4 skill bands · HR Edition</div>
+      </div>
+      <button class="about-close" onclick="closeAbout()">&#x2715;</button>
+    </div>
+    <div class="about-modal-body">
+      <div class="about-intro">5 days. 2 hours each. 20 activities. 46 Claude capabilities. One clear path from Beginner to Practitioner to Builder to Strategist.</div>
+      <div class="about-table-wrap">
+<table class="caps-table">
+<thead><tr><th class="col-num">#</th><th class="col-cap">Capability</th><th class="col-where">Where it lives</th><th class="col-band">Band</th><th class="col-act">Activity</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Basic Q&amp;A and conversation</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>2</td><td>Multi-turn conversation</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>3</td><td>Summarization</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>4</td><td>Brainstorming and ideation</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>5</td><td>Grammar, editing, rewriting</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 2</td></tr>
+<tr><td>6</td><td>Explaining concepts and learning</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 1</td></tr>
+<tr><td>7</td><td>Long-form content drafting</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 3</td></tr>
+<tr><td>8</td><td>Tone and format control</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 2</td></tr>
+<tr><td>9</td><td>Content variations and A/B versions</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 3</td></tr>
+<tr><td>10</td><td>File upload — PDF and documents</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 4</td></tr>
+<tr><td>11</td><td>Image upload and vision analysis</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 4</td></tr>
+<tr><td>12</td><td>Projects — persistent context workspace</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 5</td></tr>
+<tr><td>13</td><td>Memory across conversations</td><td>Claude.ai — free</td><td><span class="band-b1">Beginner</span></td><td>Activity 5</td></tr>
+<tr><td>14</td><td>Style customization in settings</td><td>Claude.ai — settings</td><td><span class="band-b1">Beginner</span></td><td>Activity 5</td></tr>
+<tr><td>15</td><td>Structured prompting (C+T+F+C)</td><td>Claude.ai — any plan</td><td><span class="band-b2">Practitioner</span></td><td>Activity 6</td></tr>
+<tr><td>16</td><td>Web search — live internet access</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 8</td></tr>
+<tr><td>17</td><td>CSV and spreadsheet analysis</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 9</td></tr>
+<tr><td>18</td><td>Artifacts — documents, tables, text</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 9</td></tr>
+<tr><td>19</td><td>Artifacts — code, SVG, charts, interactive</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 10</td></tr>
+<tr><td>20</td><td>Artifacts with persistent storage</td><td>Claude.ai — Pro+</td><td><span class="band-b2">Practitioner</span></td><td>Activity 10</td></tr>
+<tr><td>21</td><td>Claude Skills — task automation</td><td>Claude.ai — Pro+</td><td><span class="band-b2">Practitioner</span></td><td>Activity 7</td></tr>
+<tr><td>22</td><td>Deep Research / Research mode</td><td>Claude.ai — Pro+</td><td><span class="band-b2">Practitioner</span></td><td>Activity 8</td></tr>
+<tr><td>23</td><td>Conversation sharing via public link</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 5</td></tr>
+<tr><td>24</td><td>Published Artifacts — public URL</td><td>Claude.ai — free</td><td><span class="band-b2">Practitioner</span></td><td>Activity 10</td></tr>
+<tr><td>44</td><td>Markdown (.md) files</td><td>Claude.ai — any plan</td><td><span class="band-b2">Practitioner</span></td><td>Activity 9</td></tr>
+<tr><td>46</td><td>Claude Skills — saving and running automations</td><td>Claude.ai — Pro+</td><td><span class="band-b2">Practitioner</span></td><td>Activity 7</td></tr>
+<tr><td>25</td><td>Extended thinking</td><td>Claude.ai — Pro+</td><td><span class="band-b3">Builder</span></td><td>Activity 11</td></tr>
+<tr><td>26</td><td>Prompt chaining — multi-step workflows</td><td>Claude.ai — any plan</td><td><span class="band-b3">Builder</span></td><td>Activity 12</td></tr>
+<tr><td>27</td><td>System prompts and AI personas</td><td>Claude.ai / API</td><td><span class="band-b3">Builder</span></td><td>Activity 13</td></tr>
+<tr><td>28</td><td>MCP connectors (Asana, Slack, Gmail)</td><td>Claude.ai — Pro/Max/Team</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>29</td><td>Artifacts with MCP integration</td><td>Claude.ai — Pro/Max/Team/Enterprise</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>30</td><td>Multi-modal analysis — image + text + data</td><td>Claude.ai — any plan</td><td><span class="band-b3">Builder</span></td><td>Activity 14</td></tr>
+<tr><td>31</td><td>Claude desktop app — Mac and Windows</td><td>Claude desktop — free</td><td><span class="band-b3">Builder</span></td><td>Activity 14</td></tr>
+<tr><td>32</td><td>Claude Cowork — GUI desktop automation</td><td>Claude Cowork — Pro+</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>33</td><td>Claude in Chrome — browser agent</td><td>Chrome extension — Pro+</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>34</td><td>Claude in Microsoft 365 — Excel &amp; PowerPoint</td><td>Max plan</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>45</td><td>Workflow automation — no-code</td><td>Claude.ai / Cowork / MCP</td><td><span class="band-b3">Builder</span></td><td>Activity 15</td></tr>
+<tr><td>35</td><td>Claude API — basic calls and completions</td><td>Anthropic API</td><td><span class="band-b4">Strategist</span></td><td>Activity 16</td></tr>
+<tr><td>36</td><td>Claude API — tool use and function calling</td><td>Anthropic API</td><td><span class="band-b4">Strategist</span></td><td>Activity 16</td></tr>
+<tr><td>37</td><td>Claude API — batch processing</td><td>Anthropic API</td><td><span class="band-b4">Strategist</span></td><td>Activity 17</td></tr>
+<tr><td>38</td><td>Claude API — prompt caching</td><td>Anthropic API</td><td><span class="band-b4">Strategist</span></td><td>Activity 18</td></tr>
+<tr><td>39</td><td>Extended context window — 200K to 1M tokens</td><td>API + Claude.ai Pro+</td><td><span class="band-b4">Strategist</span></td><td>Activity 16</td></tr>
+<tr><td>40</td><td>Computer use — Claude controls a computer</td><td>Anthropic API — beta</td><td><span class="band-b4">Strategist</span></td><td>Activity 17</td></tr>
+<tr><td>41</td><td>Claude Code — CLI, VS Code, iOS</td><td>Claude Code — Pro+</td><td><span class="band-b4">Strategist</span></td><td>Activity 16</td></tr>
+<tr><td>42</td><td>Multi-agent orchestration</td><td>API / Claude Code</td><td><span class="band-b4">Strategist</span></td><td>Activity 17</td></tr>
+<tr><td>43</td><td>Enterprise admin — SSO, RBAC, audit, cloud</td><td>Claude Enterprise</td><td><span class="band-b4">Strategist</span></td><td>Activity 19</td></tr>
+<tr><td>—</td><td>Design a 2-hour AI onboarding for your team <span style="font-size:.7rem;color:var(--text-3)">(synthesises all 46 caps)</span></td><td>Claude.ai — all plans</td><td><span class="band-b4">Strategist</span></td><td>Activity 20</td></tr>
+</tbody></table></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
