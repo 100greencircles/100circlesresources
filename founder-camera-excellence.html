@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Founder Camera Excellence | 100Circles Programs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #0B1624;
+      --bg2:    #0f1e30;
+      --orange: #E8651A;
+      --orange2:#f97316;
+      --blue:   #1e90ff;
+      --text:   #e2e8f0;
+      --muted:  rgba(226,232,240,0.55);
+      --border: rgba(255,255,255,0.08);
+      --card:   rgba(255,255,255,0.04);
+      --card2:  rgba(255,255,255,0.07);
+      --fh:     'Comfortaa', sans-serif;
+      --fb:     'Outfit', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--fb); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; cursor: none; }
+
+    /* CURSOR */
+    #cur { position:fixed; width:10px; height:10px; background:var(--orange); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
+    #cur-ring { position:fixed; width:38px; height:38px; border:1.5px solid var(--orange); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .2s,height .2s; }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s ease,transform .6s ease; }
+    .reveal.on { opacity:1; transform:none; }
+
+    /* NAV — matches Navbar.tsx */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px; display: flex; align-items: center;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .nav-inner { max-width: 1280px; margin: 0 auto; width: 100%; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: var(--fh); font-weight: 700; font-size: 1.15rem; color: #111111; text-decoration: none; letter-spacing: 0.01em; }
+    .nav-logo .o1 { color: var(--blue); }
+    .nav-logo .o2 { color: var(--orange); }
+
+    /* desktop links */
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 8px 12px; border-radius: 8px;
+      font-family: var(--fb); font-size: .875rem; font-weight: 500;
+      color: #111111; background: transparent; border: none; cursor: none;
+      transition: color .15s;
+    }
+    .nav-dropdown-btn:hover { color: var(--orange); }
+    .nav-dropdown-btn svg { width: 16px; height: 16px; opacity: .6; transition: transform .2s; }
+    .nav-dropdown:hover .nav-dropdown-btn svg { transform: rotate(180deg); }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 8px); left: 0;
+      background: #ffffff; border: 1px solid #e5e7eb;
+      border-radius: 12px; padding: 4px;
+      min-width: 260px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      opacity: 0; pointer-events: none; transform: translateY(6px);
+      transition: opacity .18s, transform .18s;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .nav-dropdown-menu a {
+      display: block; padding: 10px 12px; border-radius: 8px;
+      font-family: var(--fb); font-size: .875rem; font-weight: 500;
+      color: #111111; text-decoration: none;
+      transition: background .15s;
+    }
+    .nav-dropdown-menu a:hover { background: rgba(249,115,22,0.08); }
+    .nav-dropdown-menu a.active { color: var(--orange); background: rgba(249,115,22,0.06); }
+
+    /* mobile hamburger */
+    .nav-hamburger { display: none; background: none; border: none; cursor: none; padding: 8px; color: #111111; }
+    .nav-mobile-menu {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: #ffffff; border-top: 1px solid #e5e7eb;
+      padding: 16px; z-index: 99; flex-direction: column; gap: 4px;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-section { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #9ca3af; padding: 10px 12px 4px; }
+    .nav-mobile-menu a { display: block; padding: 10px 12px; border-radius: 8px; font-family: var(--fb); font-size: .9rem; color: #374151; text-decoration: none; }
+    .nav-mobile-menu a:hover { background: rgba(249,115,22,0.07); }
+
+    @media(max-width:767px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+    }
+
+    /* SHARED */
+    section { padding:96px 24px; }
+    .wrap { max-width:1060px; margin:0 auto; }
+    .tag { font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--orange); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+    .tag::before { content:''; width:24px; height:1px; background:var(--orange); }
+    h2 { font-family:var(--fh); font-size:clamp(1.9rem,4vw,3rem); font-weight:700; line-height:1.2; }
+    h2 em { font-style:normal; color:var(--orange); }
+    .sub { color:var(--muted); font-size:1rem; max-width:580px; margin-top:14px; }
+    .ck { color:var(--orange); font-weight:700; }
+
+    /* ── FOLD 1: HERO ── */
+    .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 24px 80px; position:relative; overflow:hidden; }
+    .hero-glow { position:absolute; width:700px; height:700px; background:radial-gradient(circle,rgba(232,101,26,.12) 0%,transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+    .hero-badge { display:inline-block; background:rgba(232,101,26,.12); border:1px solid rgba(232,101,26,.3); color:var(--orange); font-size:.75rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; padding:5px 14px; border-radius:20px; margin-bottom:24px; }
+    .hero h1 { font-family:var(--fh); font-size:clamp(2.4rem,5.5vw,4rem); font-weight:700; line-height:1.15; max-width:800px; margin:0 auto 20px; }
+    .hero h1 em { font-style:normal; color:var(--orange); }
+    .hero-sub { color:var(--muted); font-size:clamp(.95rem,2vw,1.15rem); max-width:520px; margin:0 auto 40px; font-weight:300; }
+    .hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:52px; }
+    .btn-p { background:var(--orange); color:#fff; border:none; border-radius:32px; padding:14px 30px; font-family:var(--fb); font-size:.95rem; font-weight:600; cursor:none; transition:background .2s,transform .15s; text-decoration:none; display:inline-block; }
+    .btn-p:hover { background:var(--orange2); transform:translateY(-2px); }
+    .btn-g { background:transparent; color:var(--text); border:1px solid var(--border); border-radius:32px; padding:14px 30px; font-family:var(--fb); font-size:.95rem; cursor:none; transition:border-color .2s,transform .15s; }
+    .btn-g:hover { border-color:rgba(255,255,255,.3); transform:translateY(-2px); }
+
+    /* stats */
+    .stats { display:flex; border:1px solid var(--border); border-radius:14px; overflow:hidden; max-width:680px; margin:0 auto 28px; background:var(--card); }
+    .st { flex:1; padding:18px 12px; text-align:center; border-right:1px solid var(--border); }
+    .st:last-child { border-right:none; }
+    .st-n { font-family:var(--fh); font-size:1.75rem; font-weight:700; color:var(--orange); line-height:1; }
+    .st-l { font-size:.72rem; color:var(--muted); margin-top:4px; text-transform:uppercase; letter-spacing:.05em; }
+    .loc-row { display:flex; gap:20px; justify-content:center; color:var(--muted); font-size:.83rem; flex-wrap:wrap; }
+    .loc-row span { display:flex; align-items:center; gap:6px; }
+    .dot { width:5px; height:5px; background:var(--orange); border-radius:50%; }
+
+    /* ── FOLD 2: PROBLEM + SKILLS ── */
+    .fold2 { background:var(--bg2); }
+    .fold2-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; margin-top:56px; }
+
+    /* pain list */
+    .pain-list { display:flex; flex-direction:column; gap:0; }
+    .pain-item { display:flex; gap:16px; padding:18px 0; border-bottom:1px solid var(--border); }
+    .pain-item:last-child { border-bottom:none; }
+    .pain-n { font-family:var(--fh); font-size:1.1rem; font-weight:700; color:rgba(232,101,26,.3); flex-shrink:0; width:28px; line-height:1.4; }
+    .pain-item h4 { font-size:.92rem; font-weight:600; margin-bottom:3px; }
+    .pain-item p { font-size:.83rem; color:var(--muted); line-height:1.5; }
+
+    /* skills */
+    .skills-wrap h3 { font-family:var(--fh); font-size:1.1rem; font-weight:700; margin-bottom:20px; }
+    .skills-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .skill-pill { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start; transition:border-color .2s; }
+    .skill-pill:hover { border-color:rgba(232,101,26,.3); }
+    .skill-pill .si { font-size:1.1rem; flex-shrink:0; }
+    .skill-pill h5 { font-size:.82rem; font-weight:600; margin-bottom:2px; }
+    .skill-pill p { font-size:.76rem; color:var(--muted); line-height:1.45; }
+    .fold2-note { margin-top:28px; background:rgba(232,101,26,.07); border:1px solid rgba(232,101,26,.18); border-radius:12px; padding:20px 24px; }
+    .fold2-note p { font-size:.88rem; color:var(--muted); }
+    .fold2-note strong { color:var(--text); }
+
+    /* ── FOLD 3: THE DAY + FORMATS ── */
+    .fold3-grid { display:grid; grid-template-columns:3fr 2fr; gap:48px; margin-top:56px; align-items:start; }
+
+    /* schedule */
+    .half-label { display:inline-flex; background:rgba(232,101,26,.1); border:1px solid rgba(232,101,26,.25); color:var(--orange); font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-bottom:14px; }
+    .sched-row { display:flex; gap:0; border:1px solid var(--border); border-radius:10px; margin-bottom:8px; overflow:hidden; transition:border-color .2s; }
+    .sched-row:hover { border-color:rgba(232,101,26,.25); }
+    .s-time { background:var(--card2); min-width:90px; padding:14px 16px; font-size:.78rem; font-weight:600; color:var(--orange); border-right:1px solid var(--border); display:flex; align-items:center; font-family:var(--fh); }
+    .s-body { padding:14px 18px; flex:1; }
+    .s-body h5 { font-size:.88rem; font-weight:600; margin-bottom:2px; }
+    .s-body p { font-size:.78rem; color:var(--muted); line-height:1.45; }
+    .s-fmt { display:inline-block; background:rgba(255,255,255,.05); font-size:.68rem; color:var(--muted); padding:2px 9px; border-radius:8px; margin-top:5px; }
+    .break-bar { display:flex; align-items:center; gap:10px; color:var(--muted); font-size:.78rem; margin:12px 0; }
+    .break-line { flex:1; height:1px; background:var(--border); }
+    .sched-half { margin-bottom:28px; }
+
+    /* format cards (right column) */
+    .format-stack { display:flex; flex-direction:column; gap:16px; }
+    .fmt-card { border:1px solid var(--border); border-radius:14px; padding:24px; background:var(--card); }
+    .fmt-card.pop { border-color:rgba(232,101,26,.4); background:linear-gradient(135deg,rgba(232,101,26,.07),rgba(232,101,26,.02)); }
+    .fmt-badge { display:inline-block; font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:3px 10px; border-radius:10px; margin-bottom:12px; }
+    .fmt-badge.o { background:rgba(232,101,26,.15); color:var(--orange); border:1px solid rgba(232,101,26,.3); }
+    .fmt-badge.n { background:rgba(255,255,255,.05); color:var(--muted); border:1px solid var(--border); }
+    .fmt-card h4 { font-family:var(--fh); font-size:1.05rem; font-weight:700; margin-bottom:6px; }
+    .fmt-card p { font-size:.82rem; color:var(--muted); margin-bottom:12px; line-height:1.5; }
+    .fmt-pts { list-style:none; }
+    .fmt-pts li { font-size:.8rem; color:var(--muted); padding:5px 0; display:flex; gap:8px; }
+    .fmt-pts li::before { content:'→'; color:var(--orange); flex-shrink:0; }
+
+    /* coach note */
+    .coach-note { margin-top:24px; border:1px solid var(--border); border-radius:14px; padding:22px 24px; background:var(--card); }
+    .coach-note-label { font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--orange); margin-bottom:8px; }
+    .coach-note h4 { font-size:1rem; font-weight:700; margin-bottom:8px; font-family:var(--fh); }
+    .coach-note p { font-size:.82rem; color:var(--muted); line-height:1.5; }
+    .coach-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .c-tag { background:rgba(255,255,255,.05); border:1px solid var(--border); font-size:.72rem; color:var(--muted); padding:3px 10px; border-radius:10px; }
+
+    /* ── FOLD 4: PRICING + FAQ ── */
+    .fold4 { background:var(--bg2); }
+    .pricing-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:48px; margin-bottom:64px; }
+    .pc { border:1px solid var(--border); border-radius:16px; padding:32px; background:var(--card); }
+    .pc.pop { border-color:rgba(232,101,26,.45); background:linear-gradient(135deg,rgba(232,101,26,.08),rgba(232,101,26,.02)); position:relative; }
+    .pc-popular-badge { display:inline-block; background:var(--orange); color:#fff; font-size:.65rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:4px 14px; border-radius:20px; margin-bottom:12px; }
+    .pc-launch { display:inline-flex; align-items:center; gap:6px; background:rgba(232,101,26,0.12); border:1px solid rgba(232,101,26,0.3); color:var(--orange); font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-bottom:14px; }
+    .pc-launch::before { content:''; width:6px; height:6px; background:#4ade80; border-radius:50%; animation:blink 1.4s ease-in-out infinite; flex-shrink:0; }
+    @keyframes cur-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    @keyframes blink { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,0.5)} 50%{opacity:.6;box-shadow:0 0 0 4px rgba(74,222,128,0)} }
+    .pc-price-block { margin-bottom:6px; }
+    .pc-inr { display:flex; align-items:flex-end; gap:3px; }
+    .pc-was { font-size:.9rem; color:var(--muted); text-decoration:line-through; margin-left:10px; margin-bottom:8px; align-self:center; }
+    .pc-usd { font-size:.8rem; color:var(--muted); margin-top:4px; margin-bottom:2px; }
+    .pc-usd span { text-decoration:line-through; opacity:.6; }
+    .pc-tier { font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--orange); margin-bottom:6px; }
+    .pc-name { font-family:var(--fh); font-size:1.2rem; font-weight:700; margin-bottom:8px; }
+    .pc-desc { color:var(--muted); font-size:.85rem; margin-bottom:22px; line-height:1.6; }
+    .pc-price { display:flex; align-items:flex-end; gap:3px; margin-bottom:4px; }
+    .pc-curr { font-size:1.3rem; color:var(--muted); margin-bottom:7px; }
+    .pc-amt { font-family:var(--fh); font-size:2.8rem; font-weight:700; line-height:1; }
+    .pc-unit { font-size:.82rem; color:var(--muted); margin-bottom:4px; }
+    .pc-note { font-size:.76rem; color:var(--muted); margin-bottom:22px; }
+    .pc-feats { list-style:none; margin-bottom:24px; }
+    .pc-feats li { display:flex; gap:9px; font-size:.84rem; padding:8px 0; border-bottom:1px solid var(--border); }
+    .pc-feats li:last-child { border-bottom:none; }
+    .pc-feats li::before { content:'✓'; color:var(--orange); font-weight:700; flex-shrink:0; }
+    .pc-cta { display:block; width:100%; padding:13px; background:var(--orange); color:#fff; border:none; border-radius:30px; font-family:var(--fb); font-size:.92rem; font-weight:600; cursor:none; transition:background .2s; text-align:center; text-decoration:none; }
+    .pc-cta:hover { background:var(--orange2); }
+    .pc-cta.g { background:transparent; border:1px solid var(--border); color:var(--text); }
+    .pc-cta.g:hover { border-color:rgba(255,255,255,.3); background:transparent; }
+
+    /* faq */
+    .faq-list { max-width:760px; }
+    .faq-item { border-bottom:1px solid var(--border); }
+    .faq-q { display:flex; justify-content:space-between; align-items:center; padding:18px 0; font-weight:600; font-size:.93rem; cursor:none; gap:16px; }
+    .faq-tog { width:26px; height:26px; border-radius:50%; background:var(--card); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--orange); flex-shrink:0; transition:transform .3s; }
+    .faq-item.open .faq-tog { transform:rotate(45deg); }
+    .faq-a { font-size:.88rem; color:var(--muted); padding-bottom:18px; display:none; line-height:1.7; }
+    .faq-item.open .faq-a { display:block; }
+
+    /* FOOTER */
+    footer { border-top:1px solid var(--border); padding:32px 24px; text-align:center; }
+    .f-logo { font-family:var(--fh); font-weight:700; font-size:1rem; margin-bottom:8px; }
+    .f-logo .o1 { color:var(--blue); }
+    .f-logo .o2 { color:var(--orange); }
+    .f-sub { color:var(--muted); font-size:.8rem; }
+
+    /* MOBILE */
+    @media(max-width:760px){
+      nav { padding:0 20px; }
+      .fold2-grid,.fold3-grid,.pricing-row { grid-template-columns:1fr; gap:36px; }
+      .skills-list { grid-template-columns:1fr; }
+      .stats { flex-wrap:wrap; }
+      .st { flex:1 1 40%; border-right:none; border-bottom:1px solid var(--border); }
+      .hero-btns { flex-direction:column; align-items:center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<nav>
+  <div class="nav-inner">
+    <!-- Logo -->
+    <a href="/" class="nav-logo">1<span class="o1">O</span><span class="o2">O</span>Circles</a>
+
+    <!-- Desktop -->
+    <div class="nav-links">
+
+      <!-- Programs -->
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">
+          Programs
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/?tab=guided">Video Accelerator - Guided</a>
+          <a href="/?tab=dfy">Video Accelerator - Done For You</a>
+          <a href="/?tab=dfy&scroll=e2e">Video Accelerator - End to End</a>
+          <a href="/videoaccelerator/weekend">Video Accelerator - Weekend</a>
+          <a href="/programs/founder-camera-excellence" class="active">Founder Camera Excellence</a>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">
+          Services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/youtube-for-companies">YFC - YouTube For Companies</a>
+        </div>
+      </div>
+
+      <!-- Resources -->
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">
+          Resources
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/videoskills">Video Skills for Founders & Leaders</a>
+          <a href="/founder-branding-first-10-videos">Founder Branding Playbook: First 10 Videos</a>
+          <a href="/videomarathon">30-Days Video Marathon: Insights</a>
+          <a href="https://dhanyal.substack.com" target="_blank" rel="noopener noreferrer">Newsletter on Outlier Marketing</a>
+        </div>
+      </div>
+
+      <!-- About Us -->
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">
+          About Us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="/1-percent-rule">1% Rule</a>
+          <a href="/dna">Our DNA</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="nav-mobile-menu" id="mobileMenu">
+  <div class="nav-mobile-section">Programs</div>
+  <a href="/?tab=guided">Video Accelerator - Guided</a>
+  <a href="/?tab=dfy">Video Accelerator - Done For You</a>
+  <a href="/?tab=dfy&scroll=e2e">Video Accelerator - End to End</a>
+  <a href="/videoaccelerator/weekend">Video Accelerator - Weekend</a>
+  <a href="/programs/founder-camera-excellence" style="color:var(--orange);font-weight:600">Founder Camera Excellence</a>
+  <div class="nav-mobile-section">Services</div>
+  <a href="/youtube-for-companies">YFC - YouTube For Companies</a>
+  <div class="nav-mobile-section">Resources</div>
+  <a href="/videoskills">Video Skills for Founders & Leaders</a>
+  <a href="/founder-branding-first-10-videos">Founder Branding Playbook: First 10 Videos</a>
+  <a href="/videomarathon">30-Days Video Marathon: Insights</a>
+  <a href="https://dhanyal.substack.com" target="_blank" rel="noopener noreferrer">Newsletter on Outlier Marketing</a>
+  <div class="nav-mobile-section">About Us</div>
+  <a href="/1-percent-rule">1% Rule</a>
+  <a href="/dna">Our DNA</a>
+</div>
+
+<!-- ─── FOLD 1 · HERO ─── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:2">
+    <div class="hero-badge reveal">Programs · Founder Camera Excellence</div>
+    <h1 class="reveal" style="font-size:clamp(2rem,5vw,3.4rem);">
+      Camera <span id="hero-word-wrap" style="display:inline-block;white-space:nowrap"><span id="hero-word" style="color:var(--orange)">Presence</span><span id="hero-cursor" style="color:var(--orange);animation:cur-blink .85s steps(1) infinite">|</span></span><br>for Founders &amp; Leaders
+    </h1>
+    <p class="hero-sub reveal">Full-day training for founders. Stop rambling. Appear more articulate, interesting, confident and energetic — on camera and off. Works well for introverts too!</p>
+    <div class="hero-btns reveal">
+      <a href="#pricing" class="btn-p">Reserve Your Spot →</a>
+      <button class="btn-g" onclick="document.getElementById('the-day').scrollIntoView({behavior:'smooth'})">See the Day ↓</button>
+    </div>
+    <div class="stats reveal">
+      <div class="st"><div class="st-n">8 hrs</div><div class="st-l">Full Day</div></div>
+      <div class="st"><div class="st-n">10</div><div class="st-l">Founders Max</div></div>
+      <div class="st"><div class="st-n">1-1</div><div class="st-l">Also Available</div></div>
+      <div class="st"><div class="st-n">8</div><div class="st-l">Video Skills</div></div>
+    </div>
+    <div class="loc-row reveal">
+      <span><span class="dot"></span>Bengaluru</span>
+      <span><span class="dot"></span>Your office or a venue</span>
+      <span><span class="dot"></span>Weekday or weekend</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOLD 2 · PROBLEM + SKILLS ─── -->
+<section class="fold2">
+  <div class="wrap">
+    <div class="tag reveal">Why This Exists</div>
+    <h2 class="reveal">You're more capable than<br>your camera <em>shows.</em></h2>
+    <p class="sub reveal">In a room, you're sharp. On camera, something shifts. This day is built to close that gap — for good.</p>
+
+    <div class="fold2-grid">
+      <!-- Pain -->
+      <div>
+        <div class="pain-list">
+          <div class="pain-item reveal" style="transition-delay:.05s">
+            <div class="pain-n">01</div>
+            <div><h4>"I look smaller on camera than I do in a room"</h4><p>The energy drops. The presence disappears. On camera you feel like a shadow of yourself.</p></div>
+          </div>
+          <div class="pain-item reveal" style="transition-delay:.1s">
+            <div class="pain-n">02</div>
+            <div><h4>"My voice sounds flat when I play it back"</h4><p>In a meeting, your voice carries weight. On camera, the warmth and authority are lost.</p></div>
+          </div>
+          <div class="pain-item reveal" style="transition-delay:.15s">
+            <div class="pain-n">03</div>
+            <div><h4>"I don't know where to look or what to do with my hands"</h4><p>Eye contact, posture, gestures — the mechanics consume you instead of the message.</p></div>
+          </div>
+          <div class="pain-item reveal" style="transition-delay:.2s">
+            <div class="pain-n">04</div>
+            <div><h4>"I rush through everything and forget to pause"</h4><p>When nervous, you speed up. The pauses that make you persuasive disappear entirely.</p></div>
+          </div>
+          <div class="pain-item reveal" style="transition-delay:.25s">
+            <div class="pain-n">05</div>
+            <div><h4>"Confident in the room — paralysed in front of the camera"</h4><p>You know your material. But the camera triggers a different, smaller version of you.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div>
+        <div class="skills-wrap reveal">
+          <h3 style="margin-bottom:20px">What you'll master in one day</h3>
+          <div class="skills-list">
+            <div class="skill-pill">
+              <span class="si">🎯</span>
+              <div><h5>Camera Presence</h5><p>Own the frame with stillness and authority.</p></div>
+            </div>
+            <div class="skill-pill">
+              <span class="si">🧍</span>
+              <div><h5>Body Language</h5><p>Posture and gesture that signal confidence.</p></div>
+            </div>
+            <div class="skill-pill">
+              <span class="si">👁️</span>
+              <div><h5>Eye Contact</h5><p>Connect through the screen or across the room.</p></div>
+            </div>
+            <div class="skill-pill">
+              <span class="si">🎙️</span>
+              <div><h5>Voice & Modulation</h5><p>Warmth, authority, and vocal range — on demand.</p></div>
+            </div>
+            <div class="skill-pill">
+              <span class="si">⚡</span>
+              <div><h5>Energy & Presence</h5><p>Read the room and the camera. Be impossible to ignore.</p></div>
+            </div>
+            <div class="skill-pill">
+              <span class="si">⏱️</span>
+              <div><h5>Pace & Pause</h5><p>Speaking rhythm is one of the biggest levers on impact.</p></div>
+            </div>
+            <div class="skill-pill">
+              <span class="si">🔦</span>
+              <div><h5>First Impressions</h5><p>The 3-second signals that make someone lean in or tune out.</p></div>
+            </div>
+            <div class="skill-pill">
+              <span class="si">💡</span>
+              <div><h5>Persuasion & Influence</h5><p>Delivery that moves people — not just informs them.</p></div>
+            </div>
+          </div>
+          <div class="fold2-note">
+            <p><strong>Camera confidence transfers everywhere.</strong> Once you have it — video, keynotes, Zoom, investor meetings, sales conversations, team all-hands — every room you walk into changes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOLD 3 · THE DAY + FORMATS ─── -->
+<section id="the-day">
+  <div class="wrap">
+    <div class="tag reveal">The Day & Format</div>
+    <h2 class="reveal">Eight hours built around<br><em>practice and feedback.</em></h2>
+    <p class="sub reveal">More time on the mat, less time in the classroom. Every block alternates coaching and doing — skills are built through reps, not slides.</p>
+
+    <div class="fold3-grid">
+      <!-- SCHEDULE -->
+      <div>
+        <div class="sched-half reveal">
+          <div class="half-label">Morning · 9:00 – 1:00 PM · Foundation & Physical Presence</div>
+          <div class="sched-row">
+            <div class="s-time">9:00 AM</div>
+            <div class="s-body">
+              <h5>Camera Diagnosis</h5>
+              <p>Each founder filmed for 90 seconds. Immediate playback and group review. Baseline for everyone.</p>
+              <span class="s-fmt">Group · All founders on camera</span>
+            </div>
+          </div>
+          <div class="sched-row">
+            <div class="s-time">9:45 AM</div>
+            <div class="s-body">
+              <h5>Presence, Stillness & Eye Contact</h5>
+              <p>The fundamentals of on-camera authority. How to be still without looking dead. How to connect through a lens.</p>
+              <span class="s-fmt">Group coaching + paired exercises</span>
+            </div>
+          </div>
+          <div class="sched-row">
+            <div class="s-time">10:45 AM</div>
+            <div class="s-body">
+              <h5>Body Language & Physical Command</h5>
+              <p>Posture, gestures, hand placement — practised in real time on camera, with immediate feedback.</p>
+              <span class="s-fmt">Group + hot-seat rounds</span>
+            </div>
+          </div>
+          <div class="sched-row">
+            <div class="s-time">11:45 AM</div>
+            <div class="s-body">
+              <h5>Energy, Authenticity & First Impressions</h5>
+              <p>Managing your energy state before you speak. The signals that determine how you're received in seconds.</p>
+              <span class="s-fmt">Group coaching + individual reps</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="break-bar reveal"><div class="break-line"></div><span>Lunch · 1:00 – 2:00 PM</span><div class="break-line"></div></div>
+
+        <div class="sched-half reveal" style="margin-top:20px">
+          <div class="half-label">Afternoon · 2:00 – 6:00 PM · Voice, Delivery & Intensive Practice</div>
+          <div class="sched-row">
+            <div class="s-time">2:00 PM</div>
+            <div class="s-body">
+              <h5>Voice: Modulation, Pace & Strategic Silence</h5>
+              <p>Vocal range, authority vs warmth, speaking speed, and the power of the pause — the most underused founder lever.</p>
+              <span class="s-fmt">Group coaching + voice exercises</span>
+            </div>
+          </div>
+          <div class="sched-row">
+            <div class="s-time">3:00 PM</div>
+            <div class="s-body">
+              <h5>Hot-Seat Delivery Rounds</h5>
+              <p>The heart of the day. Each founder — 3 minutes, coach feedback, one more round. Everyone observes and learns from every session.</p>
+              <span class="s-fmt">Rotating 1-1 · Full group observes</span>
+            </div>
+          </div>
+          <div class="sched-row">
+            <div class="s-time">4:30 PM</div>
+            <div class="s-body">
+              <h5>Context Adaptation — Camera, Zoom, Stage & Meetings</h5>
+              <p>Same founder, different rooms. How to adapt your presence for video vs investor Zoom vs keynote vs a sales conversation.</p>
+              <span class="s-fmt">Group session + scenario practice</span>
+            </div>
+          </div>
+          <div class="sched-row">
+            <div class="s-time">5:15 PM</div>
+            <div class="s-body">
+              <h5>Personal Feedback Report + Closing</h5>
+              <p>Personalised written assessment — your presence, voice, delivery patterns — with the specific top 3 things to work on.</p>
+              <span class="s-fmt">Individual feedback · Group close</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMAT + COACH -->
+      <div>
+        <div class="format-stack reveal">
+          <div class="fmt-card pop">
+            <span class="fmt-badge o">Cohort · 5–10 Founders</span>
+            <h4>Shared Experience</h4>
+            <p>A curated group of founders. You learn as much from watching each other get coached as from the coach directly.</p>
+            <ul class="fmt-pts">
+              <li>Hot-seat coaching, full group observes</li>
+              <li>Peer practice and partner drills</li>
+              <li>At a venue or your office</li>
+              <li>Weekday or weekend</li>
+            </ul>
+          </div>
+          <div class="fmt-card">
+            <span class="fmt-badge n">Private · 1-1</span>
+            <h4>Full Coach Focus</h4>
+            <p>Every minute of the day belongs to you. More reps, more feedback, entirely tailored to your specific gaps.</p>
+            <ul class="fmt-pts">
+              <li>100% coach time on you</li>
+              <li>Built around your goals only</li>
+              <li>At your office, any day</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="coach-note reveal" style="margin-top:20px">
+          <div class="coach-note-label">Your Coach · Full Day</div>
+          <h4>Camera Presence Coach</h4>
+          <p>Specialises in on-camera performance, executive presence, and communication under pressure. The coaching is direct and diagnostic — you will be filmed, coached, and filmed again. Specific, visible improvement within the day.</p>
+          <div class="coach-tags">
+            <span class="c-tag">On-Camera Performance</span>
+            <span class="c-tag">Voice & Delivery</span>
+            <span class="c-tag">Body Language</span>
+            <span class="c-tag">Public Speaking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOLD 4 · PRICING + FAQ ─── -->
+<section class="fold4" id="pricing">
+  <div class="wrap">
+    <div class="tag reveal" style="justify-content:center">Investment</div>
+    <h2 class="reveal" style="text-align:center"><em>One day. Real change.</em></h2>
+    <p class="sub reveal" style="margin:14px auto 0;text-align:center">Both formats include the full 8-hour program, hot-seat coaching, and a personalised written feedback report.</p>
+
+    <div class="pricing-row">
+      <div class="pc pop reveal" style="transition-delay:.05s">
+        <div class="pc-popular-badge">Most Popular</div>
+        <div class="pc-launch">Launch Offer</div>
+        <div class="pc-tier">Cohort · 5–10 Founders</div>
+        <div class="pc-name">Founder Camera Excellence</div>
+        <div class="pc-desc">Join a curated cohort for an intensive day of presence coaching, practice rounds, and peer learning.</div>
+        <div class="pc-price-block">
+          <div class="pc-inr">
+            <div class="pc-curr">₹</div>
+            <div class="pc-amt">14,999</div>
+            <div class="pc-was">₹24,999</div>
+          </div>
+          <div class="pc-usd">~$179 · <span>~$299 standard</span></div>
+        </div>
+        <div class="pc-unit">per founder</div>
+        <div class="pc-note">Minimum 5 founders to run · Maximum 10</div>
+        <ul class="pc-feats">
+          <li>Full 8-hour group coaching day</li>
+          <li>Hot-seat practice with coach feedback</li>
+          <li>Partner drills and peer learning</li>
+          <li>Context adaptation session</li>
+          <li>Personalised written feedback report</li>
+          <li>At a venue in Bengaluru</li>
+        </ul>
+        <div style="margin:16px 0;padding:16px;background:rgba(232,101,26,0.07);border:1px solid rgba(232,101,26,0.2);border-radius:12px;">
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;">
+            <span style="width:7px;height:7px;background:#4ade80;border-radius:50%;display:inline-block;animation:blink 1.4s ease-in-out infinite;flex-shrink:0;"></span>
+            <span style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);">Upcoming Cohort</span>
+          </div>
+          <div id="cohort-date" style="font-family:var(--fh);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:3px;"></div>
+          <div id="cohort-close" style="font-size:.78rem;color:var(--muted);margin-bottom:12px;"></div>
+          <div id="countdown" style="display:flex;gap:8px;"></div>
+        </div>
+        <a href="#" class="pc-cta">Reserve My Spot →</a>
+      </div>
+
+      <div class="pc reveal" style="transition-delay:.1s">
+        <div class="pc-launch">Launch Offer</div>
+        <div class="pc-tier">Private · Just You</div>
+        <div class="pc-name">Founder Camera Excellence</div>
+        <div class="pc-desc">Every minute of coach time belongs to you. Tailored entirely to your presence gaps and goals.</div>
+        <div class="pc-price-block">
+          <div class="pc-inr">
+            <div class="pc-curr">₹</div>
+            <div class="pc-amt">34,999</div>
+            <div class="pc-was">₹49,999</div>
+          </div>
+          <div class="pc-usd">~$419 · <span>~$599 standard</span></div>
+        </div>
+        <div class="pc-unit">full day · 1-1</div>
+        <div class="pc-note">Flexible scheduling · At your office or venue</div>
+        <ul class="pc-feats">
+          <li>8 hours of dedicated 1-1 coaching</li>
+          <li>100% tailored to your gaps and goals</li>
+          <li>More reps, more feedback throughout the day</li>
+          <li>Context adaptation session</li>
+          <li>Personalised written feedback report</li>
+          <li>Any day, Bengaluru</li>
+        </ul>
+        <a href="#" class="pc-cta g">Reserve Private Day →</a>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q">Do I need prior experience with public speaking or video? <div class="faq-tog">+</div></div>
+        <div class="faq-a">No prior experience needed. This works from wherever you're starting — whether you've never been on camera or you post regularly but want to raise your level significantly.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Will I walk away with edited videos? <div class="faq-tog">+</div></div>
+        <div class="faq-a">No — and that's intentional. This program is entirely focused on skills, not content output. You will be filmed during exercises for coaching and diagnosis, but nothing is edited or packaged. For edited video content, the Weekend Accelerator is built for that.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">How does the cohort work with just one coach? <div class="faq-tog">+</div></div>
+        <div class="faq-a">The morning group sessions work naturally with 5–10 founders. The afternoon uses a hot-seat model — one founder is coached while the rest observe. Watching someone else get coached is one of the fastest ways to accelerate your own learning.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">How is this different from the Weekend Accelerator? <div class="faq-tog">+</div></div>
+        <div class="faq-a">The Weekend Accelerator (2 days, 7 coaches) focuses on producing 15–20 fully edited, publish-ready videos — skills development is built in, but the output is content. Founder Camera Excellence is the opposite: skills-only, no content output. Many founders do Camera Excellence first to build their presence, then come to the Weekend to record with that foundation in place.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Can I run this for my founding team? <div class="faq-tog">+</div></div>
+        <div class="faq-a">Yes. This can be run as a company team program. Write to us at <a href="mailto:hello@100circles.com" style="color:var(--orange)">hello@100circles.com</a> and we'll put together a format for your team's size and goals.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">I<span class="o1">○</span><span class="o2">○</span> CIRCLES</div>
+  <div class="f-sub">Founder Camera Excellence · Programs · 100circles.com · Tech · Ideas · Actions</div>
+</footer>
+
+<script>
+  // Hamburger
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+
+  // Cursor
+  const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;});
+  (function a(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;requestAnimationFrame(a)})();
+  document.querySelectorAll('a,button,.skill-pill,.fmt-card,.pc,.faq-q').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width=ring.style.height='52px';});
+    el.addEventListener('mouseleave',()=>{ring.style.width=ring.style.height='38px';});
+  });
+  // Hero word cycle — lock container to widest word first, then type
+  (function(){
+    const words = ['Presence','Confidence','Excellence'];
+    const el = document.getElementById('hero-word');
+    const wrap = document.getElementById('hero-word-wrap');
+    // Measure widest word then lock width so "Camera" never shifts
+    function lockWidth(){
+      let maxW = 0;
+      words.forEach(w => { el.textContent = w; maxW = Math.max(maxW, el.offsetWidth); });
+      wrap.style.minWidth = (maxW + 2) + 'px';
+      el.textContent = '';
+    }
+    if(document.fonts && document.fonts.ready){
+      document.fonts.ready.then(lockWidth);
+    } else {
+      window.addEventListener('load', lockWidth);
+    }
+    let wi = 0, ci = 0, deleting = false, paused = false;
+    function type(){
+      if(paused) return;
+      const w = words[wi];
+      if(!deleting){
+        ci++;
+        el.textContent = w.slice(0, ci);
+        if(ci === w.length){ paused=true; setTimeout(()=>{ paused=false; deleting=true; tick(); },1800); return; }
+      } else {
+        ci--;
+        el.textContent = w.slice(0, ci);
+        if(ci === 0){ deleting=false; wi=(wi+1)%words.length; setTimeout(tick,300); return; }
+      }
+      tick();
+    }
+    function tick(){ setTimeout(type, deleting ? 45 : 80); }
+    // Small delay to let font load measurement happen first
+    setTimeout(tick, 400);
+  })();
+
+  // Cohort countdown — next Saturday, bookings close Thursday
+  (function() {
+    function nextWeekday(targetDay) { // 0=Sun,6=Sat
+      const now = new Date();
+      const d = new Date(now);
+      const diff = (targetDay - now.getDay() + 7) % 7 || 7;
+      d.setDate(now.getDate() + diff);
+      d.setHours(23, 59, 59, 0);
+      return d;
+    }
+    const saturday = nextWeekday(6);
+    const thursday = nextWeekday(4);
+    // If thursday is after saturday, roll back a week
+    const closeDate = thursday > saturday ? new Date(thursday.getTime() - 7*86400000) : thursday;
+
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    document.getElementById('cohort-date').textContent =
+      days[saturday.getDay()] + ', ' + saturday.getDate() + ' ' + months[saturday.getMonth()] + ' ' + saturday.getFullYear();
+    document.getElementById('cohort-close').textContent =
+      'Bookings close ' + days[closeDate.getDay()] + ', ' + closeDate.getDate() + ' ' + months[closeDate.getMonth()];
+
+    function renderCountdown() {
+      const now = new Date();
+      const diff = closeDate - now;
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML = '<span style="color:var(--orange);font-size:.85rem;font-weight:600;">Booking closed</span>';
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      const units = d > 0 ? [['d', d], ['h', h], ['m', m]] : [['h', h], ['m', m], ['s', s]];
+      document.getElementById('countdown').innerHTML = units.map(([u, v]) =>
+        `<div style="text-align:center;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:10px;padding:10px 14px;min-width:52px;">
+          <div style="font-family:var(--fh);font-size:1.3rem;font-weight:700;color:var(--orange);line-height:1">${String(v).padStart(2,'0')}</div>
+          <div style="font-size:.65rem;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.06em">${u}</div>
+        </div>`
+      ).join('');
+    }
+    renderCountdown();
+    setInterval(renderCountdown, 1000);
+  })();
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.07});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  // FAQ
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+      const item=q.parentElement,wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+      if(!wasOpen)item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
